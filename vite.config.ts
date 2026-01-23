@@ -13,4 +13,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+
+   server: {
+    host: "noblemens-net.local",
+    port: 5173,
+    strictPort: true,
+  },
 });
