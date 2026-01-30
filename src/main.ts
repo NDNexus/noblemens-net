@@ -1,5 +1,4 @@
 import "@/style.css";
 
-console.log("Noblemens website loaded");
+console.log("Welcome to Noblemens Website!");
 
-console.log("Hello, Noblemens!");
