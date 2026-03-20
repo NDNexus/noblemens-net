@@ -1,0 +1,194 @@
+/**
+ * =========================================================
+ * NOBLEMENS DESIGN SYSTEM — FORM COMPONENTS
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * This file defines the styling for all form-related UI elements.
+ *
+ * It provides a consistent, clean, and accessible form system
+ * aligned with the Noblemens brand (premium, minimal, trustworthy).
+ *
+ *
+ * COMPONENTS INCLUDED
+ * ---------------------------------------------------------
+ * - .form-field     → Wrapper for label + input grouping
+ * - .form-label     → Field labels
+ * - .form-input     → Text inputs
+ * - .form-textarea  → Multi-line inputs
+ * - .form-select    → Dropdowns
+ * - .form-error     → Validation messages
+ *
+ *
+ * DESIGN PRINCIPLES
+ * ---------------------------------------------------------
+ * 1. Clarity over decoration
+ *    → Clean borders, minimal styling
+ *
+ * 2. Consistency with system
+ *    → Uses design tokens (colors, spacing, typography)
+ *
+ * 3. Subtle feedback
+ *    → Focus states are visible but not aggressive
+ *
+ * 4. Accessibility-friendly
+ *    → Clear focus states, readable contrast, disabled states
+ *
+ *
+ * STRUCTURE
+ * ---------------------------------------------------------
+ * Each form field should follow this pattern:
+ *
+ * <div class="form-field">
+ *   <label class="form-label">Label</label>
+ *   <input class="form-input" />
+ * </div>
+ *
+ *
+ * TOKEN USAGE
+ * ---------------------------------------------------------
+ * All colors come from design tokens:
+ *
+ *   var(--color-bg-*)
+ *   var(--color-text-*)
+ *   var(--color-border-*)
+ *   var(--color-heading-*)
+ *   var(--color-error)
+ *
+ * NEVER use hardcoded values (except controlled rgba for shadows).
+ *
+ *
+ * INTERACTION STATES
+ * ---------------------------------------------------------
+ *
+ * 1. Default
+ *    → Neutral border and clean background
+ *
+ * 2. Focus
+ *    → Border changes to brand color
+ *    → Subtle glow using box-shadow
+ *
+ * 3. Placeholder
+ *    → Muted text with reduced opacity
+ *
+ * 4. Disabled
+ *    → Muted background and text
+ *    → Non-interactive cursor
+ *
+ * 5. Error
+ *    → Border changes to error color
+ *    → Error message shown below field
+ *
+ *
+ * RESPONSIBILITIES
+ * ---------------------------------------------------------
+ * This file handles:
+ * ✔ Input styling
+ * ✔ Label styling
+ * ✔ Interaction states (focus, disabled, error)
+ *
+ * This file does NOT handle:
+ * ✘ Layout (grid, spacing between sections)
+ * ✘ Form validation logic (JS)
+ * ✘ Button styling (handled in buttons.css)
+ *
+ *
+ * EXTENSIBILITY
+ * ---------------------------------------------------------
+ * Future additions may include:
+ *
+ * - Success states (valid inputs)
+ * - Floating labels
+ * - Input icons
+ * - Input groups (prefix/suffix)
+ *
+ * These should extend the current system, not replace it.
+ *
+ *
+ * KEY PRINCIPLE
+ * ---------------------------------------------------------
+ * Forms should feel:
+ * - simple
+ * - calm
+ * - trustworthy
+ *
+ * Avoid:
+ * - heavy shadows
+ * - aggressive colors
+ * - overly complex interactions
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================
+     FORM FIELD WRAPPER
+  ========================================= */
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .form-label {
+        font-size: 0.875rem;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+        width: 100%;
+
+        padding: 0.65rem 0.75rem;
+        border-radius: 0.5rem;
+
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-main);
+        color: var(--color-text-primary);
+
+        font-size: 0.95rem;
+
+        transition:
+            border-color 150ms ease,
+            box-shadow 150ms ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+        outline: none;
+
+        border-color: var(--color-heading-primary);
+
+        box-shadow: 0 0 0 2px rgba(31, 29, 93, 0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: var(--color-text-secondary);
+        opacity: 0.7;
+    }
+
+    .form-input:disabled,
+    .form-textarea:disabled,
+    .form-select:disabled {
+        background: var(--color-bg-alt);
+        color: var(--color-text-secondary);
+        cursor: not-allowed;
+    }
+
+    .form-error {
+        font-size: 0.8rem;
+        color: var(--color-error);
+    }
+
+    .form-input.error {
+        border-color: var(--color-error);
+    }
+
+}

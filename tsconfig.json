@@ -35,6 +35,15 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@utils/*": [
+        "scripts/utils/*"
+      ],
+      "@seo/*": [
+        "scripts/seo/*"
+      ],
+      "@schema/*": [
+        "scripts/schema/*"
       ]
     }
   }

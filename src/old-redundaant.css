@@ -1,0 +1,879 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Libre+Baskerville:wght@400;700&display=swap");
+
+@import "tailwindcss";
+
+
+:root {
+  /* =====================================================
+     1. PRIMITIVE COLORS (YOUR PALETTE)
+     ===================================================== */
+
+  --deep-twilight: #1F1D5D;
+  /* Primary brand colour */
+
+  --true-cobalt: #262380;
+  /* Secondary heading colour */
+
+  --space-indigo: #2B304F;
+  /* Main body text */
+
+  --glaucous: #6D79B0;
+  /* Muted text */
+
+  --powder-blue: #B2BAD4;
+  /* Borders, dividers, disabled */
+
+  --soft-fawn: #C2A55F;
+  /* Brand accent */
+
+  --frosted-blue: #A1E7FC;
+  /* Highlight sections */
+
+  --white: #FFFFFF;
+  /* Main background */
+
+  --alice-blue: #EFF5FB;
+  /* Alternate section background */
+
+
+}
+
+/* =========================================================
+   NOBLEMENS DESIGN TOKENS
+   ---------------------------------------------------------
+   Tailwind v4 Theme Tokens
+
+   Structure:
+   1. Primitive Colors (your palette)
+   2. Semantic Role Tokens (UI usage)
+   3. Spacing Tokens
+
+   Primitive colors should NOT be used directly in components.
+   Components should use semantic role tokens instead.
+
+   This allows easy updates and dark mode support later.
+========================================================= */
+
+@theme {
+
+  /*
+  |--------------------------------------------------------------------------
+  | Sans-serif UI Font (Primary)
+  |--------------------------------------------------------------------------
+  |
+  | IBM Plex Sans is the primary font used across the interface:
+  | - body text
+  | - navigation
+  | - buttons
+  | - UI elements
+  |
+  | The fallback stack ensures good system font rendering if the web font
+  | fails to load or is blocked.
+  |
+  | Fallback order:
+  |
+  | - -apple-system       → San Francisco (macOS / iOS)
+  | - BlinkMacSystemFont  → Chrome macOS system font
+  | - Segoe UI            → Windows system UI font
+  | - Roboto              → Android system font
+  | - Helvetica / Arial   → common web fallbacks
+  | - sans-serif          → generic fallback
+  |
+  */
+
+  --font-sans: "IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Serif Display Font (Headings)
+  |--------------------------------------------------------------------------
+  |
+  | Libre Baskerville is used for headings and display typography.
+  | It adds a classic, editorial feel suitable for premium branding.
+  |
+  | Fallback order:
+  |
+  | - Georgia     → widely available serif optimized for screens
+  | - serif       → generic system serif fallback
+  |
+  */
+
+  --font-serif: "Libre Baskerville",
+    Georgia,
+    serif;
+
+
+  /* =====================================================
+     1. PRIMITIVE COLORS (YOUR PALETTE)
+     ===================================================== */
+
+  --deep-twilight: #1F1D5D;
+  /* Primary brand colour */
+
+  --true-cobalt: #262380;
+  /* Secondary heading colour */
+
+  --space-indigo: #2B304F;
+  /* Main body text */
+
+  --glaucous: #6D79B0;
+  /* Muted text */
+
+  --powder-blue: #B2BAD4;
+  /* Borders, dividers, disabled */
+
+  --soft-fawn: #C2A55F;
+  /* Brand accent */
+
+  --frosted-blue: #A1E7FC;
+  /* Highlight sections */
+
+  --white: #FFFFFF;
+  /* Main background */
+
+  --alice-blue: #EFF5FB;
+  /* Alternate section background */
+
+
+  /* =====================================================
+     2. SEMANTIC ROLE TOKENS
+     These define how colors are used in the UI
+     ===================================================== */
+
+
+  /* ---------- Page Backgrounds ---------- */
+
+  --color-bg-main: var(--white);
+  --color-bg-alt: var(--alice-blue);
+  --color-bg-highlight: var(--frosted-blue);
+
+
+  /* ---------- Surfaces ---------- */
+
+  --color-surface: var(--white);
+  --color-surface-hover: var(--alice-blue);
+
+
+  /* ---------- Borders & Dividers ---------- */
+
+  --color-border-default: var(--powder-blue);
+  --color-muted: var(--powder-blue);
+  --color-accent: var(--soft-fawn);
+  --color-divider: var(--powder-blue);
+  --color-divider-accent: var(--soft-fawn);
+
+
+  /* =====================================================
+     TYPOGRAPHY
+     ===================================================== */
+
+  /* Headings */
+
+  --color-heading-primary: var(--deep-twilight);
+  --color-heading-secondary: var(--true-cobalt);
+
+  /* Body text */
+
+  --color-text-body: var(--space-indigo);
+  --color-text-muted: var(--glaucous);
+
+  /* Inverse text (dark backgrounds) */
+
+  --color-text-inverse: var(--white);
+
+
+  /* ---------- Links ---------- */
+
+  --color-link: var(--true-cobalt);
+  --color-link-hover: var(--deep-twilight);
+  --color-link-active: var(--deep-twilight);
+
+
+  /* =====================================================
+     BUTTON SYSTEM
+     ===================================================== */
+
+  /* Primary Buttons */
+
+  --color-btn-primary-bg: var(--deep-twilight);
+  --color-btn-primary-hover: var(--true-cobalt);
+  --color-btn-primary-active: var(--true-cobalt);
+  --color-btn-primary-text: var(--white);
+  --color-btn-primary-border: var(--deep-twilight);
+
+  /* Secondary Buttons */
+
+  --color-btn-secondary-bg: transparent;
+  --color-btn-secondary-hover: var(--alice-blue);
+  --color-btn-secondary-active: var(--alice-blue);
+  --color-btn-secondary-text: var(--deep-twilight);
+  --color-btn-secondary-border: var(--powder-blue);
+
+  /* Accent Buttons (Gold CTA) */
+
+  --color-btn-accent-bg: var(--soft-fawn);
+  --color-btn-accent-hover: var(--soft-fawn);
+  --color-btn-accent-active: var(--soft-fawn);
+  --color-btn-accent-text: var(--white);
+
+  /* Disabled Buttons (All) */
+  --color-btn-disabled-bg: var(--powder-blue);
+  --color-btn-disabled-text: var(--glaucous);
+  --color-btn-disabled-border: var(--powder-blue);
+
+
+  /* =====================================================
+     FORM ELEMENTS
+     ===================================================== */
+
+  --color-input-bg: var(--white);
+  --color-input-text: var(--space-indigo);
+
+  --color-input-placeholder: var(--glaucous);
+
+  --color-input-border: var(--powder-blue);
+  --color-input-border-focus: var(--true-cobalt);
+
+  --color-input-disabled-bg: var(--alice-blue);
+  --color-input-disabled-text: var(--glaucous);
+
+
+  /* =====================================================
+     CARDS
+     ===================================================== */
+
+  --color-card-bg: var(--white);
+  --color-card-border: var(--powder-blue);
+  --color-card-hover-bg: var(--alice-blue);
+
+
+  /* =====================================================
+     FEATURE / HIGHLIGHT SECTIONS
+     ===================================================== */
+
+  --color-highlight-bg: var(--frosted-blue);
+  --color-highlight-text: var(--space-indigo);
+
+
+  /* =====================================================
+     NAVIGATION
+     ===================================================== */
+
+  --color-nav-text: var(--deep-twilight);
+  --color-nav-bg: var(transparent);
+
+  --color-nav-link: var(--deep-twilight);
+  --color-nav-link-hover: var(--white);
+  --color-nav-link-hover-bg: var(--true-cobalt);
+  --color-nav-link-active: var(--white);
+  --color-nav-link-active-bg: var(--soft-fawn);
+
+  --color-nav-submenu-bg: var(--alice-blue);
+
+
+  /* =====================================================
+     FOOTER
+     ===================================================== */
+
+  --color-footer-bg: var(--deep-twilight);
+  --color-footer-headings: var(--soft-fawn);
+  --color-footer-text: var(--glaucous);
+
+  --color-footer-link: var(--alice-blue);
+  --color-footer-link-hover: var(--white);
+
+
+  /* =====================================================
+     UI STATES
+     ===================================================== */
+
+  --color-focus-ring: var(--true-cobalt);
+
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+
+
+  /* =====================================================
+     SPACING SYSTEM
+     ===================================================== */
+
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+}
+
+
+@layer base {
+
+  body {
+    background: var(--color-bg-main);
+    color: var(--color-text-body);
+    font-feature-settings: "liga", "kern";
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font: var(--font-serif);
+  }
+
+  h1 {
+    color: var(--color-heading-primary);
+  }
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: var(--color-heading-secondary);
+  }
+
+  h6 {
+    color: var(--color-heading-primary);
+  }
+
+
+  h1 {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  p {
+    line-height: 1.65;
+    max-width: 70ch;
+    font: var(--font-sans);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+
+  ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-block: 0.25rem;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--color-divider);
+  }
+
+  iconify-icon {
+    font-size: 22px;
+    vertical-align: middle;
+  }
+
+}
+
+/** Component-specific styles  */
+@layer components {
+
+  .divider-accent {
+    border: none;
+    height: 3px;
+    background: var(--color-divider-accent);
+  }
+
+  .navbar {
+    background: var(--color-nav-bg);
+  }
+
+  /* Main nav list */
+
+  .navbar>ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+    font-size: large;
+  }
+
+
+
+  /* Links */
+
+  .navbar a {
+    color: var(--color-nav-link);
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .navbar a:hover {
+    background: var(--color-nav-link-hover-bg);
+    color: var(--white);
+  }
+
+  .navbar a:active {
+    background: var(--color-nav-link-active-bg);
+    color: var(--white);
+  }
+
+  /* Dropdown */
+
+  .dropdown {
+    position: relative;
+  }
+
+  /* Submenu */
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    display: none;
+    flex-direction: column;
+
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+
+    background: var(--color-nav-submenu-bg);
+    border-radius: 0.25rem;
+    border-top: 2px solid var(--soft-fawn);
+    border-bottom: 2px solid var(--color-border-default);
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Submenu items */
+
+  .submenu li {
+    width: 180px;
+  }
+
+  .submenu a {
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Hover trigger */
+
+  .dropdown:hover .submenu {
+    display: block;
+  }
+
+  /* Mobile menu styles */
+
+  .mobilemenu ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .mobilemenu li {
+    list-style: none;
+  }
+
+  .mobilemenu {
+    background: var(--color-nav-bg);
+  }
+
+  .mobilemenu .submenu {
+    padding-left: 1rem;
+  }
+
+  .mobilemenu a {
+    display: block;
+    width: 100%;
+    color: var(--color-nav-link);
+    text-decoration: none;
+    padding: 0.75rem 0.5rem;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .mobilemenu a:hover {
+    background: var(--color-nav-link-hover-bg);
+    color: var(--white);
+  }
+
+  .mobilemenu ul>li {
+    padding: 0;
+  }
+
+  .mobilemenu .submenu {
+    display: block;
+    position: static;
+    box-shadow: none;
+    border: none;
+  }
+
+  .mobilemenu .submenu li {
+    width: 100%;
+  }
+
+  /* Active page link */
+
+  a[aria-current="page"] {
+    background: var(--color-nav-link-active-bg);
+    color: var(--color-nav-link-active);
+  }
+
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .btn-primary {
+    background: var(--color-btn-primary-bg);
+    color: var(--color-btn-primary-text);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-btn-primary-hover);
+  }
+
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--soft-fawn);
+    outline-offset: 2px;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-heading-primary);
+    border: 1px solid var(--color-heading-primary);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-bg-main);
+  }
+
+  .card {
+    background: var(--color-surface);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .card-muted {
+    background: var(--color-bg-alt);
+  }
+
+  .card-dark {
+    background: var(--deep-twilight);
+    color: var(--color-text-inverse);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border-default);
+    background: var(--color-input-bg);
+    color: var(--color-input-text);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--color-input-border-focus);
+    box-shadow: 0 0 0 2px rgba(31, 29, 93, 0.15);
+  }
+
+  .footer {
+    background: var(--color-footer-bg);
+    color: var(--color-text-muted);
+  }
+
+  .footer h3,
+  h4,
+  h5 {
+    color: var(--color-footer-headings);
+  }
+
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer a {
+    color: var(--color-text-muted);
+  }
+
+  .footer a:hover {
+    color: var(--color-text-inverse);
+  }
+
+  footer p {
+    max-width: unset;
+  }
+}
+
+/* ======================================================
+   LAYOUT UTILITIES
+   Simple system based on Sections and Containers
+====================================================== */
+
+@layer utilities {
+
+  /* =========================================
+     SECTION
+     Full width row of the page
+     ========================================= */
+
+  .section {
+    width: 100%;
+    padding-block: 3rem;
+  }
+
+  /* smallest sections - like a band */
+
+  .section-xs {
+    padding-block: 1.25rem;
+  }
+
+  /* smaller sections */
+
+  .section-sm {
+    padding-block: 2rem;
+  }
+
+  /* larger hero sections */
+
+  .section-lg {
+    padding-block: 5rem;
+  }
+
+  /* responsive section spacing */
+
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 4rem;
+    }
+
+    .section-lg {
+      padding-block: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 5rem;
+    }
+
+    .section-lg {
+      padding-block: 7rem;
+    }
+  }
+
+
+  /* =========================================
+     CONTAINER
+     Controls readable content width
+     ========================================= */
+
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 720px;
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 960px;
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1100px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1200px;
+    }
+  }
+
+  /* =========================================
+     WIDE CONTAINER
+     For sections that need more horizontal space
+     like navbars or footers
+     ========================================= */
+
+  .wide-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .wide-container {
+      max-width: 700px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .wide-container {
+      max-width: 800px;
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .wide-container {
+      max-width: 1100px;
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .wide-container {
+      max-width: 1240px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .wide-container {
+      max-width: 1320px;
+    }
+  }
+
+
+  /* =========================================
+     CONTENT WIDTH HELPERS
+     Useful for text sections
+     ========================================= */
+
+  .content-sm {
+    max-width: 500px;
+  }
+
+  .content-md {
+    max-width: 700px;
+  }
+
+  .content-lg {
+    max-width: 900px;
+  }
+
+
+  /* =========================================
+     SIMPLE LAYOUT HELPERS
+     (easy to understand)
+     ========================================= */
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .row-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  /* =========================================
+     GRID FOR CARDS / PRODUCTS
+     ========================================= */
+
+  .grid-cards {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .grid-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+}

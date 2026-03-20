@@ -5,16 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "predev": "npm run build:html",
+    "build:html": "npx tsx -r tsconfig-paths/register scripts/build/process-html.ts",
+    "build": "npm run build:html && tsc && vite build",
+    "preview": "vite preview",
+    "debug:seo": "npx tsx scripts/seo/generate-seo.ts",
+    "debug:schema": "npx tsx scripts/schema/generate-schema.ts",
+    "debug:head": "npx tsx scripts/html/inject-head.ts",
+    "debug:clean-head": "npx tsx scripts/clean-head.ts"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18"
+    "iconify-icon": "^3.0.2",
+    "node-html-parser": "^7.1.0",
+    "tailwindcss": "^4.1.18",
+    "tsconfig-paths": "^4.2.0"
   }
 }

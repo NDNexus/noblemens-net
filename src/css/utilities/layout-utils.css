@@ -1,0 +1,9 @@
+/* This file is not required currently, but it is reserved for future utility classes related to layout that don't fit into the main section/container/grid files. This could include things like spacing utilities, responsive helpers, or other small layout tweaks that are reusable across the site. For now, it's a placeholder to keep our structure organized and ready for expansion as needed. The contents of this file are just a placeholder. */
+
+@layer utilities {
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,223 @@
+/**
+ * =========================================================
+ * NOBLEMENS DESIGN SYSTEM — BUTTON COMPONENTS
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * This file defines the button system used across the application.
+ *
+ * It provides a consistent, accessible, and brand-aligned set of
+ * interactive elements for user actions.
+ *
+ *
+ * BUTTON TYPES
+ * ---------------------------------------------------------
+ * 1. .btn-primary
+ *    → Main actions (e.g., "Buy Now", "Enquire", "Submit")
+ *    → Strong visual weight, highest priority
+ *
+ * 2. .btn-secondary
+ *    → Supporting actions (e.g., "Learn More", "View Details")
+ *    → Lower emphasis, outline-style interaction
+ *
+ * 3. .btn-accent
+ *    → Premium / highlight actions (e.g., hero CTA)
+ *    → Uses brand accent (gold) for visual distinction
+ *
+ *
+ * BASE STRUCTURE
+ * ---------------------------------------------------------
+ * All buttons must include the base `.btn` class.
+ *
+ * Example:
+ *   <button class="btn btn-primary">Enquire Now</button>
+ *
+ * The `.btn` class provides:
+ * - Layout (inline-flex, alignment)
+ * - Spacing (padding, gap)
+ * - Typography (font size, weight)
+ * - Interaction (transitions, cursor)
+ *
+ *
+ * DESIGN PRINCIPLES
+ * ---------------------------------------------------------
+ * 1. Clear hierarchy
+ *    → Primary > Accent > Secondary
+ *
+ * 2. Minimal, premium styling
+ *    → No heavy shadows or gradients
+ *
+ * 3. Consistency across backgrounds
+ *    → Buttons must remain visible on:
+ *        - main background
+ *        - alternate background
+ *        - highlight sections
+ *
+ * 4. Subtle interaction feedback
+ *    → Smooth hover transitions
+ *    → No aggressive animations
+ *
+ *
+ * TOKEN USAGE
+ * ---------------------------------------------------------
+ * All styles are derived from design tokens:
+ *
+ *   var(--color-surface-*)
+ *   var(--color-text-*)
+ *   var(--color-heading-*)
+ *   var(--color-accent)
+ *
+ * NEVER use hardcoded colors inside button styles.
+ *
+ *
+ * INTERACTION STATES
+ * ---------------------------------------------------------
+ *
+ * Hover (only on hover-capable devices):
+ *   → Controlled using @media (hover: hover)
+ *   → Prevents unintended effects on touch devices
+ *
+ *   Primary:
+ *     - Background + border shift to hover token
+ *
+ *   Secondary:
+ *     - Background fill appears on hover
+ *     - Border updates for feedback
+ *
+ *   Accent:
+ *     - Slight darkening using brightness()
+ *
+ *
+ * ACCESSIBILITY NOTES
+ * ---------------------------------------------------------
+ * - Buttons use sufficient contrast for readability
+ * - Cursor and transitions reinforce interactivity
+ * - Focus states should be handled globally or extended here
+ *
+ *
+ * RESPONSIBILITIES
+ * ---------------------------------------------------------
+ * This file handles:
+ * ✔ Button appearance
+ * ✔ Interaction states (hover)
+ * ✔ Visual hierarchy
+ *
+ * This file does NOT handle:
+ * ✘ Layout positioning (handled in layout system)
+ * ✘ Form submission logic (JS)
+ * ✘ Disabled states (can be extended separately)
+ *
+ *
+ * EXTENSIBILITY
+ * ---------------------------------------------------------
+ * Future enhancements may include:
+ *
+ * - Size variants (.btn-sm, .btn-lg)
+ * - Icon buttons
+ * - Loading states
+ * - Full-width variants
+ *
+ * These should extend the current system, not override it.
+ *
+ *
+ * KEY PRINCIPLE
+ * ---------------------------------------------------------
+ * Buttons should feel:
+ * - clear
+ * - responsive
+ * - trustworthy
+ *
+ * Avoid:
+ * - overly flashy effects
+ * - inconsistent styling across pages
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        padding: 0.65rem 1.25rem;
+        border-radius: var(--radius-sm);
+
+        font-weight: 600;
+        font-size: 0.95rem;
+        line-height: 1;
+
+        transition:
+            background-color 180ms ease,
+            color 180ms ease,
+            border-color 180ms ease,
+            transform 120ms ease;
+
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /** Primary Button: For main actions, like "Add to Cart" or "Buy Now". On light backgrounds */
+    .btn-primary {
+        background: var(--color-surface-primary);
+        color: var(--color-text-inverse);
+        border: 2px solid var(--color-heading-primary);
+    }
+
+    @media (hover: hover) {
+        .btn-primary:hover {
+            background: var(--color-surface-primary-hover);
+            border-color: var(--color-surface-primary-hover);
+        }
+    }
+
+    /** Secondary Button: For less prominent actions, like "Learn More" or "View Details". On light backgrounds */
+    .btn-secondary {
+        background: transparent;
+        color: var(--color-surface-secondary);
+        border: 2px solid var(--color-surface-secondary);
+
+    }
+
+    @media (hover: hover) {
+        .btn-secondary:hover {
+            background: var(--color-surface-secondary-hover);
+            border-color: var(--color-surface-secondary-hover);
+        }
+    }
+
+    /** Accent Button: For special actions or to add visual interest. Can be used on light and dark backgrounds */
+    .btn-accent {
+        background: var(--color-accent);
+        color: var(--color-text-inverse);
+        border: 2px solid var(--color-accent);
+    }
+
+    @media (hover: hover) {
+        .btn-accent:hover {
+            filter: brightness(0.95);
+        }
+    }
+
+    /* =========================================
+     DISABLED STATE
+  ========================================= */
+
+    .btn:disabled,
+    .btn[aria-disabled="true"],
+    .btn-disabled {
+        background: var(--color-surface-disabled);
+        color: var(--color-text-secondary);
+        border: 2px solid var(--color-surface-disabled);
+
+        cursor: not-allowed;
+        opacity: 0.7;
+
+        pointer-events: none;
+    }
+
+
+}

@@ -1,0 +1,107 @@
+@layer components {
+
+    /* =========================================
+     FOOTER ROOT
+  ========================================= */
+
+    .site-footer {
+        width: 100%;
+    }
+
+
+    /* =========================================
+     MAIN FOOTER
+  ========================================= */
+
+    .footer {
+        background: var(--color-heading-primary);
+        color: var(--color-text-secondary);
+
+        border-top: 3px solid var(--color-accent);
+    }
+
+    .footer-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    /* Tablet */
+    @media (min-width: 640px) {
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+        .footer-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+
+    /* =========================================
+     BRAND
+  ========================================= */
+
+    .footer-brand {
+        max-width: 200px;
+    }
+
+    .footer-logo {
+        height: 48px;
+        border: 2px solid var(--color-accent);
+        padding: 0.25rem;
+    }
+
+
+    /* =========================================
+     HEADINGS
+  ========================================= */
+
+    .footer-heading {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--color-accent);
+    }
+
+
+    /* =========================================
+     LINKS
+  ========================================= */
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.4rem;
+    }
+
+    .footer-links a {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+
+        transition: color 150ms ease;
+    }
+
+    @media (hover: hover) {
+        .footer-links a:hover {
+            color: var(--color-text-inverse);
+        }
+    }
+
+
+    /* =========================================
+     COPYRIGHT STRIP
+  ========================================= */
+
+    .footer-bottom {
+        background: var(--color-accent);
+        color: var(--color-heading-primary);
+        font-weight: 500;
+    }
+
+}

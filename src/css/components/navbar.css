@@ -1,0 +1,222 @@
+@layer components {
+
+    /* =========================================
+     NAVBAR ROOT
+  ========================================= */
+
+    .navbar {
+        width: 100%;
+    }
+
+    .navbar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        z-index: 999;
+
+        background: var(--color-bg-alt);
+        border-bottom: 3px solid var(--color-border-accent);
+    }
+
+
+    /* =========================================
+     INNER LAYOUT
+  ========================================= */
+
+    .navbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar-logo {
+        display: block;
+    }
+
+
+    /* =========================================
+     DESKTOP MENU
+  ========================================= */
+
+    .navbar-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-list {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-link {
+        display: inline-block;
+
+        font-size: 0.95rem;
+        font-weight: 500;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+
+        padding: 0.4rem 0.6rem;
+        border-radius: var(--radius-sm);
+
+        transition:
+            background-color 150ms ease,
+            color 150ms ease;
+    }
+
+    @media (hover: hover) {
+        .navbar-link:hover {
+            color: var(--color-text-inverse);
+            background: var(--color-surface-primary-hover);
+            font-weight: 600;
+        }
+    }
+
+    .navbar-link[aria-current="page"] {
+        color: var(--color-text-inverse);
+        background: var(--color-accent);
+
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+     DROPDOWN
+  ========================================= */
+
+    .dropdown {
+        position: relative;
+    }
+
+    .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        display: none;
+        flex-direction: column;
+
+        min-width: 180px;
+
+        background: var(--color-bg-alt);
+        border-top: 1px solid var(--color-border-default);
+        border-bottom: 2px solid var(--color-border-accent);
+        border-radius: var(--radius-sm);
+
+        padding: 0.25rem 0;
+        margin-top: 0px;
+
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .submenu li {
+        width: 100%;
+    }
+
+    .submenu a {
+        display: block;
+        padding: 0.5rem 1rem;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+
+        font-size: 0.9rem;
+    }
+
+    @media (hover: hover) {
+        .submenu a:hover {
+            color: var(--color-text-inverse);
+            background: var(--color-surface-primary-hover);
+        }
+
+        .dropdown:hover .submenu {
+            display: flex;
+        }
+    }
+
+
+    /* =========================================
+     MOBILE
+  ========================================= */
+
+    .navbar-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 40px;
+        height: 40px;
+
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-main);
+
+        font-size: 1.4rem;
+    }
+
+    .navbar-mobile {
+        background: var(--color-bg-alt);
+        border-top: 1px solid var(--color-border-default);
+    }
+
+    .navbar-mobile-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-mobile-list li {
+        border-bottom: 1px solid var(--color-border-default);
+    }
+
+    .navbar-mobile-list a {
+        display: block;
+        padding: 0.75rem 0.5rem;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    @media (hover: hover) {
+        .navbar-mobile-list a:hover {
+            color: var(--color-text-inverse);
+            background: var(--color-surface-primary-hover);
+        }
+    }
+
+    .navbar-mobile .submenu {
+        position: static;
+        display: block;
+
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding-left: 1rem;
+    }
+
+
+    /* =========================================
+     RESPONSIVE
+  ========================================= */
+
+    @media (min-width: 768px) {
+
+        .navbar-mobile {
+            display: none;
+        }
+
+        .navbar-toggle {
+            display: none;
+        }
+
+    }
+
+}

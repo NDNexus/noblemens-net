@@ -1,0 +1,152 @@
+@theme {
+
+  /* =========================================
+     FONTS
+  ========================================= */
+
+  --font-sans: "IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  --font-serif: "Libre Baskerville",
+    Georgia,
+    serif;
+
+
+  /* =========================================
+     BRAND PALETTE (NAMED COLORS)
+     These are descriptive, memorable names
+  ========================================= */
+
+  --color-deep-twilight: #1F1D5D;
+  --color-true-cobalt: #262380;
+  --color-soft-fawn: #C2A55F;
+
+  --color-space-indigo: #2B304F;
+  --color-glaucous: #6D79B0;
+  --color-powder-blue: #B2BAD4;
+
+  --color-white: #FFFFFF;
+  --color-alice-blue: #EFF5FB;
+  --color-frosted-blue: #A1E7FC;
+
+
+  /* =========================================
+     ROLE TOKENS (USE THESE IN UI)
+     These map meaning → palette
+  ========================================= */
+
+  /* Backgrounds */
+  --color-bg-main: var(--color-white);
+  --color-bg-alt: var(--color-alice-blue);
+  --color-bg-highlight: var(--color-frosted-blue);
+
+  /* Overlays */
+  --color-overlay-primary: color-mix(in srgb, var(--color-deep-twilight) 40%, transparent);
+
+  /* Surfaces (For Buttons and menu items) */
+  --color-surface-primary: var(--color-deep-twilight);
+  --color-surface-primary-hover: var(--color-true-cobalt);
+  --color-surface-secondary: var(--color-glaucous);
+  --color-surface-secondary-hover: color-mix(in srgb, var(--color-glaucous) 20%, white);
+  --color-surface-disabled: var(--color-powder-blue);
+
+  /* Text */
+  --color-text-primary: var(--color-space-indigo);
+  --color-text-secondary: var(--color-glaucous);
+  --color-text-inverse: var(--color-white);
+  --color-text-bright: var(--color-frosted-blue);
+
+
+  /* Headings */
+  --color-heading-primary: var(--color-deep-twilight);
+  --color-heading-secondary: var(--color-true-cobalt);
+
+  /* Borders */
+  --color-border-default: var(--color-powder-blue);
+  --color-border-accent: var(--color-soft-fawn);
+  --color-border-subtle: color-mix(in srgb, var(--color-powder-blue) 50%, white);
+  --color-border-strong: var(--color-deep-twilight);
+
+  /* Accent */
+  --color-accent: var(--color-soft-fawn);
+
+
+  /* =========================================
+     STATES
+  ========================================= */
+
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+
+
+
+  /* =========================================
+     SPACING
+  ========================================= */
+
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+  /* =========================================
+   RADIUS SYSTEM
+========================================= */
+
+  --radius-sm: 0.25rem;  /* 4px → default (MOST USED) */
+  --radius-md: 0.5rem;   /* 8px → rare */
+  --radius-lg: 0.75rem;  /* 12px → special only */
+  --radius-full: 999px;  /* pills */
+
+  /* =========================================
+     LAYOUT TOKENS
+  ========================================= */
+
+  /* mobile default */
+  --navbar-height: 64px;
+
+}
+
+/* =========================================================
+   RESPONSIVE TOKEN OVERRIDES
+   ---------------------------------------------------------
+   Some design tokens need to adapt based on screen size.
+   Since @theme does NOT support media queries, responsive
+   overrides must be defined outside of @theme using :root.
+   
+   These overrides update the base token values dynamically
+   across breakpoints.
+   
+   In this case:
+   --navbar-height changes based on device size to ensure
+   proper spacing and alignment with the fixed header.
+   
+   IMPORTANT:
+   - Do NOT move these inside @theme
+   - Always keep default value inside @theme
+   - Use :root for responsive overrides only
+   
+   This keeps tokens centralized while allowing flexibility.
+========================================================= */
+
+/* Tablet */
+@media (min-width: 768px) {
+  :root {
+    --navbar-height: 72px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  :root {
+    --navbar-height: 84px;
+  }
+}

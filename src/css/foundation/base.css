@@ -1,0 +1,247 @@
+/**
+ * =========================================================
+ * NOBLEMENS DESIGN SYSTEM — BASE STYLES
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * This file defines the global default styles for HTML elements.
+ * It ensures consistency across the entire application.
+ *
+ * It is NOT responsible for visual design decisions like layout,
+ * component styling, or typography scale.
+ *
+ *
+ * RESPONSIBILITIES
+ * ---------------------------------------------------------
+ * This file handles:
+ *
+ * 1. Global document defaults
+ *    - body font
+ *    - background color
+ *    - text color
+ *    - rendering improvements
+ *
+ * 2. Semantic HTML styling
+ *    - headings (h1–h6)
+ *    - paragraphs
+ *    - lists
+ *    - links
+ *    - media elements
+ *
+ * 3. Accessibility & readability improvements
+ *    - line-height
+ *    - max-width for text
+ *    - font smoothing
+ *
+ *
+ * WHAT THIS FILE DOES NOT DO
+ * ---------------------------------------------------------
+ * To keep the system scalable, this file intentionally avoids:
+ *
+ * ✘ No layout styles (flex, grid, containers)
+ * ✘ No component styles (.btn, .card, etc.)
+ * ✘ No spacing systems (margin/padding utilities)
+ * ✘ No typography sizing (NO font-size for h1–h6)
+ *
+ * Typography scale is handled separately in:
+ * → typography.css
+ *
+ *
+ * TYPOGRAPHY STRATEGY
+ * ---------------------------------------------------------
+ * HTML tags (h1–h6, p) define SEMANTIC meaning only.
+ *
+ * Example:
+ *   h1 → main heading (SEO / accessibility)
+ *   h2 → section heading
+ *
+ * Visual appearance (size, scale) is controlled via utility classes:
+ *   .text-display
+ *   .text-title
+ *   .text-body
+ *
+ * This prevents the "locked heading size" problem and allows
+ * flexible design across pages.
+ *
+ *
+ * TOKEN USAGE
+ * ---------------------------------------------------------
+ * All colors and fonts must come from design tokens:
+ *
+ *   var(--color-*)
+ *   var(--font-*)
+ *
+ * NEVER use raw values like:
+ *   ✘ #1F1D5D
+ *   ✘ "IBM Plex Sans"
+ *
+ * This ensures:
+ *   - consistency
+ *   - easy theming
+ *   - future dark mode support
+ *
+ *
+ * ARCHITECTURE CONTEXT
+ * ---------------------------------------------------------
+ * This file is part of the Foundation layer:
+ *
+ *   foundation/
+ *     ├── tokens.css      → design system variables
+ *     ├── base.css        → global defaults (this file)
+ *     ├── typography.css  → text scale system
+ *
+ * Flow:
+ *   tokens → base → typography → components → layout
+ *
+ *
+ * KEY PRINCIPLE
+ * ---------------------------------------------------------
+ * Base styles should be:
+ *
+ *   - minimal
+ *   - predictable
+ *   - non-opinionated
+ *
+ * They should NEVER restrict design decisions.
+ *
+ * =========================================================
+ */
+
+
+@layer base {
+
+    /* =========================================
+     DOCUMENT ROOT
+  ========================================= */
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-text-primary);
+        background: var(--color-bg-main);
+
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+
+    /* =========================================
+     HEADINGS (SEMANTIC ONLY — NO SIZES)
+  ========================================= */
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    h1 {
+        color: var(--color-heading-primary);
+    }
+
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: var(--color-heading-secondary);
+    }
+
+    h6 {
+        color: var(--color-heading-primary);
+    }
+
+
+    /* =========================================
+     TEXT ELEMENTS
+  ========================================= */
+
+    p {
+        line-height: 1.65;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    small {
+        font-size: 0.875rem;
+    }
+
+
+    /* =========================================
+     LINKS
+  ========================================= */
+
+    a {
+        color: var(--color-accent);
+        text-decoration: none;
+        transition: color 150ms ease;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* =========================================
+     LISTS
+  ========================================= */
+
+    ul {
+        list-style: disc;
+        padding-left: 1.25rem;
+    }
+
+    ol {
+        list-style: decimal;
+        padding-left: 1.25rem;
+    }
+
+    li {
+        margin-block: 0.25rem;
+    }
+
+
+    /* =========================================
+     DIVIDER
+  ========================================= */
+
+    hr {
+        border: none;
+        height: 1px;
+        background: var(--color-border);
+    }
+
+
+    /* =========================================
+     MEDIA
+  ========================================= */
+
+    img,
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+
+
+    /* =========================================
+     ICONS
+  ========================================= */
+
+    iconify-icon {
+        font-size: 22px;
+        vertical-align: middle;
+    }
+
+}

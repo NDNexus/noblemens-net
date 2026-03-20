@@ -1,0 +1,160 @@
+/**
+ * =========================================================
+ * NOBLEMENS DESIGN SYSTEM — SECTION LAYOUT
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Defines vertical spacing between major content blocks.
+ *
+ * Sections create consistent rhythm across the website and
+ * are the primary tool for managing spacing between sections.
+ *
+ *
+ * CORE PRINCIPLE
+ * ---------------------------------------------------------
+ * Each section class is STANDALONE.
+ *
+ * ✔ Use ONLY ONE section class per element
+ * ✘ Do NOT combine (e.g. .section + .section-sm)
+ *
+ *
+ * SECTION TYPES
+ * ---------------------------------------------------------
+ *
+ * .section-xs
+ *   → Minimal spacing
+ *   → Used for strips (footer bottom, announcements)
+ *
+ * .section-sm
+ *   → Compact spacing
+ *   → Used for tight layouts (forms, small sections)
+ *
+ * .section
+ *   → Default spacing
+ *   → Used for most content sections
+ *
+ * .section-lg
+ *   → Large spacing
+ *   → Used for hero sections and highlights
+ *
+ *
+ * RESPONSIVE BEHAVIOR
+ * ---------------------------------------------------------
+ * - .section and .section-lg scale with screen size
+ * - .section-xs and .section-sm remain fixed
+ *
+ * This ensures:
+ * ✔ better spacing on large screens
+ * ✔ stable UI elements (like strips)
+ *
+ *
+ * USAGE EXAMPLES
+ * ---------------------------------------------------------
+ *
+ * Default section:
+ *   <section class="section">
+ *
+ * Compact section:
+ *   <section class="section-sm">
+ *
+ * Hero section:
+ *   <section class="section-lg">
+ *
+ * Footer strip:
+ *   <div class="section-xs">
+ *
+ *
+ * WHAT THIS FILE DOES NOT HANDLE
+ * ---------------------------------------------------------
+ * ✘ Width → handled by container.css
+ * ✘ Layout → handled by grid/flex
+ * ✘ Component styling → handled elsewhere
+ *
+ *
+ * WHAT TO AVOID
+ * ---------------------------------------------------------
+ *
+ * ✘ Combining section classes
+ *   <section class="section section-sm"> ❌
+ *
+ * ✘ Manual spacing overrides
+ *   <div class="pt-20 pb-20"> ❌
+ *
+ * ✘ Using sections for layout control
+ *
+ *
+ * KEY PRINCIPLE
+ * ---------------------------------------------------------
+ * Sections define vertical rhythm.
+ *
+ * Consistent spacing = premium feel
+ * Inconsistent spacing = broken UI
+ *
+ * =========================================================
+ */
+
+@layer utilities {
+
+    /* =========================================
+     BASE SECTION (DEFAULT)
+  ========================================= */
+
+    .section {
+        width: 100%;
+        padding-block: var(--space-lg);
+    }
+
+
+    /* =========================================
+     SECTION VARIANTS
+  ========================================= */
+
+    /* Extra small (strips, bands) */
+    .section-xs {
+        width: 100%;
+        padding-block: var(--space-xs);
+    }
+
+    /* Compact */
+    .section-sm {
+        width: 100%;
+        padding-block: var(--space-md);
+    }
+
+    /* Large (hero / highlight) */
+    .section-lg {
+        width: 100%;
+        padding-block: var(--space-xl);
+    }
+
+
+    /* =========================================
+     RESPONSIVE SCALING
+  ========================================= */
+
+    @media (min-width: 768px) {
+
+        .section {
+            padding-block: calc(var(--space-lg) + 1rem);
+        }
+
+        .section-lg {
+            padding-block: calc(var(--space-xl) + 1rem);
+        }
+
+    }
+
+    @media (min-width: 1024px) {
+
+        .section {
+            padding-block: calc(var(--space-lg) + 2rem);
+        }
+
+        .section-lg {
+            padding-block: calc(var(--space-xl) + 2rem);
+        }
+
+    }
+
+}

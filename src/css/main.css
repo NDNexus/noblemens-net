@@ -1,0 +1,94 @@
+/* This is the MAIN CSS File for the whole website. */
+
+/**
+ * =========================================================
+ * NOBLEMENS TYPOGRAPHY — FONT IMPORTS
+ * =========================================================
+ *
+ * This file is responsible ONLY for loading web fonts.
+ * No styling should be added here.
+ *
+ * Fonts Used:
+ *
+ * 1. IBM Plex Sans (Primary UI Font)
+ *    ------------------------------------------------------
+ *    Usage:
+ *    - Body text
+ *    - Navigation
+ *    - Buttons
+ *    - Forms
+ *    - General UI
+ *
+ *    Why:
+ *    - Clean, modern, highly readable
+ *    - Professional and neutral tone
+ *    - Works well across devices and screen sizes
+ *
+ *    Weights Loaded:
+ *    - 300 (Light)
+ *    - 400 (Regular)
+ *    - 500 (Medium)
+ *    - 600 (Semi-bold)
+ *
+ *
+ * 2. Libre Baskerville (Display Serif Font)
+ *    ------------------------------------------------------
+ *    Usage:
+ *    - Headings (h1–h6)
+ *    - Hero text
+ *    - Premium / editorial sections
+ *
+ *    Why:
+ *    - Classic, timeless serif
+ *    - Adds a premium and trustworthy feel
+ *    - Pairs well with IBM Plex Sans
+ *
+ *    Weights Loaded:
+ *    - 400 (Regular)
+ *    - 700 (Bold)
+ *
+ *
+ * Performance Notes:
+ * ---------------------------------------------------------
+ * - Fonts are loaded via Google Fonts CDN
+ * - `display=swap` ensures text remains visible during load
+ * - Consider self-hosting in future for:
+ *     → better performance
+ *     → improved privacy
+ *
+ *
+ * Important:
+ * ---------------------------------------------------------
+ * - Do NOT apply fonts directly in this file
+ * - Font usage is controlled via:
+ *     → tokens.css (font variables)
+ *     → base.css (default assignment)
+ *     → typography.css (visual scale)
+ *
+ * =========================================================
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Libre+Baskerville:wght@400;700&display=swap");
+
+@import "tailwindcss";
+
+
+/* Foundation */
+@import "./foundation/tokens.css";
+@import "./foundation/base.css";
+@import "./foundation/typography.css";
+
+/* Components */
+@import "./components/buttons.css";
+@import "./components/cards.css";
+@import "./components/forms.css";
+@import "./components/navbar.css";
+@import "./components/footer.css";
+
+/* Layout */
+@import "./layout/section.css";
+@import "./layout/container.css";
+@import "./layout/grid.css";
+
+/* Utilities */
+@import "./utilities/layout-utils.css";

@@ -2,96 +2,337 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/icon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/icon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-  <link rel="shortcut icon" href="/favicons/Noblemens.ico" type="image/x-icon">
-
-  <link rel="manifest" href="/favicons/site.webmanifest" type="application/manifest+json">
-
-  <title>Noblemens</title>
+<include src="/templates/head.html"></include>
+<include src="/templates/seo/seo-index.html"></include>
+<include src="/templates/schema/schema-index.html"></include>
 </head>
 
+<body class="antialiased">
 
-<body class="bg-white text-gray-900 antialiased">
+  <include src="/templates/header.html"></include>
 
-  <!-- Header -->
-  <header class="border-b">
-    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-      <img src="/Noblemens Logo.svg" alt="Noblemens Logo" class="h-10 w-auto" />
-      
-      <span class="text-sm text-gray-500">
-        Natural & Honest Products
-      </span>
-    </div>
-  </header>
+  <main class="site-main">
 
-  <!-- Hero -->
-  <section class="mx-auto max-w-7xl px-6 py-24">
-    <div class="max-w-3xl">
-      <h1 class="text-4xl text-yellow-700 sm:text-5xl font-bold leading-tight tracking-tight">
-        Pure. Natural. Trusted.
-      </h1>
+    <section id="hero" class="section-lg relative bg-fixed bg-center bg-cover flex items-center min-h-[80vh]"
+      style="background-image: url('/images/perfume.webp');">
 
-      <p class="mt-6 text-lg text-gray-600">
-        Jameel Natural Products is a family-run business committed to
-        providing high-quality natural products with honesty, care,
-        and responsibility.
-      </p>
-    </div>
-  </section>
+      <!-- Overlay (separate layer) -->
+      <div class="absolute inset-0 bg-overlay-primary"></div>
 
-  <!-- About -->
-  <section class="bg-gray-50 py-20">
-    <div class="mx-auto max-w-7xl px-6 md:max-w-3xl">
-      <h2 class="text-2xl font-bold">About Us</h2>
-      <p class="mt-4 text-gray-600">
-        We believe in offering products that are simple, natural,
-        and beneficial. Every product is selected and prepared with
-        quality and customer trust as our highest priority.
-      </p>
-    </div>
-  </section>
+      <!-- Content -->
+      <div class="relative container text-center">
 
-  <!-- Why Choose Us -->
-  <section class="mx-auto max-w-7xl px-6 py-24">
-    <h2 class="text-2xl font-bold">Why Choose Us</h2>
+        <h1 class="mb-4 text-text-inverse text-heading-xl ">
+          We manufacture natural unpasteurized vinegar and natural perfumes
+        </h1>
 
-    <div class="mt-10 grid gap-8 sm:grid-cols-3">
-      <div>
-        <h3 class="font-semibold">Natural Ingredients</h3>
-        <p class="mt-2 text-sm text-gray-600">
-          Carefully sourced products with a focus on purity and quality.
+        <p class="mt-15 text-text-bright text-body-lg">
+          Free from artificially created chemicals, toxic and harmful substances.
         </p>
+
+        <div class="mt-10">
+          <button class="btn btn-accent">
+            Learn More
+          </button>
+        </div>
+
       </div>
 
-      <div>
-        <h3 class="font-semibold">Family Values</h3>
-        <p class="mt-2 text-sm text-gray-600">
-          A business built on trust, responsibility, and long-term relationships.
-        </p>
+    </section> <!-- End of Hero Section -->
+
+    <!-- VINEGAR SECTION -->
+    <section id="vinegars" class="section bg-bg-main">
+      <div class="container">
+
+        <!-- Heading (optional) -->
+        <div class="mb-10">
+          <h2 class="text-heading-lg text-center">Vinegars</h2>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- CARD 1 -->
+          <div class="card card-product">
+            <div class="card__media">
+              <img src="/images/dates-vinegar.png" alt="Natural Dates Vinegar">
+            </div>
+
+            <div class="card__body text-center">
+              <h3 class="text-heading-md">
+                Natural Dates Vinegar
+              </h3>
+
+              <p class="text-body text-muted">
+                Made using high quality imported dates (Khajoor)
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-accent">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="card card-product">
+            <div class="card__media">
+              <img src="/images/jamun-vinegar.png" alt="Natural Jamun Vinegar">
+            </div>
+
+            <div class="card__body text-center">
+              <h3 class="text-heading-md">
+                Natural Jamun Vinegar
+              </h3>
+
+              <p class="text-body text-muted">
+                Made using high quality jamuns (Indian blackberries)
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-accent">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div class="card card-product">
+            <div class="card__media">
+              <img src="/images/apple-cider-vinegar.png" alt="Apple Cider Vinegar">
+            </div>
+
+            <div class="card__body text-center">
+              <h3 class="text-heading-md">
+                Apple Cider Vinegar
+              </h3>
+
+              <p class="text-body text-muted">
+                Made using premium apples from Kashmir
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-accent">
+                View Details
+              </button>
+            </div>
+          </div>
+
+        </div> <!-- End of Grid -->
+
       </div>
+    </section>
 
-      <div>
-        <h3 class="font-semibold">Customer Trust</h3>
-        <p class="mt-2 text-sm text-gray-600">
-          Transparent practices and honest communication with our customers.
-        </p>
+    <!-- Blog Section -->
+    <section class="section bg-bg-alt">
+      <div class="container">
+
+        <!-- Heading (optional) -->
+        <div class="mb-10">
+          <h2 class="text-heading-lg text-center">Latest Blog Posts</h2>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- BLOG CARD 1 -->
+          <div class="card card-content">
+            <div class="card__media">
+              <img src="/images/dates-vinegar-in-bowl.png" alt="Dates Vinegar in bowl">
+            </div>
+
+            <div class="card__body">
+              <h3 class="text-heading-md">
+                The Benefits of Natural Vinegar
+              </h3>
+
+              <p class="text-body text-muted">
+                Discover the health benefits of using natural vinegar in your daily routine.
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-secondary">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- BLOG CARD 2 -->
+          <div class="card card-content">
+            <div class="card__media">
+              <img src="/images/how-we-make-vinegar.jpg" alt="How we make our vinegar">
+            </div>
+
+            <div class="card__body">
+              <h3 class="text-heading-md">
+                How We Make Our Vinegar
+              </h3>
+
+              <p class="text-body text-muted">
+                A behind-the-scenes look at our traditional vinegar-making process.
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-secondary">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- BLOG CARD 3 -->
+          <div class="card card-content">
+            <div class="card__media">
+              <img src="/images/sandalwood-oil.jpg" alt="Sandalwood oil in bottle">
+            </div>
+
+            <div class="card__body">
+              <h3 class="text-heading-md">
+                Natural Perfumes: A Fragrant Journey
+              </h3>
+
+              <p class="text-body text-muted">
+                Explore the world of natural perfumes and their unique scents.
+              </p>
+            </div>
+
+            <div class="card__footer">
+              <button class="btn btn-secondary">
+                Read More </button>
+            </div>
+          </div>
+
+        </div> <!-- End of Grid -->
+
+        <div class="mt-10 text-center">
+          <button class="btn btn-primary">
+            View All Posts
+          </button>
+        </div>
+
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="border-t">
-    <div class="mx-auto max-w-7xl px-6 py-8 text-sm text-gray-500">
-      &copy; 2026 Jameel Natural Products. All rights reserved.
-    </div>
-  </footer>
+    <!-- Article Section -->
+    <section class="section">
+      <div class="container">
 
-  <script type="module" src="/src/main.ts"></script>
+        <div class="text-content">
+
+          <!-- Heading -->
+          <h2 class="text-heading-lg mb-4">
+            Health Benefits of Vinegar
+          </h2>
+
+          <!-- Intro -->
+          <p class="text-body mb-4">
+            We manufacture vinegar from imported dates (khajur) using a traditional method refined by experts in our
+            family over many years. It is 100% natural and free from artificial and synthesized chemicals.
+          </p>
+
+          <!-- Subheading -->
+          <h3 class="text-heading-md mb-2">Health Benefits</h3>
+
+          <p class="text-body mb-3">
+            From our experience, our vinegar helps rejuvenate the digestive system. For a person of normal health,
+            positive results are noticeable within a few days of regular use.
+          </p>
+
+          <!-- List -->
+          <ul class="text-body mb-6">
+            <li>Improves digestion</li>
+            <li>Cures excessive acidity in the stomach</li>
+            <li>Cures excessive gas formation</li>
+            <li>Removes uneasy feeling after heavy or oily meals</li>
+            <li>Beneficial for constipation (may vary)</li>
+          </ul>
+
+          <!-- More benefits -->
+          <p class="text-body mb-3">
+            Medical studies suggest that vinegar may help lower bad cholesterol, reduce the risk of heart disease,
+            support blood sugar control, and aid in weight loss. However, it should not replace prescribed medication.
+          </p>
+
+          <!-- Gut section -->
+          <h3 class="text-heading-md mb-2">
+            Gut Microbiota & Overall Health
+          </h3>
+
+          <p class="text-body mb-4">
+            Our vinegar is unpasteurized and contains live microorganisms. A healthy gut microbiota plays a significant
+            role in physical and mental well-being. These microorganisms influence digestion, mood, sleep, and overall
+            health through biochemical interactions within the body.
+          </p>
+
+          <p class="text-body mb-6">
+            Research indicates that imbalanced gut bacteria may contribute to conditions such as diabetes, heart
+            disease, obesity, anxiety, and digestive disorders. Our vinegar supports the development of beneficial gut
+            bacteria.
+          </p>
+
+          <!-- Usage -->
+          <h3 class="text-heading-md mb-2">How To Use</h3>
+
+          <p class="text-body mb-4">
+            Mix 5–10 ml (1–2 teaspoons) of vinegar in one cup of water. Consume with or immediately after meals, 2–3
+            times daily. Do not consume undiluted vinegar.
+          </p>
+
+          <!-- Culinary -->
+          <h3 class="text-heading-md mb-2">Culinary Use</h3>
+
+          <ul class="text-body mb-6">
+            <li>Salad dressing</li>
+            <li>Pickles and homemade sauces</li>
+            <li>Healthy drink with water and natural sweeteners</li>
+          </ul>
+
+          <!-- Instructions -->
+          <h3 class="text-heading-md mb-2">General Instructions</h3>
+
+          <ul class="text-body mb-6">
+            <li>Keep cap tightly closed</li>
+            <li>No refrigeration needed</li>
+            <li>Keep away from sunlight</li>
+            <li>Consume within 90 days of opening</li>
+            <li>Keep away from children</li>
+            <li>Natural sediments are safe and edible</li>
+          </ul>
+
+          <!-- Lifestyle -->
+          <h3 class="text-heading-md mb-2">For Better Results</h3>
+
+          <p class="text-body mb-6">
+            Avoid repeatedly heated oils, hydrogenated fats, refined oils, and heavily processed foods. Minimize intake
+            of synthetic chemicals, packaged foods, and artificial fragrances for overall wellness.
+          </p>
+
+          <!-- References -->
+          <h3 class="text-heading-md mb-2">References</h3>
+
+          <ul class="text-body-sm text-muted">
+            <li>Medscape Journal of Medicine (2006)</li>
+            <li>Journal of Food Science (2014)</li>
+            <li>Bioscience, Biotechnology, Biochemistry (2009)</li>
+            <li>Journal of Medicinal Food</li>
+            <li>Journal of Neuroscience</li>
+            <li>Gastroenterology & Hepatology</li>
+          </ul>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <include src="/templates/footer.html"></include>
+
+  <script type="module" src="/src/app/main.ts"></script>
 
 </body>
 
