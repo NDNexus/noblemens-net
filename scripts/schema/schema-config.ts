@@ -1,9 +1,30 @@
 /**
  * ==========================================================
- * SCHEMA CONFIG (SIMPLE + FLEXIBLE)
+ * SCHEMA CONFIG (PRODUCTION • FLEXIBLE • TYPE-SAFE)
  * ==========================================================
  *
- * You can override or ADD schemas per page.
+ * ARCHITECTURE:
+ * -------------
+ * 1. schemaOverrides  → page-level full control
+ * 2. categorySchema   → category-level schema behavior
+ * 3. schemaTemplates  → default schema by page type
+ * 4. fallback         → safe default
+ *
+ * SUPPORTS:
+ * ---------
+ * ✔ Multiple schemas per page
+ * ✔ Strong typing
+ * ✔ Extensibility
+ * ✔ SEO system alignment
+ *
+ * ==========================================================
+ */
+
+
+/**
+ * ==========================================================
+ * SCHEMA TYPES
+ * ==========================================================
  */
 
 export type SchemaType =
@@ -11,13 +32,18 @@ export type SchemaType =
     | "CollectionPage"
     | "FAQPage"
     | "Article"
+    | "WebPage"
+
 
 export interface BaseSchema {
     type: SchemaType
 }
 
+
 /**
- * Specific schema shapes
+ * ==========================================================
+ * SPECIFIC SCHEMA SHAPES
+ * ==========================================================
  */
 
 export interface ProductSchema extends BaseSchema {
@@ -25,13 +51,24 @@ export interface ProductSchema extends BaseSchema {
     name: string
     description: string
     image: string
+
+    // Optional enrichment
+    brand?: string
+    category?: string
+    offers?: {
+        priceCurrency?: string
+        price?: string
+        availability?: string
+    }
 }
+
 
 export interface CollectionSchema extends BaseSchema {
     type: "CollectionPage"
     name: string
     description: string
 }
+
 
 export interface FAQSchema extends BaseSchema {
     type: "FAQPage"
@@ -41,36 +78,106 @@ export interface FAQSchema extends BaseSchema {
     }[]
 }
 
+
 export interface ArticleSchema extends BaseSchema {
     type: "Article"
     title: string
     description: string
 }
 
+
+export interface WebPageSchema extends BaseSchema {
+    type: "WebPage"
+    name: string
+}
+
+
 /**
- * Unified type
+ * ==========================================================
+ * UNIFIED TYPE
+ * ==========================================================
  */
+
 export type SchemaOverride =
     | ProductSchema
     | CollectionSchema
     | FAQSchema
     | ArticleSchema
+    | WebPageSchema
+
 
 /**
- * KEY CHANGE:
- * Page can have MULTIPLE schemas
+ * ==========================================================
+ * CATEGORY SCHEMA (🔥 NEW — INHERITANCE LAYER)
+ * ==========================================================
+ *
+ * Defines schema behavior per category
  */
+
+export const categorySchema: Record<string, {
+    brand?: string
+    category?: string
+}> = {
+
+    vinegars: {
+        brand: "Noblemens",
+        category: "Food"
+    },
+
+    perfumes: {
+        brand: "Noblemens",
+        category: "Fragrance"
+    }
+
+}
+
+
+/**
+ * ==========================================================
+ * SCHEMA TEMPLATES (DEFAULT LOGIC)
+ * ==========================================================
+ */
+
+export const schemaTemplates: Record<string, SchemaType> = {
+
+    page: "WebPage",
+    landing: "WebPage",
+
+    archive: "CollectionPage",
+
+    product: "Product",
+
+    post: "Article"
+
+}
+
+
+/**
+ * ==========================================================
+ * SCHEMA OVERRIDES (🔥 YOUR SYSTEM — KEPT INTACT)
+ * ==========================================================
+ *
+ * KEY:
+ * ----
+ * page.slug
+ *
+ * VALUE:
+ * ------
+ * Array of schemas (multi-schema supported)
+ */
+
 export const schemaOverrides: Record<string, SchemaOverride[]> = {
 
     /**
-     * Example: Product page with FAQ
+     * PRODUCT WITH FAQ
      */
     "black-jamun-vinegar": [
         {
             type: "Product",
             name: "Black Jamun Vinegar",
             description: "Pure natural jamun vinegar with mother.",
-            image: "/images/products/jamun.jpg"
+            image: "/images/products/jamun.jpg",
+            brand: "Noblemens"
         },
         {
             type: "FAQPage",
@@ -84,7 +191,7 @@ export const schemaOverrides: Record<string, SchemaOverride[]> = {
     ],
 
     /**
-     * Example: Blog article
+     * BLOG ARTICLE
      */
     "natural-perfumes-for-men": [
         {

@@ -198,7 +198,11 @@ export default function htmlInclude(): Plugin {
          * Dev server HTML transform
          */
         transformIndexHtml(html, ctx) {
-            return processIncludes(html, ctx.filename || "index.html")
+            const filePath = ctx?.filename
+                ? path.resolve(process.cwd(), ctx.filename)
+                : path.resolve(process.cwd(), "index.html")
+
+            return processIncludes(html, filePath)
         },
 
         /**

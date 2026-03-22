@@ -44,6 +44,12 @@
       ],
       "@schema/*": [
         "scripts/schema/*"
+      ],
+      "@components/*": [
+        "src/app/components/*"
+      ],
+      "@html/*": [
+        "scripts/html/*"
       ]
     }
   }

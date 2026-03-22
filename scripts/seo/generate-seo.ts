@@ -1,14 +1,27 @@
 /**
  * ==========================================================
- * SEO GENERATOR (FINAL • SAFE • DETERMINISTIC)
+ * SEO GENERATOR (FINAL • PRODUCTION • EXTENSIBLE)
  * ==========================================================
  *
- * ✔ Keeps ALL existing functionality
- * ✔ Fixes duplicate includes
- * ✔ Fixes multiline include bugs
- * ✔ Prevents re-injection issues
- * ✔ Maintains sitemap generation
- * ✔ Idempotent (safe to run multiple times)
+ * ✔ Fully automated SEO
+ * ✔ WordPress-level flexibility
+ * ✔ Category-level control (categoryMeta)
+ * ✔ Product inheritance (categorySEO)
+ * ✔ Global templates (seoTemplates)
+ * ✔ Page-level overrides (highest priority)
+ *
+ * PRIORITY ORDER:
+ * ----------------
+ * 1. overrides
+ * 2. categoryMeta
+ * 3. categorySEO (inheritance)
+ * 4. seoTemplates
+ * 5. site defaults
+ *
+ * ✔ Safe to run multiple times (idempotent)
+ * ✔ No duplicate injections
+ * ✔ Clean head management
+ * ✔ Sitemap generation included
  *
  * ==========================================================
  */
@@ -16,7 +29,14 @@
 import fs from "fs"
 import path from "path"
 
-import { site, overrides } from "@seo/seo-config"
+import {
+    site,
+    overrides,
+    seoTemplates,
+    categorySEO,
+    categoryMeta
+} from "@seo/seo-config"
+
 import { getPageInfo } from "@utils/page-utils"
 import type { PageInfo } from "@utils/page-utils"
 
@@ -69,37 +89,120 @@ function cleanTitle(title: string): string {
 }
 
 /**
- * TITLE
+ * ==========================================================
+ * TEMPLATE PARSER
+ * ==========================================================
  */
-function generateTitle(page: PageInfo): string {
-    const override = overrides?.[page.name]
+function parseTemplate(template: string, page: PageInfo) {
+    const name = humanize(page.slug)
 
-    if (override?.title) return override.title
-
-    if (page.type === "page" && page.name === "index") {
-        return `${site.name} | ${site.tagline}`
-    }
-
-    if (page.type === "archive" && page.collection) {
-        return `${humanize(page.collection)} | ${site.name}`
-    }
-
-    return cleanTitle(`${humanize(page.name)} | ${site.name}`)
+    return template
+        .replace("%site%", site.name)
+        .replace("%name%", name)
+        .replace("%name_lower%", name.toLowerCase())
+        .replace("%collection%", humanize(page.collection || ""))
+        .replace("%category%", humanize(page.slug))
+        .replace("%category_lower%", humanize(page.slug).toLowerCase())
 }
 
 /**
- * META
+ * ==========================================================
+ * TITLE GENERATOR
+ * ==========================================================
+ */
+export function generateTitle(page: PageInfo): string {
+
+    const override = overrides?.[page.slug]
+    if (override?.title) return override.title
+
+    // HOME PAGE
+    if (page.type === "page" && page.slug === "index") {
+        return `${site.name} | ${site.tagline}`
+    }
+
+    // CATEGORY META (STRONG CONTROL)
+    const categoryMetaData = categoryMeta[page.slug]
+    if (page.type === "archive" && categoryMetaData?.title) {
+        return categoryMetaData.title
+    }
+
+    const categoryKey = page.collection || ""
+    const categoryData = categorySEO[categoryKey]
+
+    // PRODUCT INHERITANCE
+    if (page.type === "product" && categoryData) {
+        return `${humanize(page.slug)} | ${categoryData.keyword} | ${site.name}`
+    }
+
+    // CATEGORY FALLBACK
+    if (page.type === "archive" && categoryData) {
+        return `${humanize(page.slug)} | ${categoryData.keyword} | ${site.name}`
+    }
+
+    // TEMPLATE FALLBACK
+    const template = seoTemplates[page.type]?.title
+    if (template) {
+        return parseTemplate(template, page)
+    }
+
+    return cleanTitle(`${humanize(page.slug)} | ${site.name}`)
+}
+
+/**
+ * ==========================================================
+ * DESCRIPTION GENERATOR
+ * ==========================================================
+ */
+export function generateDescription(page: PageInfo): string {
+
+    const override = overrides?.[page.slug]
+    if (override?.description) return override.description
+
+    const categoryMetaData = categoryMeta[page.slug]
+    if (page.type === "archive" && categoryMetaData?.description) {
+        return categoryMetaData.description
+    }
+
+    const categoryKey = page.collection || ""
+    const categoryData = categorySEO[categoryKey]
+
+    // PRODUCT INHERITANCE
+    if (page.type === "product" && categoryData) {
+        return `Buy ${humanize(page.slug).toLowerCase()} from our ${categoryData.keyword.toLowerCase()} collection. ${categoryData.modifier}.`
+    }
+
+    // CATEGORY FALLBACK
+    if (page.type === "archive" && categoryData) {
+        return `Explore ${humanize(page.slug).toLowerCase()} under our ${categoryData.keyword.toLowerCase()} range. ${categoryData.modifier}.`
+    }
+
+    const template = seoTemplates[page.type]?.description
+    if (template) {
+        return parseTemplate(template, page)
+    }
+
+    return site.defaultDescription
+}
+
+/**
+ * ==========================================================
+ * META GENERATOR
+ * ==========================================================
  */
 function generateMeta(page: PageInfo): string {
-    const override = overrides?.[page.name] || {}
+
+    const override = overrides?.[page.slug] || {}
 
     const title = generateTitle(page)
+    const description = generateDescription(page)
 
-    const description = override.description || site.defaultDescription
+    const categoryMetaData = categoryMeta[page.slug]
 
     const image = override.image
         ? BASE_URL + override.image
-        : BASE_URL + site.defaultImage
+        : categoryMetaData?.image
+            ? BASE_URL + categoryMetaData.image
+            : BASE_URL + site.defaultImage
 
     const url = BASE_URL + page.urlPath
 
@@ -136,7 +239,7 @@ function cleanSEO(html: string): string {
 }
 
 /**
- * 🔥 CORE FIX — HEAD MANAGER
+ * HEAD MANAGER (UNCHANGED)
  */
 function updateHeadIncludes(html: string, includeTag: string): string {
     return html.replace(
@@ -144,49 +247,20 @@ function updateHeadIncludes(html: string, includeTag: string): string {
         (_, headContent: string) => {
 
             let normalized = headContent
+                .replace(/<include([^>]*)>\s*[\r\n\s]*<\/include>/gi, "<include$1></include>")
+                .replace(/<include([^>]*)>(?!\s*<\/include>)/gi, "<include$1></include>")
 
-                /**
-                 * Fix:
-                 * <include ...>
-                 * </include>
-                 */
-                .replace(
-                    /<include([^>]*)>\s*[\r\n\s]*<\/include>/gi,
-                    "<include$1></include>"
-                )
-
-                /**
-                 * Fix:
-                 * <include ...>  (NO closing tag)
-                 */
-                .replace(
-                    /<include([^>]*)>(?!\s*<\/include>)/gi,
-                    "<include$1></include>"
-                )
-
-            /**
-             * STEP 2: Split into clean lines
-             */
             let lines = normalized
                 .split("\n")
                 .map((line: string) => line.trim())
                 .filter(Boolean)
 
-            /**
-             * STEP 3: Remove old SEO includes
-             */
             lines = lines.filter(
                 (line: string) => !line.includes("/templates/seo/")
             )
 
-            /**
-             * STEP 4: Add new include
-             */
             lines.push(includeTag)
 
-            /**
-             * STEP 5: Deduplicate
-             */
             const seen = new Set<string>()
             const unique = lines.filter((line: string) => {
                 if (seen.has(line)) return false
@@ -194,9 +268,6 @@ function updateHeadIncludes(html: string, includeTag: string): string {
                 return true
             })
 
-            /**
-             * FINAL OUTPUT
-             */
             return `<head>\n${unique.join("\n")}\n</head>`
         }
     )
@@ -218,16 +289,10 @@ files.forEach(file => {
     const filename = `seo-${page.slug}.html`
     const seoPath = path.join(SEO_DIR, filename)
 
-    /**
-     * Write SEO template
-     */
     fs.writeFileSync(seoPath, meta.trim())
 
     activeTemplates.push(filename)
 
-    /**
-     * Read HTML
-     */
     let html = fs.readFileSync(file, "utf-8")
 
     html = cleanSEO(html)
@@ -235,41 +300,26 @@ files.forEach(file => {
     const includeTag =
         `<include src="/templates/seo/${filename}"></include>`
 
-    /**
-     * 🔥 FIXED INJECTION
-     */
     html = updateHeadIncludes(html, includeTag)
 
-    /**
-     * Final cleanup
-     */
     html = html.replace(/\n{3,}/g, "\n\n").trim()
 
     fs.writeFileSync(file, html)
 
     console.log(`✔ SEO processed → ${page.urlPath}`)
 
-    /**
-     * SITEMAP ENTRY
-     */
     sitemapEntries.push(`
   <url>
     <loc>${BASE_URL}${page.urlPath}</loc>
   </url>`)
 })
 
-/**
- * CLEAN OLD SEO FILES
- */
 fs.readdirSync(SEO_DIR).forEach(file => {
     if (!activeTemplates.includes(file)) {
         fs.unlinkSync(path.join(SEO_DIR, file))
     }
 })
 
-/**
- * SITEMAP GENERATION
- */
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -279,4 +329,4 @@ ${sitemapEntries.join("\n")}
 
 fs.writeFileSync(SITEMAP_PATH, sitemap)
 
-console.log("\n✅ SEO system built successfully (clean & stable).\n")
+console.log("\n✅ SEO system built successfully (production-grade).\n")

@@ -1,12 +1,36 @@
 @layer components {
 
-    /* =========================================
-     NAVBAR ROOT
-  ========================================= */
+    /**
+     * =========================================================
+     * NAVBAR SYSTEM (DESKTOP + MOBILE)
+     * =========================================================
+     *
+     * FEATURES
+     * --------
+     * - Fixed top navbar
+     * - Desktop hover dropdown (stable, no hover gap)
+     * - Mobile menu toggle
+     * - Mobile submenu (click-controlled via JS)
+     *
+     * DESIGN GOALS
+     * ------------
+     * - Zero flicker / no layout shift
+     * - No hover break when moving to submenu
+     * - Clean, premium feel
+     * - Strict separation of concerns (CSS = visuals only)
+     *
+     * IMPORTANT
+     * ---------
+     * - No `display: none` toggling for desktop dropdown
+     *   → prevents flicker
+     * - Uses visibility + opacity for smooth transitions
+     * =========================================================
+     */
 
-    .navbar {
-        width: 100%;
-    }
+
+    /* =========================================
+       ROOT
+    ========================================= */
 
     .navbar-wrapper {
         position: fixed;
@@ -22,8 +46,8 @@
 
 
     /* =========================================
-     INNER LAYOUT
-  ========================================= */
+       INNER LAYOUT
+    ========================================= */
 
     .navbar-inner {
         display: flex;
@@ -32,13 +56,15 @@
     }
 
     .navbar-logo {
+        height: 48px;
+        width: auto;
         display: block;
     }
 
 
     /* =========================================
-     DESKTOP MENU
-  ========================================= */
+       DESKTOP NAVIGATION
+    ========================================= */
 
     .navbar-menu {
         display: flex;
@@ -51,6 +77,7 @@
         gap: 1.5rem;
 
         list-style: none;
+        /* removes bullets */
         margin: 0;
         padding: 0;
     }
@@ -67,9 +94,7 @@
         padding: 0.4rem 0.6rem;
         border-radius: var(--radius-sm);
 
-        transition:
-            background-color 150ms ease,
-            color 150ms ease;
+        transition: background 150ms ease, color 150ms ease;
     }
 
     @media (hover: hover) {
@@ -83,38 +108,51 @@
     .navbar-link[aria-current="page"] {
         color: var(--color-text-inverse);
         background: var(--color-accent);
-
         font-weight: 600;
     }
 
 
     /* =========================================
-     DROPDOWN
-  ========================================= */
+       DROPDOWN (DESKTOP)
+    ========================================= */
 
     .dropdown {
         position: relative;
+        /* IMPORTANT: No padding/margin here → avoids hover gap */
     }
 
     .submenu {
         position: absolute;
         top: 100%;
+        /* critical → no gap */
         left: 0;
 
-        display: none;
+        display: flex;
         flex-direction: column;
 
-        min-width: 180px;
+        min-width: 200px;
 
         background: var(--color-bg-alt);
-        border-top: 1px solid var(--color-border-default);
+        border: 1px solid var(--color-border-default);
         border-bottom: 2px solid var(--color-border-accent);
-        border-radius: var(--radius-sm);
+        border-radius: 6px;
 
         padding: 0.25rem 0;
-        margin-top: 0px;
 
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+        list-style: none;
+        /* FIX: removes bullets */
+        margin: 0;
+        padding-left: 0;
+
+        /* VISIBILITY CONTROL (NO FLICKER) */
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+
+        transform: translateY(4px);
+        transition: all 150ms ease;
     }
 
     .submenu li {
@@ -127,31 +165,29 @@
 
         color: var(--color-text-primary);
         text-decoration: none;
-
         font-size: 0.9rem;
     }
 
     @media (hover: hover) {
+
         .submenu a:hover {
-            color: var(--color-text-inverse);
-            background: var(--color-surface-primary-hover);
+            background: rgba(0, 0, 0, 0.04);
         }
 
         .dropdown:hover .submenu {
-            display: flex;
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
         }
     }
 
 
     /* =========================================
-     MOBILE
-  ========================================= */
+       MOBILE NAVIGATION
+    ========================================= */
 
     .navbar-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
         width: 40px;
         height: 40px;
 
@@ -169,43 +205,48 @@
 
     .navbar-mobile-list {
         list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
     }
 
     .navbar-mobile-list li {
         border-bottom: 1px solid var(--color-border-default);
     }
 
-    .navbar-mobile-list a {
+    .navbar-mobile-list a,
+    .mobile-dropdown-toggle {
         display: block;
+        width: 100%;
+
         padding: 0.75rem 0.5rem;
+
+        background: none;
+        border: none;
+        text-align: left;
 
         color: var(--color-text-primary);
         text-decoration: none;
+        font-size: 0.95rem;
     }
 
-    @media (hover: hover) {
-        .navbar-mobile-list a:hover {
-            color: var(--color-text-inverse);
-            background: var(--color-surface-primary-hover);
-        }
-    }
-
-    .navbar-mobile .submenu {
-        position: static;
-        display: block;
-
-        border: none;
-        box-shadow: none;
-        margin: 0;
+    /**
+     * MOBILE SUBMENU
+     * - Hidden by default
+     * - Opened via JS (.open class)
+     */
+    .mobile-submenu {
+        display: none;
         padding-left: 1rem;
+    }
+
+    .mobile-submenu.open {
+        display: block;
     }
 
 
     /* =========================================
-     RESPONSIVE
-  ========================================= */
+       RESPONSIVE
+    ========================================= */
 
     @media (min-width: 768px) {
 
@@ -216,7 +257,6 @@
         .navbar-toggle {
             display: none;
         }
-
     }
 
 }

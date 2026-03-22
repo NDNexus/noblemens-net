@@ -1,0 +1,21 @@
+# Here are the files and directories to ignore when building the project. I can add comments here to explain why certain files are ignored, and I can also use this file to exclude any files that are not meant to be published or deployed. This is similar to a .gitignore file, but it's specifically for the build process.
+# Each line in this file specifies a pattern for files or directories to ignore. For example, I can ignore the node_modules directory, which contains all the dependencies and is not needed in the build output. I can also ignore the dist directory, which is where the build output goes, to prevent any accidental inclusion of build artifacts in the source code repository. Additionally, I can ignore any local configuration files or logs that are not meant to be shared or published.
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Git
+.git
+
+# Dev notes folder (contains notes and drafts that are not meant to be published)
+Dev Notes
+
+# Scripts
+scripts
+
+# Experimental pages (Just for example. Multiline comments are not supported in .gitignore files, but I can use this format to explain why certain files are ignored.)
+# drafts
+# experiments

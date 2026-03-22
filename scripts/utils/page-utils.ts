@@ -1,15 +1,14 @@
 import path from "path"
 
 /**
- * ==========================================================
  * PAGE TYPES
  * ==========================================================
  *
- * page      → standalone pages (/, /about)
- * archive   → collection root (/products, /blog)
+ * page      → standalone pages (/, /about-us)
+ * archive   → collection or category (/products, /products/vinegars)
  * product   → product detail page
  * post      → blog article
- * landing   → marketing / landing pages
+ * landing   → marketing pages
  */
 export type PageType =
   | "page"
@@ -19,28 +18,30 @@ export type PageType =
   | "landing"
 
 /**
- * ==========================================================
+ * 
  * PAGE INFO STRUCTURE
  * ==========================================================
  *
- * Standardized metadata used across:
- * - SEO generator
- * - Schema generator
- * - Sitemap generation
+ * This is the SINGLE SOURCE OF TRUTH for:
+ * - SEO
+ * - Schema
+ * - Sitemap
+ * - Breadcrumbs
  */
 export interface PageInfo {
   filePath: string
   name: string
-  slug: string            
+  slug: string
   urlPath: string
   type: PageType
   collection?: string
 }
 
 /**
- * ==========================================================
  * COLLECTION → TYPE MAP
  * ==========================================================
+ *
+ * Defines what type of "item" a collection produces
  */
 const COLLECTION_TYPE_MAP: Record<string, PageType> = {
   blog: "post",
@@ -49,25 +50,15 @@ const COLLECTION_TYPE_MAP: Record<string, PageType> = {
 }
 
 /**
+ * GET PAGE INFO (FINAL • DEPTH-AGNOSTIC • SCALABLE)
  * ==========================================================
- * GET PAGE INFO
- * ==========================================================
  *
- * FIX ADDED:
- * ----------
- * slug ensures correct identity for pages
+ * KEY DESIGN PRINCIPLES:
  *
- * Example:
- * /index.html               → slug: "index"
- * /products/index.html      → slug: "products"
- * /products/apple.html      → slug: "apple"
- *
- * WHY THIS MATTERS:
- * -----------------
- * Prevents:
- * - SEO file overwrites
- * - Schema mismatches
- * - Broken includes
+ * 1. NO depth assumptions
+ * 2. Works with infinite nesting
+ * 3. Structure-driven (folder-based)
+ * 4. Stable for long-term scaling
  *
  * ==========================================================
  */
@@ -76,25 +67,27 @@ export function getPageInfo(filePath: string): PageInfo {
   const PROJECT_ROOT = "./"
 
   /**
-   * Normalize file path
+   * Normalize path
    */
-  const relative = path.relative(PROJECT_ROOT, filePath)
+  const relative = path.relative(PROJECT_ROOT, filePath).replace(/\\/g, "/")
 
   /**
-   * Extract file name
+   * Split path into parts
+   * Example:
+   * products/vinegars/apple/index.html
+   */
+  const parts = relative.split("/")
+
+  /**
+   * File name without extension
    */
   const name = path.basename(filePath, ".html")
-
-  /**
-   * Split path
-   */
-  const parts = relative.split(path.sep)
 
   let type: PageType = "page"
   let collection: string | undefined
 
   /**
-   * Detect collection
+   * Detect collection (top-level folder)
    */
   const folder = parts[0]?.toLowerCase()
 
@@ -102,7 +95,15 @@ export function getPageInfo(filePath: string): PageInfo {
 
     collection = folder
 
-    if (name === "index") {
+    const isIndex = name === "index"
+
+    /**
+     * RULE:
+     * -----
+     * index.html → archive (collection or category)
+     * anything else → item (product/post)
+     */
+    if (isIndex) {
       type = "archive"
     } else {
       type = COLLECTION_TYPE_MAP[folder]
@@ -110,42 +111,49 @@ export function getPageInfo(filePath: string): PageInfo {
   }
 
   /**
-   * ----------------------------------------------------------
-   * 🔥 SLUG (CRITICAL FIX)
-   * ----------------------------------------------------------
+   * ==========================================================
+   * SLUG (CRITICAL)
+   * ==========================================================
    *
-   * Fix for nested index pages:
-   *
-   * /products/index.html → slug = "products"
-   * /index.html          → slug = "index"
+   * Ensures unique identity for pages
    */
 
   let slug = name
 
   if (name === "index" && collection) {
-    slug = collection
+    // Use parent folder as slug
+    slug = parts[parts.length - 2] || collection
   }
 
   /**
+   * ==========================================================
    * URL PATH
+   * ==========================================================
+   *
+   * Converts file path → clean URL
    */
+
   const urlPath =
     name === "index"
-      ? collection
-        ? `/${collection}`
-        : "/"
-      : "/" + relative
-        .replace(".html", "")
-        .replace(/\\/g, "/")
+      ? "/" + parts.slice(0, -1).join("/")
+      : "/" + relative.replace(".html", "")
 
   /**
-   * RETURN
+   * Normalize slashes
+   */
+  const cleanUrl =
+    urlPath === "/"
+      ? "/"
+      : urlPath.replace(/\/+/g, "/")
+
+  /**
+   * RETURN FINAL OBJECT
    */
   return {
     filePath,
     name,
-    slug, 
-    urlPath,
+    slug,
+    urlPath: cleanUrl,
     type,
     ...(collection ? { collection } : {})
   }

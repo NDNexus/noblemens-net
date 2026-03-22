@@ -1,34 +1,24 @@
 /**
  * ==========================================================
- * SCHEMA GENERATOR (FULL SYSTEM • DETERMINISTIC • STABLE)
+ * SCHEMA GENERATOR (PRODUCTION • SEO-SYNCED • STABLE)
  * ==========================================================
  *
- * PURPOSE
- * -------
- * Generates structured data (JSON-LD) and injects schema includes
- * into <head> WITHOUT duplication or formatting issues.
- *
- * FEATURES
+ * PURPOSE:
  * --------
- * ✔ Supports multiple schema types:
- *    - WebPage
- *    - Product
- *    - FAQPage
- *    - CollectionPage
- *    - Article
- * ✔ Supports schemaOverrides (per page)
- * ✔ Always generates Breadcrumb schema
- * ✔ Removes old schema scripts + includes
- * ✔ Injects schema include deterministically
- * ✔ Fixes multiline include tag issues
- * ✔ Prevents duplicate includes
- * ✔ Safe across repeated runs (idempotent)
+ * Generates structured data (JSON-LD) and injects schema includes
+ * into HTML <head> in a deterministic, idempotent way.
  *
- * RESULT
- * ------
- * <head>
- *   <include src="/templates/schema/schema-page.html"></include>
- * </head>
+ * ARCHITECTURE:
+ * -------------
+ * 1. schemaOverrides  → page-level control (multi-schema)
+ * 2. categorySchema   → inheritance (brand, category)
+ * 3. schemaTemplates  → default schema by page type
+ * 4. fallback         → safe WebPage schema
+ *
+ * IMPORTANT:
+ * ----------
+ * SEO system is the SOURCE OF TRUTH
+ * → schema uses SEO title & description
  *
  * ==========================================================
  */
@@ -38,14 +28,21 @@ import path from "path"
 
 import { getPageInfo } from "@utils/page-utils"
 import type { PageInfo } from "@utils/page-utils"
-import { schemaOverrides } from "@schema/schema-config"
+
+import {
+    schemaOverrides,
+    categorySchema,
+    schemaTemplates
+} from "@schema/schema-config"
+
+import {
+    generateTitle,
+    generateDescription
+} from "@seo/generate-seo"
 
 /**
- * ----------------------------------------------------------
  * CONFIG
- * ----------------------------------------------------------
  */
-
 const ROOT = "./"
 const OUTPUT_DIR = "./templates/schema"
 const BASE_URL = "https://noblemens.net"
@@ -57,11 +54,8 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 /**
- * ----------------------------------------------------------
  * FILE DISCOVERY
- * ----------------------------------------------------------
  */
-
 function getHTMLFiles(dir: string): string[] {
     let results: string[] = []
 
@@ -84,21 +78,42 @@ function getHTMLFiles(dir: string): string[] {
 
 /**
  * ----------------------------------------------------------
- * SCHEMA BUILDERS
+ * SCHEMA BUILDERS (SEO-SYNCED)
  * ----------------------------------------------------------
  */
 
-function buildProduct(data: any) {
+function buildProduct(data: any, page: PageInfo) {
+
+    const categoryData = categorySchema?.[page.collection || ""]
+
+    const title = generateTitle(page)
+    const description = generateDescription(page)
+
     return {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: data.name,
-        description: data.description,
+
+        name: title,
+        description: description,
         image: data.image,
+
         brand: {
             "@type": "Brand",
-            name: "Noblemens"
-        }
+            name: categoryData?.brand || data.brand || "Noblemens"
+        },
+
+        ...(categoryData?.category && {
+            category: categoryData.category
+        }),
+
+        ...(data.offers && {
+            offers: {
+                "@type": "Offer",
+                price: data.offers.price,
+                priceCurrency: data.offers.priceCurrency,
+                availability: data.offers.availability
+            }
+        })
     }
 }
 
@@ -117,34 +132,38 @@ function buildFAQ(data: any) {
     }
 }
 
-function buildCollection(data: any) {
+function buildCollection(page: PageInfo) {
+
     return {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: data.name,
-        description: data.description
+        name: generateTitle(page),
+        description: generateDescription(page)
     }
 }
 
-function buildArticle(data: any) {
+function buildArticle(page: PageInfo) {
+
     return {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: data.title || data.name,
-        description: data.description || ""
+        headline: generateTitle(page),
+        description: generateDescription(page)
     }
 }
 
 function buildWebPage(page: PageInfo) {
+
     return {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: page.name,
+        name: generateTitle(page),
         url: BASE_URL + page.urlPath
     }
 }
 
 function buildBreadcrumb(page: PageInfo) {
+
     const parts = page.urlPath.split("/").filter(Boolean)
 
     const items = [
@@ -159,6 +178,7 @@ function buildBreadcrumb(page: PageInfo) {
     let current = ""
 
     parts.forEach((part, i) => {
+
         current += `/${part}`
 
         const name = part
@@ -181,56 +201,72 @@ function buildBreadcrumb(page: PageInfo) {
 }
 
 /**
- * ----------------------------------------------------------
  * GENERATE SCHEMAS
- * ----------------------------------------------------------
  */
-
 function generateSchemas(page: PageInfo): any[] {
 
     const schemas: any[] = []
 
     /**
-     * AUTO BASE SCHEMA
+     * BASE SCHEMA (TEMPLATE)
      */
-    switch (page.type) {
+    const type = schemaTemplates?.[page.type] || "WebPage"
 
-        case "page":
+    switch (type) {
+
+        case "WebPage":
             schemas.push(buildWebPage(page))
             break
 
-        case "archive":
-            schemas.push(buildCollection({
-                name: page.collection || "Collection",
-                description: `${page.collection} collection`
-            }))
+        case "CollectionPage":
+            schemas.push(buildCollection(page))
             break
 
-        case "product":
+        case "Product":
             schemas.push(buildProduct({
-                name: page.name,
-                description: "Premium product by Noblemens",
                 image: "/images/og-default.jpg"
-            }))
+            }, page))
             break
 
-        case "post":
+        case "Article":
             schemas.push(buildArticle(page))
             break
     }
 
+
     /**
-     * OVERRIDES
-     */
-    const overrides = schemaOverrides?.[page.name]
+      * OVERRIDES (ADDITIVE • STRUCTURE ONLY)
+      */
+    const overrides = schemaOverrides?.[page.slug]
 
     if (Array.isArray(overrides)) {
         overrides.forEach((o: any) => {
+
             switch (o.type) {
-                case "Product": schemas.push(buildProduct(o)); break
-                case "FAQPage": schemas.push(buildFAQ(o)); break
-                case "CollectionPage": schemas.push(buildCollection(o)); break
-                case "Article": schemas.push(buildArticle(o)); break
+
+                case "Product":
+                    // Product can still use override data (image, offers)
+                    schemas.push(buildProduct(o, page))
+                    break
+
+                case "FAQPage":
+                    // Fully driven by override
+                    schemas.push(buildFAQ(o))
+                    break
+
+                case "CollectionPage":
+                    // Identity comes from SEO → ignore override data
+                    schemas.push(buildCollection(page))
+                    break
+
+                case "Article":
+                    // Identity comes from SEO → ignore override data
+                    schemas.push(buildArticle(page))
+                    break
+
+                case "WebPage":
+                    schemas.push(buildWebPage(page))
+                    break
             }
         })
     }
@@ -244,11 +280,8 @@ function generateSchemas(page: PageInfo): any[] {
 }
 
 /**
- * ----------------------------------------------------------
- * CLEAN OLD SCHEMA
- * ----------------------------------------------------------
+ * CLEAN EXISTING SCHEMA
  */
-
 function cleanSchema(html: string): string {
     return html
         .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/gi, "")
@@ -256,11 +289,8 @@ function cleanSchema(html: string): string {
 }
 
 /**
- * ----------------------------------------------------------
- * HEAD MANAGER (CRITICAL FIX)
- * ----------------------------------------------------------
+ * HEAD MANAGER
  */
-
 function updateHeadIncludes(html: string, includeTag: string): string {
     return html.replace(
         /<head[^>]*>([\s\S]*?)<\/head>/i,
@@ -272,13 +302,10 @@ function updateHeadIncludes(html: string, includeTag: string): string {
                 .map((line: string) => line.trim())
                 .filter(Boolean)
 
-            // Remove old schema includes
             lines = lines.filter(line => !line.includes("/templates/schema/"))
 
-            // Add new one
             lines.push(includeTag)
 
-            // Deduplicate
             const seen = new Set<string>()
             const unique = lines.filter(line => {
                 if (seen.has(line)) return false
@@ -292,11 +319,8 @@ function updateHeadIncludes(html: string, includeTag: string): string {
 }
 
 /**
- * ==========================================================
  * MAIN
- * ==========================================================
  */
-
 const files = getHTMLFiles(ROOT)
 const activeTemplates: string[] = []
 
@@ -331,7 +355,7 @@ files.forEach(file => {
 })
 
 /**
- * CLEAN OLD FILES
+ * CLEAN UNUSED FILES
  */
 fs.readdirSync(OUTPUT_DIR).forEach(file => {
     if (!activeTemplates.includes(file)) {
@@ -339,4 +363,4 @@ fs.readdirSync(OUTPUT_DIR).forEach(file => {
     }
 })
 
-console.log("\n✅ Schema system built successfully (FULL MODE).\n")
+console.log("\n✅ Schema system built successfully (PRODUCTION MODE).\n")

@@ -1,187 +1,75 @@
 /**
  * ==========================================================
- * SEO CONFIGURATION (MASTER CONTROL)
+ * SEO CONFIGURATION (MASTER CONTROL • PRODUCTION SYSTEM)
  * ==========================================================
  *
- * This file controls ALL SEO behavior of your website.
+ * This file is your complete SEO control system.
  *
- * Think of it as:
- * → "SEO CMS without a CMS"
+ * ARCHITECTURE (PRIORITY ORDER):
+ * --------------------------------
+ * 1. overrides      → page-level manual control (highest priority)
+ * 2. categoryMeta   → category-level SEO (titles, descriptions, images)
+ * 3. categorySEO    → keyword + positioning (used for inheritance)
+ * 4. seoTemplates   → automatic fallback system
+ * 5. site           → global defaults
  *
- * WHAT YOU CAN CONTROL HERE:
- * -------------------------
- * ✔ Page titles
- * ✔ Descriptions
- * ✔ Open Graph (WhatsApp, Facebook, LinkedIn)
- * ✔ Twitter cards
- * ✔ Canonical URLs
- * ✔ Indexing behavior (noindex)
- * ✔ Keywords (optional)
- *
- * STRUCTURE:
- * ----------
- * 1. site       → global defaults (used everywhere)
- * 2. overrides  → per-page customization (optional)
+ * GOAL:
+ * -----
+ * ✔ Fully automated SEO
+ * ✔ Full flexibility when needed
+ * ✔ Clean separation of concerns
+ * ✔ Infinite scalability
  *
  * ==========================================================
  */
+
 
 
 /**
  * ==========================================================
  * SITE CONFIG TYPE
  * ==========================================================
- *
- * Defines global SEO defaults.
- *
- * These are used when a page does NOT have overrides.
  */
 export interface SiteConfig {
-
-  /**
-   * Brand name (used in titles)
-   */
   name: string
-
-  /**
-   * Tagline (used for homepage)
-   */
   tagline: string
-
-  /**
-   * Base URL (NO trailing slash)
-   * Example: https://noblemens.net
-   */
   url: string
-
-  /**
-   * Default title (fallback)
-   */
   defaultTitle: string
-
-  /**
-   * Default description (fallback)
-   */
   defaultDescription: string
-
-  /**
-   * Default OG image (must exist in /public)
-   */
   defaultImage: string
-
-  /**
-   * Twitter handle (optional)
-   */
   twitterHandle?: string
-
-  /**
-   * Optional global keywords
-   */
   keywords?: string[]
 }
 
 
 /**
  * ==========================================================
- * PAGE OVERRIDE TYPE
+ * PAGE OVERRIDE TYPE (HIGHEST PRIORITY)
  * ==========================================================
  *
- * You can override ANY of these per page.
- *
- * IMPORTANT:
- * ----------
- * Only override what you NEED.
- * Everything else falls back automatically.
+ * Use ONLY when needed.
+ * Avoid overuse — let system handle most pages.
  */
 export interface PageOverride {
-
-  /**
-   * ----------------------------------------------------------
-   * CORE SEO (MOST IMPORTANT)
-   * ----------------------------------------------------------
-   */
-
-  /**
-   * Page title (shown in Google + browser tab)
-   */
   title?: string
-
-  /**
-   * Meta description (shown in search results)
-   */
   description?: string
-
-  /**
-   * Main image for SEO + sharing
-   */
   image?: string
-
-  /**
-   * Canonical URL (avoid duplicate content issues)
-   * Example:
-   * https://noblemens.net/vinegars
-   */
   canonical?: string
-
-
-  /**
-   * ----------------------------------------------------------
-   * OPEN GRAPH (SOCIAL SHARING)
-   * ----------------------------------------------------------
-   *
-   * Used by:
-   * WhatsApp, Facebook, LinkedIn, Telegram
-   */
 
   ogTitle?: string
   ogDescription?: string
   ogImage?: string
-
-  /**
-   * Type of content
-   */
   ogType?: "website" | "article" | "product"
-
-
-  /**
-   * ----------------------------------------------------------
-   * TWITTER CARDS
-   * ----------------------------------------------------------
-   */
 
   twitterTitle?: string
   twitterDescription?: string
   twitterImage?: string
 
-
-  /**
-   * ----------------------------------------------------------
-   * SEO CONTROL
-   * ----------------------------------------------------------
-   */
-
-  /**
-   * Prevent indexing (for private pages)
-   */
   noIndex?: boolean
-
-  /**
-   * Page-specific keywords (optional, low priority in modern SEO)
-   */
   keywords?: string[]
 }
 
-
-/**
- * Dictionary of overrides
- *
- * KEY = filename (without .html)
- *
- * Example:
- * /attars.html → "attars"
- */
 export type Overrides = Record<string, PageOverride>
-
 
 
 /**
@@ -189,41 +77,20 @@ export type Overrides = Record<string, PageOverride>
  * GLOBAL SITE SETTINGS
  * ==========================================================
  */
-
 export const site: SiteConfig = {
-
-  /**
-   * Brand Identity
-   */
   name: "Noblemens",
   tagline: "Pure Natural Products",
-
-  /**
-   * Base URL
-   */
   url: "https://noblemens.net",
 
-  /**
-   * Default SEO
-   */
   defaultTitle: "Noblemens | Pure Natural Products",
 
   defaultDescription:
     "Pure natural products. Noblemens stands for honesty, quality, and trust.",
 
-  /**
-   * Default Open Graph Image
-   */
   defaultImage: "/images/og-default.jpg",
 
-  /**
-   * Social
-   */
   twitterHandle: "@noblemens",
 
-  /**
-   * Keywords (optional)
-   */
   keywords: [
     "natural vinegar",
     "apple cider vinegar",
@@ -233,84 +100,219 @@ export const site: SiteConfig = {
 }
 
 
+/**
+ * ==========================================================
+ * GLOBAL SEO TEMPLATES (AUTOMATION LAYER)
+ * ==========================================================
+ *
+ * Used when no categoryMeta or override exists.
+ *
+ * VARIABLES:
+ * ----------
+ * %site%
+ * %name%
+ * %name_lower%
+ * %collection%
+ * %category%
+ * %category_lower%
+ */
+
+import type { PageType } from "@utils/page-utils"
+
+type SEOTemplate = {
+  title?: string
+  description?: string
+}
+
+export const seoTemplates: Partial<Record<PageType, SEOTemplate>> = {
+  archive: {
+    title: "%category% | %collection% | %site%",
+    description:
+      "Explore %category_lower% made using traditional methods..."
+  },
+  product: {
+    title: "%name% | Buy %name% | %site%",
+    description:
+      "Buy %name_lower% made using traditional methods..."
+  },
+  post: {
+    title: "%name% | Guide & Benefits | %site%",
+    description:
+      "Learn about %name_lower%..."
+  },
+  page: {
+    title: "%name% | %site%",
+    description:
+      "%site% offers high-quality natural products."
+  },
+  landing: {
+    title: "%name% | Premium Natural Products | %site%",
+    description:
+      "Discover %name_lower% from Noblemens. Crafted with purity, tradition, and uncompromising quality."
+  }
+}
 
 /**
  * ==========================================================
- * PAGE-SPECIFIC OVERRIDES (EXAMPLES)
+ * CATEGORY META (🔥 CATEGORY-LEVEL SEO CONTROL)
  * ==========================================================
  *
- * USE THIS WHEN:
- * --------------
- * ✔ You want better SEO control
- * ✔ You want custom social previews
- * ✔ You want product-specific metadata
+ * This defines:
+ * ✔ category titles
+ * ✔ descriptions
+ * ✔ OG images
  *
- * DO NOT OVERUSE.
- * Most pages should rely on defaults.
+ * Keeps overrides clean.
  */
+export const categoryMeta: Record<string, {
+  title?: string
+  description?: string
+  image?: string
+}> = {
 
-export const overrides: Overrides = {
-
-  /**
-   * ----------------------------------------------------------
-   * CATEGORY PAGE EXAMPLE
-   * ----------------------------------------------------------
-   */
   vinegars: {
-
-    title: "Pure Natural Vinegars | Noblemens",
-
+    title: "Natural Vinegars | Pure & Unfiltered | Noblemens",
     description:
-      "Explore our range of natural vinegars including apple cider, jamun, and dates vinegar.",
-
-    ogImage: "/images/og-vinegars.jpg"
+      "Explore our range of natural vinegars including apple cider, jamun, and dates vinegar. Traditionally fermented with the mother intact.",
+    image: "/images/og-vinegars.jpg"
   },
 
-
-  /**
-   * ----------------------------------------------------------
-   * PRODUCT PAGE EXAMPLE
-   * ----------------------------------------------------------
-   */
-  "black-jamun-vinegar": {
-
-    title: "Black Jamun Vinegar | Noblemens",
-
+  perfumes: {
+    title: "Attar Perfumes | Alcohol-Free Natural Fragrance | Noblemens",
     description:
-      "Natural black jamun vinegar with mother. Traditionally crafted for purity and health.",
-
-    image: "/images/products/jamun.jpg",
-
-    ogType: "product"
-  },
-
-
-  /**
-   * ----------------------------------------------------------
-   * BLOG ARTICLE EXAMPLE
-   * ----------------------------------------------------------
-   */
-  "natural-perfumes-for-men": {
-
-    title: "Natural Perfumes for Men | Noblemens",
-
-    description:
-      "Discover why natural attars are the best alternative to synthetic perfumes.",
-
-    ogType: "article"
-  },
-
-
-  /**
-   * ----------------------------------------------------------
-   * PRIVATE PAGE EXAMPLE
-   * ----------------------------------------------------------
-   */
-  admin: {
-
-    title: "Admin Panel",
-
-    noIndex: true
+      "Discover premium attar perfumes crafted using traditional methods. Long-lasting, alcohol-free, and naturally derived.",
+    image: "/images/og-perfumes.jpg"
   }
+
+}
+
+
+/**
+ * ==========================================================
+ * CATEGORY SEO (🔥 INHERITANCE LAYER)
+ * ==========================================================
+ *
+ * Used for:
+ * ✔ product-level SEO inheritance
+ * ✔ keyword consistency
+ */
+export const categorySEO: Record<string, {
+  keyword: string
+  modifier: string
+}> = {
+
+  vinegars: {
+    keyword: "Natural Vinegar",
+    modifier: "Pure & Unfiltered"
+  },
+
+  perfumes: {
+    keyword: "Attar Perfumes",
+    modifier: "Alcohol-Free Natural Fragrance"
+  }
+}
+
+
+/**
+ * ==========================================================
+ * PAGE-SPECIFIC OVERRIDES (HIGHEST PRIORITY CONTROL)
+ * ==========================================================
+ *
+ * PURPOSE:
+ * --------
+ * This object allows FULL manual control over SEO for any page.
+ *
+ * It OVERRIDES everything else:
+ * → categoryMeta
+ * → categorySEO
+ * → seoTemplates
+ * → site defaults
+ *
+ * Use this ONLY when necessary.
+ *
+ * ==========================================================
+ * WHEN TO USE OVERRIDES
+ * ==========================================================
+ *
+ * ✔ High-conversion pages (important products)
+ * ✔ SEO-targeted landing pages
+ * ✔ Pages with specific keyword targeting
+ * ✔ Pages needing custom social previews
+ * ✔ Pages requiring noindex / special control
+ *
+ * ❌ DO NOT use for:
+ * - normal pages
+ * - categories (use categoryMeta instead)
+ * - bulk content (use templates)
+ *
+ * ==========================================================
+ * KEY STRUCTURE
+ * ==========================================================
+ *
+ * Key = page.slug
+ *
+ * Examples:
+ *
+ * "apple-cider-vinegar"  → /products/.../apple-cider-vinegar
+ * "vinegars"             → /products/vinegars
+ * "about-us"             → /about-us
+ *
+ * ==========================================================
+ * AVAILABLE FIELDS
+ * ==========================================================
+ *
+ * CORE SEO:
+ * ----------
+ * title        → <title>
+ * description  → meta description
+ * canonical    → override canonical URL
+ *
+ * IMAGES:
+ * ----------
+ * image        → fallback image (used for OG + Twitter)
+ *
+ * OPEN GRAPH (Facebook, WhatsApp, LinkedIn):
+ * ----------
+ * ogTitle
+ * ogDescription
+ * ogImage
+ * ogType       → "website" | "article" | "product"
+ *
+ * TWITTER:
+ * ----------
+ * twitterTitle
+ * twitterDescription
+ * twitterImage
+ *
+ * ADVANCED:
+ * ----------
+ * noIndex      → true = adds noindex meta tag
+ * keywords     → custom keyword list
+ *
+ * ==========================================================
+ * PRIORITY BEHAVIOR
+ * ==========================================================
+ *
+ * Example:
+ *
+ * overrides["apple-cider-vinegar"] = {
+ *   title: "Best Apple Cider Vinegar in India | Noblemens"
+ * }
+ *
+ * Result:
+ * → This title COMPLETELY overrides template + category logic
+ *
+ * ==========================================================
+ * BEST PRACTICES
+ * ==========================================================
+ *
+ * ✔ Keep overrides minimal (5–10 important pages)
+ * ✔ Let templates handle most pages
+ * ✔ Use categoryMeta for categories
+ * ✔ Use overrides for business-critical pages only
+ *
+ * ==========================================================
+ */
+export const overrides: Overrides = {
 
 }
