@@ -19,7 +19,7 @@
 export function initNavbar(): void {
     setActiveLink()
     setupMobileMenu()
-    setupDropdowns()
+    setupMobileDropdowns()
 }
 
 /**
@@ -71,22 +71,32 @@ function setupMobileMenu(): void {
 
 /**
  * ----------------------------------------------------------
- * Dropdown Handling (Mobile Only)
+ * Mobile Dropdown Toggle (Products submenu)
  * ----------------------------------------------------------
  */
-function setupDropdowns(): void {
-    const dropdowns = document.querySelectorAll<HTMLElement>(".dropdown")
+function setupMobileDropdowns(): void {
+    const toggles = document.querySelectorAll<HTMLButtonElement>(".mobile-dropdown-toggle")
 
-    dropdowns.forEach(dropdown => {
-        const trigger = dropdown.querySelector<HTMLAnchorElement>("a")
-        const submenu = dropdown.querySelector<HTMLElement>(".submenu")
+    toggles.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const submenu = toggle.nextElementSibling as HTMLElement | null
+            if (!submenu) return
 
-        if (!trigger || !submenu) return
+            const isOpen = submenu.classList.contains("open")
 
-        trigger.addEventListener("click", (e) => {
-            if (window.innerWidth < 768) {
-                e.preventDefault()
-                submenu.classList.toggle("hidden")
+            // Close all (optional - accordion behavior)
+            document.querySelectorAll(".mobile-submenu").forEach(el => {
+                el.classList.remove("open")
+            })
+
+            document.querySelectorAll(".mobile-dropdown-toggle").forEach(el => {
+                el.classList.remove("open")
+            })
+
+            // Toggle current
+            if (!isOpen) {
+                submenu.classList.add("open")
+                toggle.classList.add("open")
             }
         })
     })
