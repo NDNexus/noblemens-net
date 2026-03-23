@@ -66,6 +66,7 @@ function setupMobileMenu(): void {
 
     toggle.addEventListener("click", () => {
         mobileMenu.classList.toggle("hidden")
+        toggle.classList.toggle("open") // Optional: animate toggle button
     })
 }
 

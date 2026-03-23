@@ -299,4 +299,23 @@
         }
     }
 
+    /* =========================================
+   MOBILE TOGGLE ICON SWITCH
+========================================= */
+
+    .icon-close {
+        display: none;
+    }
+
+    .navbar-toggle.open .icon-menu {
+        display: none;
+    }
+
+    .navbar-toggle.open .icon-close {
+        display: inline;
+    }
+
+    .navbar-toggle i {
+        transition: transform 200ms ease, opacity 200ms ease;
+    }
 }
