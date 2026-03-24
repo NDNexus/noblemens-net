@@ -34,13 +34,7 @@
     ========================================= */
 
     .navbar-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        z-index: 999;
-
+        
         background: var(--color-bg-alt);
         border-bottom: 3px solid var(--color-border-accent);
     }
@@ -154,6 +148,7 @@
 
     .submenu li {
         width: 100%;
+        border-bottom: 1px solid var(--color-border-default);
     }
 
     .submenu a {

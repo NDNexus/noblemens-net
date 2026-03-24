@@ -1,0 +1,37 @@
+/**
+ * =========================================================
+ * CTA COMPONENT
+ * =========================================================
+ */
+
+.cta {
+    padding: var(--space-lg);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-default);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+}
+
+.cta-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.cta-text {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.cta-actions {
+    margin-top: var(--space-sm);
+}
+
+.cta-product {
+    background: linear-gradient(135deg, rgba(194, 165, 95, 0.08), rgba(31, 29, 93, 0.06));
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}

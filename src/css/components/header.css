@@ -1,0 +1,26 @@
+@layer components {
+
+    /**
+     * =========================================================
+     * SITE HEADER
+     * =========================================================
+     *
+     **/
+
+    .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        z-index: 999;
+
+    }
+
+    .announcement-bar {
+        background: var(--color-accent);
+        text-align: center;
+        font-size: var(--text-sm);
+        color: var(--color-text-primary);
+    }
+}

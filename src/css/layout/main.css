@@ -1,0 +1,63 @@
+/**
+ * =========================================================
+ * SITE MAIN OFFSET — FIXED HEADER COMPENSATION
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Ensures all page content starts BELOW the fixed/sticky header.
+ *
+ * Since the header is removed from normal document flow
+ * (position: fixed / sticky), it would otherwise overlap
+ * the top of the page content.
+ *
+ *
+ * HOW IT WORKS
+ * ---------------------------------------------------------
+ * Applies a top margin equal to the dynamic header height.
+ *
+ * The value is controlled via:
+ *   --header-height (CSS variable)
+ *
+ * This variable is:
+ * - Set with a fallback in :root
+ * - Dynamically updated via JavaScript (headerHeight.ts)
+ *
+ *
+ * RESULT
+ * ---------------------------------------------------------
+ * ✔ No content hidden behind header
+ * ✔ Consistent layout across all pages
+ * ✔ Works responsively (mobile + desktop)
+ *
+ *
+ * IMPORTANT NOTES
+ * ---------------------------------------------------------
+ *
+ * 1. DO NOT add padding-top here
+ *    → Use margin-top to avoid affecting internal layout
+ *
+ * 2. DO NOT manually adjust sections for header spacing
+ *    → This is handled globally here
+ *
+ * 3. Hero sections MUST account for this offset:
+ *
+ *    Example:
+ *    min-height: calc(100vh - var(--header-height));
+ *
+ *    This ensures full viewport coverage BELOW the header.
+ *
+ *
+ * RELATED SYSTEMS
+ * ---------------------------------------------------------
+ * - headerHeight.ts → calculates and updates header height
+ * - :root → defines fallback value
+ * - scroll-padding-top → ensures correct anchor scrolling
+ *
+ *
+ * =========================================================
+ */
+
+.site-main {
+  margin-top: var(--header-height);
+}

@@ -1,137 +1,93 @@
-/**
- * =========================================================
- * NOBLEMENS DESIGN SYSTEM — GRID LAYOUT
- * =========================================================
- *
- * PURPOSE
- * ---------------------------------------------------------
- * Defines layout structure for content arrangement.
- *
- * Grid is used to create columns for:
- * ✔ product cards
- * ✔ footer layouts
- * ✔ content sections
- *
- *
- * CORE PRINCIPLE
- * ---------------------------------------------------------
- * Grid controls layout ONLY.
- *
- * It should NOT:
- * ✘ control spacing (use section.css)
- * ✘ control width (use container.css)
- * ✘ contain component styles
- *
- *
- * GRID TYPES
- * ---------------------------------------------------------
- *
- * .grid
- *   → Base grid container
- *
- * .grid-2
- *   → 2 columns (tablet+)
- *
- * .grid-3
- *   → 3 columns (desktop)
- *
- * .grid-4
- *   → 4 columns (large screens)
- *
- *
- * RESPONSIVE BEHAVIOR
- * ---------------------------------------------------------
- * Mobile-first approach:
- *
- * Mobile   → 1 column
- * Tablet   → 2 columns
- * Desktop  → 3 columns
- * Large    → 4 columns
- *
- *
- * USAGE EXAMPLES
- * ---------------------------------------------------------
- *
- * Product grid:
- *   <div class="grid grid-3">
- *
- * Footer layout:
- *   <div class="grid grid-4">
- *
- *
- * WHAT TO AVOID
- * ---------------------------------------------------------
- *
- * ✘ Using grid for spacing
- * ✘ Mixing grid with manual column hacks
- * ✘ Over-complicating layouts
- *
- *
- * KEY PRINCIPLE
- * ---------------------------------------------------------
- * Grid defines structure.
- *
- * Clean structure = clean UI
- *
- * =========================================================
- */
-
 @layer utilities {
 
+    /**
+     * =========================================================
+     * NOBLEMENS GRID SYSTEM
+     * =========================================================
+     *
+     * PRINCIPLE
+     * ---------------------------------------------------------
+     * - Grid defines item size, not column count
+     * - Columns are auto-calculated
+     * - Spacing follows design tokens
+     *
+     * STRUCTURE
+     * ---------------------------------------------------------
+     * grid-xs → very small items (logos, icons)
+     * grid-sm → small cards
+     * grid-md → standard cards
+     * grid-lg → large cards
+     * grid-xl → hero / featured blocks
+     *
+     * USAGE
+     * ---------------------------------------------------------
+     * <div class="grid grid-md">
+     *
+     * Optional overrides:
+     * <div class="grid grid-md gap-lg">
+     *
+     * =========================================================
+     */
+
+
     /* =========================================
-     BASE GRID
-  ========================================= */
+       BASE GRID BEHAVIOR
+    ========================================= */
 
     .grid {
         display: grid;
-        gap: 1.5rem;
+        gap: var(--space-md); /* default spacing */
     }
 
 
     /* =========================================
-     GRID VARIANTS
-  ========================================= */
+       GRID SIZES (CONTENT-DRIVEN)
+    ========================================= */
 
-    /* 2 column layout */
-    @media (min-width: 640px) {
-        .grid-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
+    /* XS → logos / icons */
+    .grid-xs {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
 
-    /* 3 column layout */
-    @media (min-width: 1024px) {
-        .grid-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
+    /* SM → compact cards */
+    .grid-sm {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
 
-    /* 4 column layout */
-    @media (min-width: 1280px) {
-        .grid-4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
+    /* MD → standard (products, blog cards) */
+    .grid-md {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    /* LG → featured items */
+    .grid-lg {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    /* XL → hero sections */
+    .grid-xl {
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     }
 
 
     /* =========================================
-     COMMON PATTERN — CARDS GRID
-  ========================================= */
+       GAP SYSTEM (MATCHES YOUR TOKENS)
+    ========================================= */
 
-    .grid-cards {
-        display: grid;
-        gap: 1.5rem;
-    }
+    .gap-xs { gap: var(--space-xs); }
+    .gap-sm { gap: var(--space-sm); }
+    .gap-md { gap: var(--space-md); }
+    .gap-lg { gap: var(--space-lg); }
+    .gap-xl { gap: var(--space-xl); }
 
-    @media (min-width: 640px) {
-        .grid-cards {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
 
-    @media (min-width: 1024px) {
-        .grid-cards {
-            grid-template-columns: repeat(3, 1fr);
+    /* =========================================
+       RESPONSIVE GAP (OPTIONAL CONTROL)
+    ========================================= */
+
+    @media (min-width: 768px) {
+        .gap-md-responsive {
+            gap: var(--space-lg);
         }
     }
 

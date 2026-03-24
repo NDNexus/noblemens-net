@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "debug:seo": "npx tsx scripts/seo/generate-seo.ts",
     "debug:schema": "npx tsx scripts/schema/generate-schema.ts",
-    "debug:head": "npx tsx scripts/html/inject-head.ts"
+    "debug:head": "npx tsx scripts/html/inject-head.ts",
+    "fix:main": "npx tsx scripts/html/inject-site-main.ts"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",

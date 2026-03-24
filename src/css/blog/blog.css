@@ -1,0 +1,437 @@
+/**
+ * =========================================================
+ * NOBLEMENS BLOG SYSTEM (FINAL — STRUCTURE ALIGNED)
+ * =========================================================
+ *
+ * HTML STRUCTURE
+ * ---------------------------------------------------------
+ * .blog-layout
+ *   ├── .blog-content  → main article content
+ *   └── .toc           → table of contents
+ *
+ *
+ * GOALS
+ * ---------------------------------------------------------
+ * - Zero dependency on `.prose`
+ * - Fully automatic typography
+ * - Editorial spacing system (context-based)
+ * - Clean TOC + layout behavior
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================================
+   LAYOUT
+========================================================= */
+
+    .blog-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 400px;
+        justify-content: center;
+
+        max-width: 1200px;
+        margin-inline: auto;
+
+        gap: var(--space-xl);
+
+        align-items: start;
+        /* 🔥 critical for sticky */
+    }
+
+
+
+    /* =========================================================
+   BLOG CONTENT BASE
+========================================================= */
+
+    .blog-content {
+        display: block;
+    }
+
+    /* =========================================================
+   TYPOGRAPHY SYSTEM (AUTO-MAPPED)
+========================================================= */
+
+    /* H1 */
+    .blog-content h1 {
+        font-size: clamp(2.2rem, 4vw, 3.25rem);
+        line-height: 1.1;
+        font-weight: 600;
+        font-family: var(--font-serif);
+        letter-spacing: -0.015em;
+    }
+
+    /* H2 */
+    .blog-content h2 {
+        font-size: clamp(1.6rem, 2.4vw, 2.125rem);
+        line-height: 1.2;
+        font-weight: 600;
+        font-family: var(--font-serif);
+    }
+
+    /* H3 */
+    .blog-content h3 {
+        font-size: clamp(1.25rem, 1.6vw, 1.4rem);
+        line-height: 1.3;
+        font-weight: 600;
+    }
+
+    /* H4 */
+    .blog-content h4 {
+        font-size: 1.125rem;
+        line-height: 1.4;
+        font-weight: 600;
+    }
+
+    /* H5 */
+    .blog-content h5 {
+        font-size: 1rem;
+        line-height: 1.4;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+    }
+
+    /* H6 */
+    .blog-content h6 {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text-secondary);
+    }
+
+    /* BODY */
+    .blog-content p {
+        font-size: 1.25rem;
+        line-height: 1.75;
+        max-width: 65ch;
+    }
+
+    /* =========================================================
+   EDITORIAL SPACING SYSTEM (PROPER)
+========================================================= */
+
+    /* Reset first element */
+    .blog-content>*:first-child {
+        margin-top: 0 !important;
+    }
+
+    /* H2 sections */
+    .blog-content h2 {
+        margin-top: var(--space-lg);
+    }
+
+    /* H2 after H1 */
+    .blog-content h1+h2 {
+        margin-top: var(--space-lg);
+    }
+
+    /* H3 */
+    .blog-content h3 {
+        margin-top: var(--space-lg);
+    }
+
+    /* H3 under H2 */
+    .blog-content h2+h3 {
+        margin-top: var(--space-sm);
+    }
+
+    /* H4 */
+    .blog-content h4 {
+        margin-top: var(--space-md);
+    }
+
+    .blog-content h3+h4 {
+        margin-top: var(--space-xs);
+    }
+
+    /* H5 */
+    .blog-content h5 {
+        margin-top: var(--space-sm);
+    }
+
+    /* H6 */
+    .blog-content h6 {
+        margin-top: var(--space-xs);
+    }
+
+    /* Paragraph spacing */
+    .blog-content p {
+        margin-top: var(--space-sm);
+    }
+
+    /* Tight after headings */
+    .blog-content h1+p,
+    .blog-content h2+p,
+    .blog-content h3+p,
+    .blog-content h4+p,
+    .blog-content h5+p,
+    .blog-content h6+p {
+        margin-top: var(--space-xs);
+    }
+
+    /* Paragraph to paragraph */
+    .blog-content p+p {
+        margin-top: var(--space-md);
+    }
+
+    /* =========================================================
+   PARAGRAPH → HEADING TRANSITIONS
+   (clear section separation)
+========================================================= */
+
+    .blog-content p+h2 {
+        margin-top: var(--space-lg);
+    }
+
+    .blog-content p+h3 {
+        margin-top: var(--space-lg);
+    }
+
+    .blog-content p+h4 {
+        margin-top: var(--space-md);
+    }
+
+    .blog-content p+h5 {
+        margin-top: var(--space-md);
+    }
+
+    .blog-content p+h6 {
+        margin-top: var(--space-sm);
+    }
+
+    /* Lists */
+    .blog-content ul,
+    .blog-content ol {
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-md);
+        padding-left: 1.5rem;
+        font-size: 1.25rem;
+    }
+
+    .blog-content li {
+        margin-bottom: 0.6rem;
+        line-height: 1.7;
+    }
+
+    /* Block elements */
+    .blog-content blockquote,
+    .blog-content table,
+    .blog-content figure {
+        margin: var(--space-xl) 0;
+    }
+
+    /* =========================================================
+   BLOCKQUOTE
+========================================================= */
+
+    .blog-content blockquote {
+        border-left: 4px solid var(--color-accent);
+        padding-left: var(--space-md);
+
+        font-size: 1.15rem;
+        line-height: 1.7;
+        font-style: italic;
+
+        color: var(--color-text-secondary);
+    }
+
+    /* =========================================================
+   LINKS
+========================================================= */
+
+    .blog-content a {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    /* =========================================================
+   IMAGES
+========================================================= */
+
+    .blog-content img {
+        width: 100%;
+        border-radius: var(--radius-sm);
+    }
+
+    .blog-content figcaption {
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+        margin-top: var(--space-sm);
+        text-align: center;
+    }
+
+    /* =========================================================
+   TABLES
+========================================================= */
+
+    .blog-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.05rem;
+    }
+
+    .blog-content th,
+    .blog-content td {
+        padding: var(--space-sm);
+        border: 1px solid var(--color-border-default);
+    }
+
+    .blog-content th {
+        background: var(--color-bg-alt);
+        font-weight: 600;
+    }
+
+    /* =========================================================
+   CTA
+========================================================= */
+
+    .blog-content .cta {
+        margin: var(--space-2xl) 0;
+    }
+
+    /**
+ * =========================================================
+ * NOBLEMENS TOC — PREMIUM COMPONENT
+ * =========================================================
+ *
+ * FEATURES
+ * ---------------------------------------------------------
+ * - Sticky sidebar
+ * - Smooth hover + active transitions
+ * - Subtle premium visuals (not loud)
+ * - Scrollable if content is long
+ *
+ * =========================================================
+ */
+
+    .toc {
+        position: sticky;
+        top: var(--toc-top);
+        align-self: start;
+
+        padding: var(--space-md);
+        border-radius: var(--radius-md);
+
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-main);
+
+        /* subtle premium depth */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+
+        /* prevent overflow issues */
+        max-height: calc(100vh - var(--toc-top) - var(--space-lg));
+        overflow-y: auto;
+    }
+
+    /* =========================================
+   TITLE
+========================================= */
+
+    .toc h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: var(--space-sm);
+    }
+
+    /* =========================================
+   LIST
+========================================= */
+
+    .toc ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+        padding-left: 0;
+    }
+
+    /* =========================================
+   LINKS
+========================================= */
+
+    .toc a {
+        display: block;
+
+        font-size: 0.95rem;
+        line-height: 1.5;
+
+        color: var(--color-text-secondary);
+
+        padding: 6px 8px;
+        border-radius: var(--radius-xs);
+
+        transition: all 0.2s ease;
+    }
+
+    /* Hover effect */
+    .toc a:hover {
+        color: var(--color-text-primary);
+        background: rgba(194, 165, 95, 0.08);
+        transform: translateX(2px);
+    }
+
+    /* =========================================
+   ACTIVE STATE (🔥 IMPORTANT)
+========================================= */
+
+    .toc a.is-active {
+        color: var(--color-accent);
+        font-weight: 500;
+
+        background: rgba(194, 165, 95, 0.12);
+
+        /* subtle left indicator */
+        border-left: 3px solid var(--color-accent);
+        padding-left: 6px;
+    }
+
+    /* =========================================
+   SCROLLBAR (premium subtle)
+========================================= */
+
+    .toc::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .toc::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+    }
+
+    /* =========================================
+   RESPONSIVE
+========================================= */
+
+    @media (max-width: 1024px) {
+        .toc {
+            position: static;
+            max-height: none;
+        }
+    }
+
+    /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+    @media (max-width: 1024px) {
+
+        .blog-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .toc {
+            position: static;
+        }
+
+        .blog-content p {
+            font-size: 1.15rem;
+        }
+
+    }
+
+}

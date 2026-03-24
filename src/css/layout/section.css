@@ -8,7 +8,21 @@
  * Defines vertical spacing between major content blocks.
  *
  * Sections create consistent rhythm across the website and
- * are the primary tool for managing spacing between sections.
+ * are the primary tool for managing OUTER spacing between
+ * layout blocks.
+ *
+ *
+ * SYSTEM CONTEXT (IMPORTANT)
+ * ---------------------------------------------------------
+ * The layout system is layered:
+ *
+ * SECTION   → vertical spacing (outer rhythm)
+ * CONTAINER → horizontal width (alignment)
+ * GRID      → structure + inner spacing (gap)
+ * COMPONENT → internal design (padding, content)
+ *
+ * Sections DO NOT handle internal layout spacing.
+ * They define spacing BETWEEN sections.
  *
  *
  * CORE PRINCIPLE
@@ -17,6 +31,19 @@
  *
  * ✔ Use ONLY ONE section class per element
  * ✘ Do NOT combine (e.g. .section + .section-sm)
+ *
+ *
+ * RESPONSIBILITY
+ * ---------------------------------------------------------
+ * Sections handle:
+ * ✔ Vertical spacing (padding-top & padding-bottom)
+ * ✔ Page rhythm consistency
+ *
+ * Sections do NOT handle:
+ * ✘ Grid spacing (handled by grid gap)
+ * ✘ Layout structure (handled by grid/flex)
+ * ✘ Width (handled by container.css)
+ * ✘ Component styling
  *
  *
  * SECTION TYPES
@@ -55,6 +82,15 @@
  * Default section:
  *   <section class="section">
  *
+ * With container + grid:
+ *   <section class="section">
+ *     <div class="container">
+ *       <div class="grid grid-md">
+ *         <!-- content -->
+ *       </div>
+ *     </div>
+ *   </section>
+ *
  * Compact section:
  *   <section class="section-sm">
  *
@@ -65,11 +101,28 @@
  *   <div class="section-xs">
  *
  *
- * WHAT THIS FILE DOES NOT HANDLE
+ * RELATIONSHIP WITH GRID
  * ---------------------------------------------------------
- * ✘ Width → handled by container.css
- * ✘ Layout → handled by grid/flex
- * ✘ Component styling → handled elsewhere
+ *
+ * Sections and grids serve different roles:
+ *
+ * SECTION → controls spacing BETWEEN sections
+ * GRID    → controls spacing BETWEEN items (gap)
+ *
+ * Example:
+ *
+ *   <section class="section-lg">
+ *     <div class="container">
+ *       <div class="grid grid-md">
+ *         <!-- cards spaced via grid gap -->
+ *       </div>
+ *     </div>
+ *   </section>
+ *
+ * This separation ensures:
+ * ✔ clean hierarchy
+ * ✔ predictable spacing
+ * ✔ maintainable layouts
  *
  *
  * WHAT TO AVOID
@@ -78,18 +131,22 @@
  * ✘ Combining section classes
  *   <section class="section section-sm"> ❌
  *
- * ✘ Manual spacing overrides
+ * ✘ Manual vertical spacing overrides
  *   <div class="pt-20 pb-20"> ❌
  *
  * ✘ Using sections for layout control
+ *
+ * ✘ Using sections to control grid spacing
  *
  *
  * KEY PRINCIPLE
  * ---------------------------------------------------------
  * Sections define vertical rhythm.
  *
- * Consistent spacing = premium feel
- * Inconsistent spacing = broken UI
+ * Grid defines internal structure.
+ *
+ * Clear separation of responsibilities
+ * = scalable, premium UI system
  *
  * =========================================================
  */

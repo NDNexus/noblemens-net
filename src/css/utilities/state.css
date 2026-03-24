@@ -1,0 +1,50 @@
+/**
+ * =========================================================
+ * STATE UTILITY — ACTIVE
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Represents the "active" state of an interactive element.
+ *
+ * Commonly used for:
+ * - Navigation links (current section)
+ * - Table of Contents (scroll spy)
+ * - Tabs / filters
+ * - Any selected or highlighted item
+ *
+ *
+ * BEHAVIOR
+ * ---------------------------------------------------------
+ * - Applied dynamically via JavaScript (e.g. scroll system)
+ * - Indicates current context or position in the UI
+ *
+ *
+ * USAGE
+ * ---------------------------------------------------------
+ * <a href="#section" class="is-active">...</a>
+ *
+ * Typically added/removed automatically:
+ * - scroll.ts (scroll spy system)
+ * - component logic (tabs, menus, etc.)
+ *
+ *
+ * DESIGN NOTES
+ * ---------------------------------------------------------
+ * - Keep styling minimal and consistent
+ * - Should align with brand accent color
+ * - Avoid heavy styling (no layout shifts)
+ *
+ *
+ * RELATED SYSTEMS
+ * ---------------------------------------------------------
+ * - Scroll system (active section tracking)
+ * - Navigation components
+ *
+ * =========================================================
+ */
+
+[data-scroll-link].is-active {
+  color: var(--color-accent);
+  font-weight: 500;
+}

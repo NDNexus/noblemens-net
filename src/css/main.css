@@ -71,6 +71,48 @@
 
 @import "tailwindcss";
 
+/* =========================================================
+   GLOBAL RUNTIME VARIABLE — HEADER HEIGHT
+   ---------------------------------------------------------
+   This variable stores the ACTUAL height of the header.
+
+   WHY IT EXISTS
+   ---------------------------------------------------------
+   - The header is fixed/sticky and removed from normal flow
+   - Layout needs to compensate for its height
+   - Hardcoding values (e.g. 64px, 72px) is unreliable
+
+   HOW IT WORKS
+   ---------------------------------------------------------
+   - JS dynamically measures `.site-header` height
+   - Updates this variable at runtime
+   - This fallback ensures layout stability before JS loads
+
+   WHY DEFINED HERE
+   ---------------------------------------------------------
+   - Placed in :root to make it globally accessible
+   - Must be outside @theme (this is NOT a design token)
+   - Must be before system imports so all layers can use it
+
+   USAGE
+   ---------------------------------------------------------
+   padding-top: var(--header-height);
+   top: var(--header-height);
+   height: calc(100vh - var(--header-height));
+
+   RULE
+   ---------------------------------------------------------
+   If JS updates it → belongs in :root
+   If it's static design → belongs in @theme
+
+========================================================= */
+
+:root {
+  --header-height: 80px;
+
+  /* TOC positioning */
+  --toc-top: calc(var(--header-height) + var(--space-lg));
+}
 
 /* Foundation */
 @import "./foundation/tokens.css";
@@ -80,14 +122,20 @@
 /* Components */
 @import "./components/buttons.css";
 @import "./components/cards.css";
+@import "./components/cta.css";
 @import "./components/forms.css";
+@import "./components/header.css";
 @import "./components/navbar.css";
 @import "./components/footer.css";
 
 /* Layout */
+@import "./layout/main.css";
 @import "./layout/section.css";
 @import "./layout/container.css";
 @import "./layout/grid.css";
 
 /* Utilities */
 @import "./utilities/layout-utils.css";
+
+/* Blog Styles */
+@import "./blog/blog.css";

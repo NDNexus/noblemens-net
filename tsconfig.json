@@ -50,6 +50,12 @@
       ],
       "@html/*": [
         "scripts/html/*"
+      ],
+      "@app-layout/*": [
+        "src/app/layout/*"
+      ],
+      "@css-layout/*": [
+        "src/css/layout/*"
       ]
     }
   }
