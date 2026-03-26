@@ -1,28 +1,3 @@
-/**
- * ==========================================================
- * SCHEMA GENERATOR (PRODUCTION • SEO-SYNCED • STABLE)
- * ==========================================================
- *
- * PURPOSE:
- * --------
- * Generates structured data (JSON-LD) and injects schema includes
- * into HTML <head> in a deterministic, idempotent way.
- *
- * ARCHITECTURE:
- * -------------
- * 1. schemaOverrides  → page-level control (multi-schema)
- * 2. categorySchema   → inheritance (brand, category)
- * 3. schemaTemplates  → default schema by page type
- * 4. fallback         → safe WebPage schema
- *
- * IMPORTANT:
- * ----------
- * SEO system is the SOURCE OF TRUTH
- * → schema uses SEO title & description
- *
- * ==========================================================
- */
-
 import fs from "fs"
 import path from "path"
 
@@ -41,7 +16,9 @@ import {
 } from "@seo/generate-seo"
 
 /**
+ * ==========================================================
  * CONFIG
+ * ==========================================================
  */
 const ROOT = "./"
 const OUTPUT_DIR = "./templates/schema"
@@ -54,7 +31,27 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 /**
+ * ==========================================================
+ * CATEGORY RESOLUTION (🔥 MATCHES SEO SYSTEM)
+ * ==========================================================
+ *
+ * Priority:
+ * 1. page.category
+ * 2. archive slug
+ * 3. collection (fallback)
+ */
+function resolveCategory(page: PageInfo): string | undefined {
+    if (page.category) return page.category
+
+    if (page.type === "archive") return page.slug
+
+    return page.collection
+}
+
+/**
+ * ==========================================================
  * FILE DISCOVERY
+ * ==========================================================
  */
 function getHTMLFiles(dir: string): string[] {
     let results: string[] = []
@@ -78,13 +75,14 @@ function getHTMLFiles(dir: string): string[] {
 
 /**
  * ----------------------------------------------------------
- * SCHEMA BUILDERS (SEO-SYNCED)
+ * SCHEMA BUILDERS (CATEGORY-AWARE)
  * ----------------------------------------------------------
  */
 
 function buildProduct(data: any, page: PageInfo) {
 
-    const categoryData = categorySchema?.[page.collection || ""]
+    const categoryKey = resolveCategory(page)
+    const categoryData = categorySchema?.[categoryKey || ""]
 
     const title = generateTitle(page)
     const description = generateDescription(page)
@@ -164,7 +162,7 @@ function buildWebPage(page: PageInfo) {
 
 function buildBreadcrumb(page: PageInfo) {
 
-    const parts = page.urlPath.split("/").filter(Boolean)
+    const parts = page.hierarchy || []
 
     const items = [
         {
@@ -201,19 +199,17 @@ function buildBreadcrumb(page: PageInfo) {
 }
 
 /**
+ * ==========================================================
  * GENERATE SCHEMAS
+ * ==========================================================
  */
 function generateSchemas(page: PageInfo): any[] {
 
     const schemas: any[] = []
 
-    /**
-     * BASE SCHEMA (TEMPLATE)
-     */
     const type = schemaTemplates?.[page.type] || "WebPage"
 
     switch (type) {
-
         case "WebPage":
             schemas.push(buildWebPage(page))
             break
@@ -233,10 +229,9 @@ function generateSchemas(page: PageInfo): any[] {
             break
     }
 
-
     /**
-      * OVERRIDES (ADDITIVE • STRUCTURE ONLY)
-      */
+     * OVERRIDES (UNCHANGED)
+     */
     const overrides = schemaOverrides?.[page.slug]
 
     if (Array.isArray(overrides)) {
@@ -245,22 +240,18 @@ function generateSchemas(page: PageInfo): any[] {
             switch (o.type) {
 
                 case "Product":
-                    // Product can still use override data (image, offers)
                     schemas.push(buildProduct(o, page))
                     break
 
                 case "FAQPage":
-                    // Fully driven by override
                     schemas.push(buildFAQ(o))
                     break
 
                 case "CollectionPage":
-                    // Identity comes from SEO → ignore override data
                     schemas.push(buildCollection(page))
                     break
 
                 case "Article":
-                    // Identity comes from SEO → ignore override data
                     schemas.push(buildArticle(page))
                     break
 
@@ -272,7 +263,7 @@ function generateSchemas(page: PageInfo): any[] {
     }
 
     /**
-     * ALWAYS ADD BREADCRUMB
+     * ALWAYS ADD BREADCRUMB (NOW HIERARCHY-AWARE 🔥)
      */
     schemas.push(buildBreadcrumb(page))
 
@@ -319,8 +310,11 @@ function updateHeadIncludes(html: string, includeTag: string): string {
 }
 
 /**
+ * ==========================================================
  * MAIN
+ * ==========================================================
  */
+
 const files = getHTMLFiles(ROOT)
 const activeTemplates: string[] = []
 
@@ -354,13 +348,10 @@ files.forEach(file => {
     console.log(`✔ Schema processed → ${page.urlPath}`)
 })
 
-/**
- * CLEAN UNUSED FILES
- */
 fs.readdirSync(OUTPUT_DIR).forEach(file => {
     if (!activeTemplates.includes(file)) {
         fs.unlinkSync(path.join(OUTPUT_DIR, file))
     }
 })
 
-console.log("\n✅ Schema system built successfully (PRODUCTION MODE).\n")
+console.log("\n✅ Schema system built successfully (CATEGORY-AWARE MODE).\n")

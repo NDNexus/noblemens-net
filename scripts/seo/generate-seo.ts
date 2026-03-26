@@ -1,30 +1,268 @@
 /**
  * ==========================================================
- * SEO GENERATOR (FINAL • PRODUCTION • EXTENSIBLE)
+ * SEO GENERATOR (CATEGORY-AWARE • PRODUCTION SYSTEM)
  * ==========================================================
  *
- * ✔ Fully automated SEO
- * ✔ WordPress-level flexibility
- * ✔ Category-level control (categoryMeta)
- * ✔ Product inheritance (categorySEO)
- * ✔ Global templates (seoTemplates)
- * ✔ Page-level overrides (highest priority)
+ * OVERVIEW
+ * --------
+ * This system automatically generates SEO metadata for all HTML pages
+ * and injects them into the <head> using a template include system.
  *
- * PRIORITY ORDER:
- * ----------------
- * 1. overrides
- * 2. categoryMeta
- * 3. categorySEO (inheritance)
- * 4. seoTemplates
- * 5. site defaults
+ * It is:
+ * ✔ Fully automated
+ * ✔ Idempotent (safe to re-run)
+ * ✔ Category-aware (NEW)
+ * ✔ Hierarchy-compatible
+ * ✔ Scalable for large content systems
  *
- * ✔ Safe to run multiple times (idempotent)
- * ✔ No duplicate injections
- * ✔ Clean head management
- * ✔ Sitemap generation included
+ * ----------------------------------------------------------
+ *
+ * CORE RESPONSIBILITIES
+ * ---------------------
+ * 1. Discover all HTML files in the project
+ * 2. Extract structured page data via getPageInfo()
+ * 3. Generate:
+ *    - <title>
+ *    - meta description
+ *    - canonical URL
+ *    - Open Graph tags
+ *    - Twitter tags
+ * 4. Inject SEO via template includes
+ * 5. Generate sitemap.xml
+ *
+ * ----------------------------------------------------------
+ *
+ * ARCHITECTURE (PRIORITY SYSTEM)
+ * ----------------------------------------------------------
+ *
+ * SEO values are resolved using the following priority:
+ *
+ * 1. overrides        → manual page-level control (highest priority)
+ * 2. categoryMeta     → category-level SEO (titles, descriptions, images)
+ * 3. categorySEO      → keyword + positioning (used for inheritance)
+ * 4. seoTemplates     → automatic fallback templates
+ * 5. site defaults    → global fallback
+ *
+ * This ensures:
+ * ✔ Flexibility where needed
+ * ✔ Automation everywhere else
+ *
+ * ----------------------------------------------------------
+ *
+ * 🔥 CATEGORY-AWARE UPGRADE (IMPORTANT)
+ * ----------------------------------------------------------
+ *
+ * Previous system relied on:
+ *   page.collection (e.g. "products")
+ *
+ * New system uses:
+ *   page.category (e.g. "vinegars", "perfumes")
+ *
+ * This allows:
+ * ✔ Precise SEO targeting
+ * ✔ Better keyword relevance
+ * ✔ Category-level branding
+ *
+ * ----------------------------------------------------------
+ *
+ * CATEGORY RESOLUTION LOGIC
+ * ----------------------------------------------------------
+ *
+ * resolveCategory(page):
+ *
+ * Priority:
+ * 1. page.category      → primary (NEW system)
+ * 2. page.slug          → for archive pages (/vinegars)
+ * 3. page.collection    → fallback (legacy support)
+ *
+ * This ensures backward compatibility with older structure.
+ *
+ * ----------------------------------------------------------
+ *
+ * TEMPLATE SYSTEM
+ * ----------------------------------------------------------
+ *
+ * seoTemplates define reusable patterns using variables:
+ *
+ * %site%            → site name
+ * %name%            → humanized slug
+ * %name_lower%      → lowercase name
+ * %collection%      → top-level grouping
+ * %category%        → resolved category
+ * %category_lower%  → lowercase category
+ *
+ * Example:
+ *
+ * "%name% | Buy %name% | %site%"
+ *
+ * ----------------------------------------------------------
+ *
+ * CATEGORY CONFIG SYSTEM
+ * ----------------------------------------------------------
+ *
+ * categoryMeta:
+ *   - Controls category-specific titles, descriptions, images
+ *   - Used mainly for archive pages
+ *
+ * categorySEO:
+ *   - Defines keyword + modifier
+ *   - Used for:
+ *     ✔ product pages
+ *     ✔ category fallback SEO
+ *
+ * Example:
+ *
+ * categorySEO["vinegars"] = {
+ *   keyword: "Natural Vinegar",
+ *   modifier: "Pure & Unfiltered"
+ * }
+ *
+ * ----------------------------------------------------------
+ *
+ * META GENERATION
+ * ----------------------------------------------------------
+ *
+ * Generated tags include:
+ *
+ * ✔ <title>
+ * ✔ <meta name="description">
+ * ✔ <link rel="canonical">
+ *
+ * ✔ Open Graph:
+ *    - og:title
+ *    - og:description
+ *    - og:image
+ *    - og:url
+ *
+ * ✔ Twitter:
+ *    - twitter:title
+ *    - twitter:description
+ *    - twitter:image
+ *
+ * Image priority:
+ * 1. override.image
+ * 2. categoryMeta.image
+ * 3. site.defaultImage
+ *
+ * ----------------------------------------------------------
+ *
+ * TEMPLATE INJECTION SYSTEM
+ * ----------------------------------------------------------
+ *
+ * SEO is NOT directly embedded.
+ *
+ * Instead:
+ *
+ * 1. A template file is generated:
+ *    /templates/seo/seo-{slug}.html
+ *
+ * 2. HTML pages include:
+ *    <include src="/templates/seo/seo-{slug}.html"></include>
+ *
+ * Benefits:
+ * ✔ Clean HTML files
+ * ✔ Reusable system
+ * ✔ Easy debugging
+ * ✔ Idempotent updates
+ *
+ * ----------------------------------------------------------
+ *
+ * CLEANING MECHANISM
+ * ----------------------------------------------------------
+ *
+ * Before injecting new SEO:
+ * ✔ Old <title> tags are removed
+ * ✔ Old meta tags are removed
+ * ✔ Old include references are removed
+ *
+ * Ensures:
+ * ✔ No duplication
+ * ✔ Clean output every run
+ *
+ * ----------------------------------------------------------
+ *
+ * SITEMAP GENERATION
+ * ----------------------------------------------------------
+ *
+ * Automatically generates:
+ *
+ * /public/sitemap.xml
+ *
+ * Includes all discovered pages:
+ *
+ * <url>
+ *   <loc>https://example.com/page</loc>
+ * </url>
+ *
+ * ----------------------------------------------------------
+ *
+ * FILE DISCOVERY RULES
+ * ----------------------------------------------------------
+ *
+ * Scans entire project recursively
+ * Ignores:
+ * - node_modules
+ * - dist
+ * - templates
+ * - scripts
+ *
+ * Only processes:
+ * ✔ .html files
+ *
+ * ----------------------------------------------------------
+ *
+ * SAFETY & DESIGN PRINCIPLES
+ * ----------------------------------------------------------
+ *
+ * ✔ Idempotent (safe to run multiple times)
+ * ✔ Deterministic output
+ * ✔ No hidden side effects
+ * ✔ Backward compatible
+ * ✔ Config-driven (not hardcoded)
+ *
+ * ----------------------------------------------------------
+ *
+ * HOW TO EXTEND
+ * ----------------------------------------------------------
+ *
+ * To add new SEO behavior:
+ *
+ * ✔ Add category → update categoryMeta + categorySEO
+ * ✔ Add page override → update overrides
+ * ✔ Add new template → extend seoTemplates
+ *
+ * DO NOT:
+ * ✘ Hardcode values in generator
+ * ✘ Bypass priority system
+ *
+ * ----------------------------------------------------------
+ *
+ * FUTURE EXTENSIONS (READY)
+ * ----------------------------------------------------------
+ *
+ * This system is already compatible with:
+ *
+ * ✔ Markdown → HTML pipelines
+ * ✔ CMS integration (Sanity, etc.)
+ * ✔ Dynamic page generation
+ * ✔ Programmatic SEO pages
+ *
+ * ----------------------------------------------------------
+ *
+ * FINAL NOTE
+ * ----------------------------------------------------------
+ *
+ * This is not just an SEO script.
+ *
+ * It is a:
+ * → Deterministic SEO engine
+ * → Config-driven content intelligence layer
+ *
+ * Treat getPageInfo() as the source of truth.
  *
  * ==========================================================
  */
+
 
 import fs from "fs"
 import path from "path"
@@ -41,7 +279,9 @@ import { getPageInfo } from "@utils/page-utils"
 import type { PageInfo } from "@utils/page-utils"
 
 /**
+ * ==========================================================
  * CONFIG
+ * ==========================================================
  */
 const ROOT = "./"
 const SEO_DIR = "./templates/seo"
@@ -55,7 +295,9 @@ if (!fs.existsSync(SEO_DIR)) {
 }
 
 /**
+ * ==========================================================
  * FILE DISCOVERY
+ * ==========================================================
  */
 function getHTMLFiles(dir: string): string[] {
     let results: string[] = []
@@ -78,7 +320,9 @@ function getHTMLFiles(dir: string): string[] {
 }
 
 /**
+ * ==========================================================
  * UTILITIES
+ * ==========================================================
  */
 function humanize(str: string): string {
     return str.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())
@@ -90,24 +334,45 @@ function cleanTitle(title: string): string {
 
 /**
  * ==========================================================
+ * CATEGORY RESOLUTION (🔥 NEW CORE LOGIC)
+ * ==========================================================
+ *
+ * Priority:
+ * 1. page.category (new system)
+ * 2. fallback to slug (for archive pages like /vinegars)
+ * 3. fallback to collection (legacy support)
+ */
+function resolveCategory(page: PageInfo): string | undefined {
+    if (page.category) return page.category
+
+    // archive pages like /vinegars
+    if (page.type === "archive") return page.slug
+
+    return page.collection
+}
+
+/**
+ * ==========================================================
  * TEMPLATE PARSER
  * ==========================================================
  */
 function parseTemplate(template: string, page: PageInfo) {
     const name = humanize(page.slug)
+    const category = humanize(resolveCategory(page) || "")
+    const collection = humanize(page.collection || "")
 
     return template
         .replace("%site%", site.name)
         .replace("%name%", name)
         .replace("%name_lower%", name.toLowerCase())
-        .replace("%collection%", humanize(page.collection || ""))
-        .replace("%category%", humanize(page.slug))
-        .replace("%category_lower%", humanize(page.slug).toLowerCase())
+        .replace("%collection%", collection)
+        .replace("%category%", category)
+        .replace("%category_lower%", category.toLowerCase())
 }
 
 /**
  * ==========================================================
- * TITLE GENERATOR
+ * TITLE GENERATOR (UPGRADED)
  * ==========================================================
  */
 export function generateTitle(page: PageInfo): string {
@@ -120,26 +385,34 @@ export function generateTitle(page: PageInfo): string {
         return `${site.name} | ${site.tagline}`
     }
 
-    // CATEGORY META (STRONG CONTROL)
-    const categoryMetaData = categoryMeta[page.slug]
+    const categoryKey = resolveCategory(page)
+
+    /**
+     * CATEGORY META (STRONG CONTROL)
+     */
+    const categoryMetaData = categoryMeta[categoryKey || ""]
     if (page.type === "archive" && categoryMetaData?.title) {
         return categoryMetaData.title
     }
 
-    const categoryKey = page.collection || ""
-    const categoryData = categorySEO[categoryKey]
+    /**
+     * CATEGORY SEO (INHERITANCE)
+     */
+    const categoryData = categorySEO[categoryKey || ""]
 
-    // PRODUCT INHERITANCE
+    // PRODUCT
     if (page.type === "product" && categoryData) {
         return `${humanize(page.slug)} | ${categoryData.keyword} | ${site.name}`
     }
 
-    // CATEGORY FALLBACK
+    // CATEGORY
     if (page.type === "archive" && categoryData) {
         return `${humanize(page.slug)} | ${categoryData.keyword} | ${site.name}`
     }
 
-    // TEMPLATE FALLBACK
+    /**
+     * TEMPLATE FALLBACK
+     */
     const template = seoTemplates[page.type]?.title
     if (template) {
         return parseTemplate(template, page)
@@ -150,7 +423,7 @@ export function generateTitle(page: PageInfo): string {
 
 /**
  * ==========================================================
- * DESCRIPTION GENERATOR
+ * DESCRIPTION GENERATOR (UPGRADED)
  * ==========================================================
  */
 export function generateDescription(page: PageInfo): string {
@@ -158,20 +431,21 @@ export function generateDescription(page: PageInfo): string {
     const override = overrides?.[page.slug]
     if (override?.description) return override.description
 
-    const categoryMetaData = categoryMeta[page.slug]
+    const categoryKey = resolveCategory(page)
+
+    const categoryMetaData = categoryMeta[categoryKey || ""]
     if (page.type === "archive" && categoryMetaData?.description) {
         return categoryMetaData.description
     }
 
-    const categoryKey = page.collection || ""
-    const categoryData = categorySEO[categoryKey]
+    const categoryData = categorySEO[categoryKey || ""]
 
-    // PRODUCT INHERITANCE
+    // PRODUCT
     if (page.type === "product" && categoryData) {
         return `Buy ${humanize(page.slug).toLowerCase()} from our ${categoryData.keyword.toLowerCase()} collection. ${categoryData.modifier}.`
     }
 
-    // CATEGORY FALLBACK
+    // CATEGORY
     if (page.type === "archive" && categoryData) {
         return `Explore ${humanize(page.slug).toLowerCase()} under our ${categoryData.keyword.toLowerCase()} range. ${categoryData.modifier}.`
     }
@@ -186,7 +460,7 @@ export function generateDescription(page: PageInfo): string {
 
 /**
  * ==========================================================
- * META GENERATOR
+ * META GENERATOR (UNCHANGED BUT NOW CATEGORY-AWARE)
  * ==========================================================
  */
 function generateMeta(page: PageInfo): string {
@@ -196,7 +470,8 @@ function generateMeta(page: PageInfo): string {
     const title = generateTitle(page)
     const description = generateDescription(page)
 
-    const categoryMetaData = categoryMeta[page.slug]
+    const categoryKey = resolveCategory(page)
+    const categoryMetaData = categoryMeta[categoryKey || ""]
 
     const image = override.image
         ? BASE_URL + override.image
@@ -226,8 +501,11 @@ function generateMeta(page: PageInfo): string {
 }
 
 /**
- * REMOVE OLD SEO TAGS
+ * ==========================================================
+ * REMAINING SYSTEM (UNCHANGED)
+ * ==========================================================
  */
+
 function cleanSEO(html: string): string {
     return html
         .replace(/<title>[\s\S]*?<\/title>/gi, "")
@@ -238,9 +516,6 @@ function cleanSEO(html: string): string {
         .replace(/<include src="\/templates\/seo\/seo-.*?\.html"><\/include>/gi, "")
 }
 
-/**
- * HEAD MANAGER (UNCHANGED)
- */
 function updateHeadIncludes(html: string, includeTag: string): string {
     return html.replace(
         /<head[^>]*>([\s\S]*?)<\/head>/i,
@@ -274,8 +549,11 @@ function updateHeadIncludes(html: string, includeTag: string): string {
 }
 
 /**
- * MAIN
+ * ==========================================================
+ * MAIN EXECUTION (UNCHANGED)
+ * ==========================================================
  */
+
 const files = getHTMLFiles(ROOT)
 
 const sitemapEntries: string[] = []
@@ -329,4 +607,4 @@ ${sitemapEntries.join("\n")}
 
 fs.writeFileSync(SITEMAP_PATH, sitemap)
 
-console.log("\n✅ SEO system built successfully (production-grade).\n")
+console.log("\n✅ SEO system built successfully (CATEGORY-AWARE MODE).\n")

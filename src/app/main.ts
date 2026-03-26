@@ -98,6 +98,20 @@ import { initNavbar } from '@components/navbar';
 import { initHeaderHeightSystem } from '@app-layout/headerHeight';
 import { initScrollSystem } from '@app-layout/scroll';
 
+/**
+ * TOC SYSTEM (🔥 NEW)
+ * ---------------------------------------------------------
+ * Handles:
+ * - Nested expand/collapse (VS Code style)
+ * - Global TOC collapse/expand
+ * - Hide/show behavior
+ * - Mobile auto-collapse on link click
+ *
+ * NOTE:
+ * - Safe to initialize globally
+ * - Automatically activates only if TOC exists in DOM
+ */
+import { initTOC } from '@app-layout/toc';
 
 
 /* =========================================================
@@ -108,15 +122,30 @@ import { initScrollSystem } from '@app-layout/scroll';
  * Bootstraps the application
  */
 function initApp(): void {
-  // DOM enhancements
+
+  /* -------------------------------------------------------
+     DOM Enhancements
+  ------------------------------------------------------- */
   initIconifyReplacement();
 
-  // Components
+  /* -------------------------------------------------------
+     Components
+  ------------------------------------------------------- */
   initNavbar();
 
-  // Layout systems
+  /* -------------------------------------------------------
+     Layout Systems
+  ------------------------------------------------------- */
+
+  /**
+   * Order matters:
+   * 1. Header system (sets CSS variables)
+   * 2. Scroll system (depends on layout offsets)
+   * 3. TOC system (depends on scroll + layout)
+   */
   initHeaderHeightSystem();
   initScrollSystem();
+  initTOC();
 }
 
 

@@ -112,6 +112,7 @@
 
   /* TOC positioning */
   --toc-top: calc(var(--header-height) + var(--space-lg));
+  --toc-offset: 0px;
 }
 
 /* Foundation */
@@ -139,3 +140,7 @@
 
 /* Blog Styles */
 @import "./blog/blog.css";
+@import "./blog/blog-header.css";
+@import "./blog/blog-navbar.css";
+@import "./blog/toc.css";
+@import "./blog/tables.css";

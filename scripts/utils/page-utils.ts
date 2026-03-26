@@ -18,15 +18,20 @@ export type PageType =
   | "landing"
 
 /**
- * 
  * PAGE INFO STRUCTURE
  * ==========================================================
  *
- * This is the SINGLE SOURCE OF TRUTH for:
+ * SINGLE SOURCE OF TRUTH for:
  * - SEO
  * - Schema
  * - Sitemap
  * - Breadcrumbs
+ *
+ * DESIGN PHILOSOPHY:
+ * ------------------
+ * - Backward compatible (no breaking changes)
+ * - Forward scalable (supports hierarchy)
+ * - Structure-driven (filesystem = source of truth)
  */
 export interface PageInfo {
   filePath: string
@@ -34,7 +39,28 @@ export interface PageInfo {
   slug: string
   urlPath: string
   type: PageType
+
+  /**
+   * Top-level grouping (existing behavior)
+   * Example:
+   * /products/... → "products"
+   */
   collection?: string
+
+  /**
+   * First-level category inside collection
+   * Example:
+   * /products/vinegars/... → "vinegars"
+   */
+  category?: string
+
+  /**
+   * Full hierarchy (NEW — critical for scaling)
+   * Example:
+   * /products/vinegars/apple-cider-vinegar
+   * → ["products", "vinegars", "apple-cider-vinegar"]
+   */
+  hierarchy: string[]
 }
 
 /**
@@ -50,15 +76,24 @@ const COLLECTION_TYPE_MAP: Record<string, PageType> = {
 }
 
 /**
- * GET PAGE INFO (FINAL • DEPTH-AGNOSTIC • SCALABLE)
+ * GET PAGE INFO (FINAL • DEPTH-AWARE • NON-BREAKING)
  * ==========================================================
  *
- * KEY DESIGN PRINCIPLES:
+ * CORE RESPONSIBILITY:
+ * -------------------
+ * Convert file path → structured meaning
  *
- * 1. NO depth assumptions
- * 2. Works with infinite nesting
- * 3. Structure-driven (folder-based)
- * 4. Stable for long-term scaling
+ * KEY IMPROVEMENTS:
+ * -----------------
+ * ✔ Adds hierarchy awareness (no breaking changes)
+ * ✔ Extracts category cleanly
+ * ✔ Maintains existing collection logic
+ * ✔ Improves type detection for deep nesting
+ *
+ * IMPORTANT:
+ * ----------
+ * - Existing systems (SEO, Schema) will continue to work
+ * - New systems can leverage `category` + `hierarchy`
  *
  * ==========================================================
  */
@@ -83,30 +118,49 @@ export function getPageInfo(filePath: string): PageInfo {
    */
   const name = path.basename(filePath, ".html")
 
-  let type: PageType = "page"
-  let collection: string | undefined
+  /**
+   * Remove file name → get folder hierarchy
+   */
+  const segments = parts.slice(0, -1)
+
+  /**
+   * Hierarchy (NEW)
+   */
+  const hierarchy = segments
 
   /**
    * Detect collection (top-level folder)
    */
-  const folder = parts[0]?.toLowerCase()
+  const collection = segments[0]?.toLowerCase()
 
-  if (folder && COLLECTION_TYPE_MAP[folder]) {
+  /**
+   * Detect category (second level)
+   */
+  const category = segments.length > 1 ? segments[1] : undefined
 
-    collection = folder
+  /**
+   * Determine type
+   */
+  let type: PageType = "page"
 
+  if (collection && COLLECTION_TYPE_MAP[collection]) {
+
+    const depth = segments.length
     const isIndex = name === "index"
 
     /**
-     * RULE:
-     * -----
-     * index.html → archive (collection or category)
-     * anything else → item (product/post)
+     * RULES:
+     *
+     * /products                → archive
+     * /products/vinegars       → archive
+     * /products/vinegars/apple → product
      */
     if (isIndex) {
       type = "archive"
+    } else if (depth >= 2) {
+      type = COLLECTION_TYPE_MAP[collection]
     } else {
-      type = COLLECTION_TYPE_MAP[folder]
+      type = "archive"
     }
   }
 
@@ -114,28 +168,23 @@ export function getPageInfo(filePath: string): PageInfo {
    * ==========================================================
    * SLUG (CRITICAL)
    * ==========================================================
-   *
-   * Ensures unique identity for pages
    */
 
   let slug = name
 
   if (name === "index" && collection) {
-    // Use parent folder as slug
-    slug = parts[parts.length - 2] || collection
+    slug = segments[segments.length - 1] || collection
   }
 
   /**
    * ==========================================================
    * URL PATH
    * ==========================================================
-   *
-   * Converts file path → clean URL
    */
 
   const urlPath =
     name === "index"
-      ? "/" + parts.slice(0, -1).join("/")
+      ? "/" + segments.join("/")
       : "/" + relative.replace(".html", "")
 
   /**
@@ -155,6 +204,8 @@ export function getPageInfo(filePath: string): PageInfo {
     slug,
     urlPath: cleanUrl,
     type,
-    ...(collection ? { collection } : {})
+    hierarchy,
+    ...(collection ? { collection } : {}),
+    ...(category ? { category } : {})
   }
 }

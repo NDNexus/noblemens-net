@@ -1,0 +1,392 @@
+/**
+ * =========================================================
+ * NOBLEMENS TOC — PREMIUM COMPONENT SYSTEM
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Provides a scalable, premium Table of Contents UI system
+ * supporting:
+ *
+ * ✔ Sticky sidebar (desktop)
+ * ✔ Responsive layout (mobile-safe)
+ * ✔ Nested hierarchy (H2 → H6)
+ * ✔ Expand/collapse-ready structure
+ * ✔ Scrollable container
+ * ✔ Smooth hover + active states
+ *
+ * ---------------------------------------------------------
+ *
+ * ARCHITECTURE
+ * ---------------------------------------------------------
+ *
+ * .toc                → container
+ * .toc-item           → individual node
+ * .toc-row            → row (button + link)
+ * .toc-expand         → expand/collapse trigger
+ * .toc-children       → nested container
+ *
+ * ---------------------------------------------------------
+ *
+ * DESIGN PRINCIPLES
+ * ---------------------------------------------------------
+ *
+ * ✔ Subtle premium visuals (no loud UI)
+ * ✔ Minimal motion, meaningful feedback
+ * ✔ Clean hierarchy (readability first)
+ * ✔ Ready for JS-driven interactivity
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================================
+     CONTAINER
+  ========================================================= */
+
+    .toc {
+        position: sticky;
+        top: var(--toc-top);
+        align-self: start;
+
+        padding: var(--space-md);
+        border-radius: var(--radius-md);
+
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-main);
+
+        /* subtle premium depth */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+
+        /* prevent overflow issues */
+        max-height: calc(100vh - var(--toc-top) - var(--space-lg));
+        overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+        .toc {
+            padding: var(--space-xs);
+            border-radius: var(--radius-sm);
+        }
+    }
+
+
+    .toc-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-sm);
+        padding: 0.5rem 0;
+    }
+
+
+
+    /* =========================================================
+     TITLE
+  ========================================================= */
+
+    .toc-header-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .toc h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    @media (max-width: 320px) {
+        .toc-header-title>h3 {
+            font-size: 1rem;
+        }
+    }
+
+    .toc-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .toc-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+
+        padding: 0;
+
+        border-radius: 999px;
+
+        border: 1px solid var(--color-border-default);
+
+        background: rgba(255, 255, 255, 0.6);
+        /* subtle glass */
+        backdrop-filter: blur(6px);
+
+        color: var(--color-accent);
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+    }
+
+    .toc-hide {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+
+        padding: 0;
+
+        border-radius: 999px;
+
+        border: 1px solid var(--color-border-default);
+
+        background: rgba(255, 255, 255, 0.6);
+        /* subtle glass */
+        backdrop-filter: blur(6px);
+
+        color: var(--color-accent);
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+    }
+
+
+    /* =========================================================
+     BASE LIST (legacy support / fallback)
+  ========================================================= */
+
+    .toc ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+        padding-left: 0;
+    }
+
+    /* =========================================================
+     LINK BASE STYLES
+  ========================================================= */
+
+    .toc a {
+        display: block;
+        flex: 1;
+
+        font-size: 0.95rem;
+        line-height: 1.5;
+
+        color: var(--color-text-secondary);
+
+        padding: 6px 8px;
+        border-radius: var(--radius-xs);
+
+        transition: all 0.2s ease;
+    }
+
+    /* Hover interaction */
+    .toc a:hover {
+        color: var(--color-text-primary);
+        background: rgba(194, 165, 95, 0.08);
+        transform: translateX(2px);
+    }
+
+    /* =========================================================
+     ACTIVE STATE (SCROLL SYNC)
+  ========================================================= */
+
+    .toc a.is-active {
+        color: var(--color-accent);
+        font-weight: 500;
+
+        background: rgba(194, 165, 95, 0.12);
+
+        border-left: 3px solid var(--color-accent);
+        padding-left: 6px;
+    }
+
+    /* =========================================================
+     SCROLLBAR (SUBTLE PREMIUM)
+  ========================================================= */
+
+    .toc::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .toc::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+    }
+
+    /* =========================================================
+     NESTED STRUCTURE (CORE SYSTEM)
+  ========================================================= */
+
+    .toc-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Row = expand button + link */
+    .toc-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Nested children container */
+    .toc-children {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        margin-left: 14px;
+        padding-left: 6px;
+
+        border-left: 1px dashed var(--color-border-subtle);
+    }
+
+    /* =========================================================
+     EXPAND BUTTON (VS CODE STYLE)
+  ========================================================= */
+
+    .toc-expand {
+        width: 18px;
+        height: 18px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 10px;
+        cursor: pointer;
+
+        border-radius: 4px;
+        border: 1px solid var(--color-border-default);
+
+        background: transparent;
+
+        transition: all 0.2s ease;
+    }
+
+    .toc-expand:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Arrow indicator */
+    .toc-expand::before {
+        content: "▶";
+        display: inline-block;
+        transition: transform 0.2s ease;
+    }
+
+    /* Expanded state (JS-controlled) */
+    .toc-item.expanded>.toc-row .toc-expand::before {
+        transform: rotate(90deg);
+    }
+
+    /* Placeholder for items without children */
+    .toc-spacer {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* =========================================================
+     LEVEL-BASED VISUAL HIERARCHY
+  ========================================================= */
+
+    .toc-item.level-2 a {
+        font-weight: 500;
+    }
+
+    .toc-item.level-3 a {
+        font-size: 0.92rem;
+        opacity: 0.9;
+    }
+
+    .toc-item.level-4 a {
+        font-size: 0.88rem;
+        opacity: 0.75;
+    }
+
+    /* =========================================================
+     RESPONSIVE BEHAVIOR
+  ========================================================= */
+
+    /* Tablet Landscape*/
+    @media (max-width: 1024px) {
+
+        .toc {
+            position: sticky;
+            /* 🔥 FIX */
+            top: var(--toc-top);
+            max-height: none;
+            z-index: 50;
+        }
+
+    }
+
+    /* Tablet Portrait*/
+    @media (max-width: 768px) {
+
+        .toc {
+            position: sticky;
+            /* 🔥 FIX */
+            top: var(--header-height);
+            max-height: none;
+            z-index: 50;
+            padding: var(--space-sm) var(--space-md);
+        }
+
+    }
+
+    /* DEFAULT = collapsed */
+    .toc-item>.toc-children {
+        display: none;
+    }
+
+    /* EXPANDED = visible */
+    .toc-item.expanded>.toc-children {
+        display: flex;
+    }
+
+    /* If body has class toc-hidden, hide div with class .toc */
+    body.toc-hidden .toc {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+
+    .toc-body {
+        max-height: 1000px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    body.toc-collapsed .toc-body {
+        max-height: 0;
+    }
+
+    .toc-toggle iconify-icon {
+        transition: transform 0.3s ease;
+    }
+
+    /* When collapsed → flip it */
+    body.toc-collapsed .toc-toggle iconify-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Hide "Show TOC" button by default */
+    .blog-toc-open{
+        display:none;
+    }
+
+    body.toc-hidden .blog-toc-open {
+        display:block;
+    }
+}

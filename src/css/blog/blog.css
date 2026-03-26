@@ -26,6 +26,13 @@
    LAYOUT
 ========================================================= */
 
+    .blog-section {
+        width: 100%;
+        padding-block: var(--space-lg);
+    }
+
+
+
     .blog-layout {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 400px;
@@ -48,6 +55,7 @@
 
     .blog-content {
         display: block;
+        min-width: 0;
     }
 
     /* =========================================================
@@ -208,7 +216,7 @@
     .blog-content ol {
         margin-top: var(--space-md);
         margin-bottom: var(--space-md);
-        padding-left: 1.5rem;
+        padding-left: 1.75rem;
         font-size: 1.25rem;
     }
 
@@ -217,9 +225,39 @@
         line-height: 1.7;
     }
 
+    .blog-content ul {
+        list-style: none;
+    }
+
+    .blog-content li {
+        position: relative;
+        margin-bottom: 0.6rem;
+        line-height: 1.7;
+    }
+
+    .blog-content ul li::before {
+        content: "";
+        position: absolute;
+        left: -1.5rem;
+        top: 0.6em;
+
+        width: 12px;
+        height: 12px;
+
+        /* fallback base */
+        background-color: #C2A55F;
+        border-radius: 50%;
+
+        /* SVG on top (overrides visually if supported) */
+        mask: url("/public/images/icons/diamond.svg") no-repeat center;
+        -webkit-mask: url("/public/images/icons/diamond.svg") no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+    }
+
     /* Block elements */
     .blog-content blockquote,
-    .blog-content table,
     .blog-content figure {
         margin: var(--space-xl) 0;
     }
@@ -265,26 +303,6 @@
         text-align: center;
     }
 
-    /* =========================================================
-   TABLES
-========================================================= */
-
-    .blog-content table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 1.05rem;
-    }
-
-    .blog-content th,
-    .blog-content td {
-        padding: var(--space-sm);
-        border: 1px solid var(--color-border-default);
-    }
-
-    .blog-content th {
-        background: var(--color-bg-alt);
-        font-weight: 600;
-    }
 
     /* =========================================================
    CTA
@@ -295,143 +313,27 @@
     }
 
     /**
- * =========================================================
- * NOBLEMENS TOC — PREMIUM COMPONENT
- * =========================================================
- *
- * FEATURES
- * ---------------------------------------------------------
- * - Sticky sidebar
- * - Smooth hover + active transitions
- * - Subtle premium visuals (not loud)
- * - Scrollable if content is long
- *
- * =========================================================
- */
+    * Order TOC before Blog Content
+     */
+    @media (max-width: 768px) {
 
-    .toc {
-        position: sticky;
-        top: var(--toc-top);
-        align-self: start;
-
-        padding: var(--space-md);
-        border-radius: var(--radius-md);
-
-        border: 1px solid var(--color-border-default);
-        background: var(--color-bg-main);
-
-        /* subtle premium depth */
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-
-        /* prevent overflow issues */
-        max-height: calc(100vh - var(--toc-top) - var(--space-lg));
-        overflow-y: auto;
-    }
-
-    /* =========================================
-   TITLE
-========================================= */
-
-    .toc h3 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: var(--space-sm);
-    }
-
-    /* =========================================
-   LIST
-========================================= */
-
-    .toc ul {
-        list-style-type: none;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-xs);
-        padding-left: 0;
-    }
-
-    /* =========================================
-   LINKS
-========================================= */
-
-    .toc a {
-        display: block;
-
-        font-size: 0.95rem;
-        line-height: 1.5;
-
-        color: var(--color-text-secondary);
-
-        padding: 6px 8px;
-        border-radius: var(--radius-xs);
-
-        transition: all 0.2s ease;
-    }
-
-    /* Hover effect */
-    .toc a:hover {
-        color: var(--color-text-primary);
-        background: rgba(194, 165, 95, 0.08);
-        transform: translateX(2px);
-    }
-
-    /* =========================================
-   ACTIVE STATE (🔥 IMPORTANT)
-========================================= */
-
-    .toc a.is-active {
-        color: var(--color-accent);
-        font-weight: 500;
-
-        background: rgba(194, 165, 95, 0.12);
-
-        /* subtle left indicator */
-        border-left: 3px solid var(--color-accent);
-        padding-left: 6px;
-    }
-
-    /* =========================================
-   SCROLLBAR (premium subtle)
-========================================= */
-
-    .toc::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .toc::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.15);
-        border-radius: 10px;
-    }
-
-    /* =========================================
-   RESPONSIVE
-========================================= */
-
-    @media (max-width: 1024px) {
-        .toc {
-            position: static;
-            max-height: none;
+        .blog-section {
+            padding-block: 0px; /* remove spacing to make TOC stick to top below header. */
         }
-    }
-
-    /* =========================================================
-   RESPONSIVE
-========================================================= */
-
-    @media (max-width: 1024px) {
 
         .blog-layout {
             grid-template-columns: 1fr;
+
         }
 
+        .blog-navbar-list{
+            gap: 0rem;
+        }
+
+        /* 🔥 THIS IS THE FIX */
         .toc {
-            position: static;
-        }
-
-        .blog-content p {
-            font-size: 1.15rem;
+            order: -1;
         }
 
     }
-
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <include src="/templates/head.html"></include>
+</head>
+
+<body class="blog-page">
+
+    <!-- BLOG HEADER (custom, not global) -->
+    <include src="/templates/blog/blog-header.html"></include>
+
+    <main class="site-main">
+
+        <section class="blog-section">
+            <div class="wide-container">
+
+                <div class="blog-layout">
+
+                    <!-- ========================= -->
+                    <!-- MAIN CONTENT -->
+                    <!-- ========================= -->
+                    <article class="blog-content">
+
+                        <!-- BLOG CONTENT INJECTED HERE -->
+                        {{content}}
+
+                    </article>
+
+
+                    <!-- ========================= -->
+                    <!-- TOC -->
+                    <!-- ========================= -->
+                    <aside class="toc" data-toc>
+
+                        <div class="toc-inner">
+
+                            <div class="toc-header">
+                                <div class="toc-header-title">
+                                    <h3>Table of Contents</h3>
+                                </div>
+
+                                <div class="toc-actions">
+                                    <button class="toc-toggle" data-toc-toggle>
+                                        <i icon="tabler:chevrons-up"></i>
+                                    </button>
+                                    <button class="toc-hide" data-toc-hide>
+                                        <i icon="tabler:x"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <nav class="toc-body">
+                                {{toc}}
+                            </nav>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <include src="/templates/footer.html"></include>
+
+    <script type="module" src="/src/app/main.ts"></script>
+
+</body>
+
+</html>

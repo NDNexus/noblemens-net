@@ -1,0 +1,143 @@
+/**
+ * =========================================================
+ * NOBLEMENS BLOG — TABLE SYSTEM
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Provides a responsive, overflow-safe table system for
+ * markdown-generated content.
+ *
+ * Designed to:
+ * ✔ Prevent layout breaking
+ * ✔ Support horizontal scrolling
+ * ✔ Maintain readability on all devices
+ * ✔ Provide subtle premium styling
+ *
+ * ---------------------------------------------------------
+ *
+ * ARCHITECTURE
+ * ---------------------------------------------------------
+ *
+ * .table-wrapper → scroll container
+ * table          → content structure
+ * th / td        → cell styling
+ *
+ * ---------------------------------------------------------
+ *
+ * DESIGN PRINCIPLES
+ * ---------------------------------------------------------
+ *
+ * ✔ Tables should NEVER break layout
+ * ✔ Horizontal scroll over content squish
+ * ✔ Minimal but elegant styling
+ * ✔ Preserve readability (no cramped UI)
+ *
+ * =========================================================
+ */
+
+
+/* =========================================================
+   WRAPPER (CRITICAL FOR LAYOUT SAFETY)
+========================================================= */
+
+.blog-content .table-wrapper {
+
+    /* Extend beyond content padding (premium layout trick) */
+    margin: var(--space-xl) calc(-1 * var(--space-md));
+    padding: 0 var(--space-md);
+
+    /* Enable horizontal scroll */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    /**
+     * Subtle edge fade
+     * Prevents harsh cutoff at scroll edges
+     */
+    mask-image: linear-gradient(to right,
+            transparent,
+            black 16px,
+            black calc(100% - 16px),
+            transparent);
+}
+
+
+/* =========================================================
+   TABLE BASE
+========================================================= */
+
+.blog-content table {
+
+    /**
+     * Allow natural expansion based on content
+     * Prevents squishing of columns
+     */
+    width: max-content;
+
+    /**
+     * Ensures table still respects container width
+     */
+    min-width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 1.05rem;
+}
+
+
+/* =========================================================
+   CELLS
+========================================================= */
+
+.blog-content th,
+.blog-content td {
+
+    padding: var(--space-sm);
+
+    border: 1px solid var(--color-border-default);
+
+    /**
+     * Prevents awkward line breaks
+     * Keeps table clean and readable
+     */
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.blog-content th {
+
+    background: var(--color-bg-alt);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ROW STATES (NEW — PREMIUM UX)
+========================================================= */
+
+/**
+ * Zebra striping
+ * Improves readability for dense data
+ */
+.blog-content tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/**
+ * Hover state
+ * Helps users track rows easily
+ */
+.blog-content tbody tr:hover {
+    background: rgba(194, 165, 95, 0.08);
+
+    /**
+     * Smooth interaction feel
+     */
+    transition: background 0.2s ease;
+}

@@ -1,58 +1,150 @@
 /**
  * =========================================================
- * NOBLEMENS LAYOUT SYSTEM — SCROLL & ANCHOR HANDLING
+ * NOBLEMENS SCROLL SYSTEM
  * =========================================================
  *
- * FEATURES
+ * PURPOSE
  * ---------------------------------------------------------
- * 1. Smooth anchor scrolling with header offset
- * 2. Scroll spy (active section highlighting)
+ * Handles:
+ * ✔ Smooth anchor scrolling with dynamic offset
+ * ✔ Scroll spy (active section highlighting)
  *
+ * Designed for:
+ * - Fixed headers
+ * - Optional TOC (Table of Contents)
+ * - Design-system-based spacing (CSS variables)
+ *
+ * ---------------------------------------------------------
+ *
+ * CORE FEATURES
+ * ---------------------------------------------------------
+ * 1. Offset-aware scrolling
+ *    - Accounts for header height
+ *    - Accounts for TOC (if present)
+ *    - Accounts for layout spacing (--space-md)
+ *
+ * 2. Scroll spy
+ *    - Highlights active section link
+ *    - Works with data-scroll-link attribute
+ *
+ * ---------------------------------------------------------
  *
  * REQUIREMENTS
  * ---------------------------------------------------------
- * - Sections must have IDs
- * - Links must use href="#section-id"
- * - Header height system must be active
+ * ✔ Sections must have IDs
+ * ✔ Links must use href="#section-id"
+ * ✔ CSS variables must exist:
  *
+ *   --header-height
+ *   --toc-offset
+ *   --space-md
  *
- * OPTIONAL (for active state)
  * ---------------------------------------------------------
- * Add attribute:
- *   data-scroll-link
  *
- * Example:
+ * OPTIONAL (SCROLL SPY)
+ * ---------------------------------------------------------
  * <a href="#benefits" data-scroll-link>Benefits</a>
  *
  * Active class:
- *   .is-active
+ * .is-active
  *
  * =========================================================
  */
 
+
+/* =========================================================
+   INTERNAL UTIL — SPACING CALCULATION (CACHED)
+========================================================= */
+
+/**
+ * Cached spacing value (in px)
+ * Prevents repeated DOM calculations
+ */
+let cachedSpace: number | null = null;
+
+/**
+ * Get spacing value from CSS variable (--space-md)
+ *
+ * Supports:
+ * ✔ rem (fast path)
+ * ✔ px
+ * ✔ clamp(), calc() (fallback via DOM)
+ *
+ * Runs once → cached for performance
+ */
+function getSpacingPx(): number {
+
+    if (cachedSpace !== null) return cachedSpace;
+
+    const root = document.documentElement;
+    const styles = getComputedStyle(root);
+
+    const raw = styles.getPropertyValue('--space-md').trim();
+
+    /**
+     * FAST PATH → REM
+     */
+    if (raw.endsWith('rem')) {
+        const value = parseFloat(raw);
+        const rootFontSize = parseFloat(styles.fontSize) || 16;
+
+        cachedSpace = value * rootFontSize;
+        return cachedSpace;
+    }
+
+    /**
+     * FALLBACK → DOM MEASUREMENT
+     * Handles clamp(), calc(), etc.
+     */
+    const temp = document.createElement('div');
+    temp.style.height = raw;
+    root.appendChild(temp);
+
+    cachedSpace = temp.offsetHeight;
+
+    root.removeChild(temp);
+
+    return cachedSpace;
+}
+
+
+/* =========================================================
+   OFFSET CALCULATION
+========================================================= */
+
+/**
+ * Compute scroll offset for anchor navigation
+ *
+ * Includes:
+ * - Header height
+ * - TOC offset (dynamic)
+ * - Layout spacing
+ */
 function getScrollOffset(): number {
 
     const root = document.documentElement;
     const styles = getComputedStyle(root);
 
     const header = parseFloat(styles.getPropertyValue('--header-height')) || 0;
+    const toc = parseFloat(styles.getPropertyValue('--toc-offset')) || 0;
 
-    const temp = document.createElement('div');
-    temp.style.height = styles.getPropertyValue('--space-md');
-    root.appendChild(temp);
+    const space = getSpacingPx();
 
-    const spaceLg = temp.offsetHeight;
-    root.removeChild(temp);
-
-    return header + spaceLg;
+    return header + toc + space;
 }
+
 
 /* =========================================================
    SMOOTH SCROLL HANDLER
 ========================================================= */
 
+/**
+ * Handles click on anchor links
+ * Applies smooth scrolling with offset correction
+ */
 function handleAnchorClick(e: Event): void {
-    const target = e.target as HTMLElement;
+
+    const target = e.target as HTMLElement | null;
     if (!target) return;
 
     const link = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
@@ -79,16 +171,23 @@ function handleAnchorClick(e: Event): void {
 
 
 /* =========================================================
-   SCROLL SPY (ACTIVE LINK)
+   SCROLL SPY (ACTIVE LINK TRACKING)
 ========================================================= */
 
+/**
+ * Highlights active section link based on scroll position
+ */
 function initScrollSpy(): void {
+
     const links = document.querySelectorAll<HTMLAnchorElement>(
         'a[data-scroll-link]'
     );
 
     if (links.length === 0) return;
 
+    /**
+     * Map links → sections
+     */
     const sections = Array.from(links)
         .map(link => {
             const id = link.getAttribute('href');
@@ -97,16 +196,20 @@ function initScrollSpy(): void {
         })
         .filter(Boolean) as HTMLElement[];
 
+    /**
+     * Scroll handler
+     */
     function onScroll(): void {
+
         const scrollPos = window.scrollY + getScrollOffset() + 10;
 
         let currentSection: HTMLElement | null = null;
 
-        sections.forEach(section => {
+        for (const section of sections) {
             if (section.offsetTop <= scrollPos) {
                 currentSection = section;
             }
-        });
+        }
 
         links.forEach(link => {
             link.classList.remove('is-active');
@@ -122,7 +225,7 @@ function initScrollSpy(): void {
 
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    onScroll(); // initial run
+    onScroll(); // Initial run
 }
 
 
@@ -130,7 +233,14 @@ function initScrollSpy(): void {
    INIT
 ========================================================= */
 
+/**
+ * Initialize scroll system
+ *
+ * Safe to run globally — activates only when needed
+ */
 export function initScrollSystem(): void {
+
     document.addEventListener('click', handleAnchorClick);
+
     initScrollSpy();
 }

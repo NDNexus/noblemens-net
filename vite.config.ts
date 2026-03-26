@@ -22,6 +22,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs";
 import htmlInclude from "./plugins/htmlInclude";
+import micromatch from "micromatch";
 
 /**
  * ==========================================================
@@ -57,7 +58,7 @@ function loadIgnoreList(): string[] {
  */
 
 function shouldIgnore(relativePath: string, ignoreList: string[]): boolean {
-  return ignoreList.some((rule) => relativePath.startsWith(rule));
+  return micromatch.isMatch(relativePath, ignoreList);
 }
 
 /**

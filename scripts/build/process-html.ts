@@ -44,6 +44,8 @@ function runStep(name: string, command: string) {
  * ----------------------------------------------------------
  */
 
+runStep("Blog Build", "npx tsx scripts/blog/build-blog.ts")
+
 runStep("Head Injection", "npx tsx scripts/html/inject-head.ts")
 
 runStep("Navbar State Injection", "npx tsx scripts/html/inject-navbar-state.ts")

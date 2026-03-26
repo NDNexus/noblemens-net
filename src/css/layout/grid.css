@@ -36,7 +36,8 @@
 
     .grid {
         display: grid;
-        gap: var(--space-md); /* default spacing */
+        gap: var(--space-md);
+        /* default spacing */
     }
 
 
@@ -46,39 +47,52 @@
 
     /* XS → logos / icons */
     .grid-xs {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
     }
 
     /* SM → compact cards */
     .grid-sm {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
     }
 
     /* MD → standard (products, blog cards) */
     .grid-md {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
     }
 
     /* LG → featured items */
     .grid-lg {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     }
 
     /* XL → hero sections */
     .grid-xl {
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
     }
-
 
     /* =========================================
        GAP SYSTEM (MATCHES YOUR TOKENS)
     ========================================= */
 
-    .gap-xs { gap: var(--space-xs); }
-    .gap-sm { gap: var(--space-sm); }
-    .gap-md { gap: var(--space-md); }
-    .gap-lg { gap: var(--space-lg); }
-    .gap-xl { gap: var(--space-xl); }
+    .gap-xs {
+        gap: var(--space-xs);
+    }
+
+    .gap-sm {
+        gap: var(--space-sm);
+    }
+
+    .gap-md {
+        gap: var(--space-md);
+    }
+
+    .gap-lg {
+        gap: var(--space-lg);
+    }
+
+    .gap-xl {
+        gap: var(--space-xl);
+    }
 
 
     /* =========================================

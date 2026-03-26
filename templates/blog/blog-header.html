@@ -1,0 +1,147 @@
+<!--
+=========================================================
+NOBLEMENS BLOG HEADER
+=========================================================
+
+PURPOSE
+---------------------------------------------------------
+Dedicated header for blog pages with:
+
+✔ Smaller mobile footprint
+✔ Integrated TOC control
+✔ Same navigation system as main site
+✔ Collision-safe class names (blog-prefixed)
+
+---------------------------------------------------------
+
+SPECIAL FEATURES
+---------------------------------------------------------
+
+1. TOC BUTTON (🔥 IMPORTANT)
+   - Visible on mobile
+   - Appears when TOC is hidden
+   - Triggers: data-toc-open
+
+2. COMPACT MOBILE HEADER
+   - Reduced height
+   - Optimized for sticky TOC below
+
+3. SHARED NAV SYSTEM
+   - Reuses existing navbar JS behavior
+   - Keeps dropdown + mobile menu working
+
+=========================================================
+-->
+
+<header class="blog-header">
+
+    <!-- =====================================================
+         ANNOUNCEMENT BAR (OPTIONAL)
+    ====================================================== -->
+    <div class="blog-announcement-bar hidden">
+        <div class="wide-container section-xs">
+            <p>
+                Discover our insights on natural living, premium products, and mindful consumption.
+            </p>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+    <div class="blog-navbar">
+
+        <div class="blog-navbar-wrapper">
+
+            <!-- =================================================
+                 MAIN ROW
+            ================================================== -->
+            <div class="wide-container section-xs blog-navbar-inner">
+
+                <!-- LOGO -->
+                <img src="/Noblemens Logo Digital.svg" alt="Noblemens Logo" width="200" height="80"
+                    class="blog-navbar-logo">
+
+                <!-- =================================================
+                     DESKTOP MENU
+                ================================================== -->
+                <nav class="blog-navbar-menu hidden lg:block">
+                    <ul class="blog-navbar-list">
+
+                        <li><a href="/" class="blog-navbar-link">Home</a></li>
+
+                        <li class="dropdown">
+                            <a href="/products" class="blog-navbar-link dropdown-toggle">
+                                Our Products
+                                <i class="pl-2" icon="tabler:chevron-down"></i>
+                            </a>
+
+                            <ul class="submenu">
+                                <li><a href="/products/vinegars/">Vinegars</a></li>
+                                <li><a href="/products/perfumes/">Perfumes</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="/articles" class="blog-navbar-link">Articles</a></li>
+                        <li><a href="/about-us" class="blog-navbar-link">About Us</a></li>
+                        <li><a href="/contact-us" class="blog-navbar-link">Contact Us</a></li>
+
+                    </ul>
+                </nav>
+
+                <!-- =================================================
+                     RIGHT ACTIONS (🔥 NEW)
+                ================================================== -->
+                <div class="blog-navbar-actions">
+
+                    <!-- TOC OPEN BUTTON (MOBILE + CONDITIONAL) -->
+                    <button class="blog-toc-open text-xs" data-toc-open aria-label="Open Table of Contents">
+                        <i icon="tabler:list"></i> Show TOC
+                    </button>
+
+                    <!-- MOBILE MENU TOGGLE -->
+                    <button id="menu-toggle" class="blog-navbar-toggle lg:hidden">
+                        <i class="icon-menu" icon="tabler:menu-2"></i>
+                        <i class="icon-close" icon="tabler:x"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 MOBILE MENU
+            ================================================== -->
+            <div id="mobile-menu" class="blog-navbar-mobile hidden lg:hidden">
+
+                <div class="wide-container section-xs">
+
+                    <ul class="blog-navbar-mobile-list">
+
+                        <li><a href="/">Home</a></li>
+
+                        <li class="dropdown">
+                            <button class="mobile-dropdown-toggle">
+                                Our Products
+                                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
+                            </button>
+
+                            <ul class="submenu mobile-submenu">
+                                <li><a href="/products/vinegars/">Vinegars</a></li>
+                                <li><a href="/products/perfumes/">Perfumes</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="/articles">Articles</a></li>
+                        <li><a href="/about-us">About Us</a></li>
+                        <li><a href="/contact-us">Contact Us</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>

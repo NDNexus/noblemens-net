@@ -1,0 +1,323 @@
+@layer components {
+
+    /**
+     * =========================================================
+     * BLOG NAVBAR SYSTEM (DESKTOP + MOBILE)
+     * =========================================================
+     *
+     * FEATURES
+     * --------
+     * - Fixed top navbar
+     * - Desktop hover dropdown (no hover gap, no flicker)
+     * - Mobile menu toggle
+     * - Mobile submenu (click-controlled with animation)
+     * - Chevron rotation for visual feedback
+     *
+     * DESIGN GOALS
+     * ------------
+     * - Zero layout shift (CLS-safe)
+     * - Smooth interactions (no jumpy UI)
+     * - Clear separation:
+     *      CSS → visuals
+     *      JS → behavior
+     *
+     * IMPORTANT
+     * ---------
+     * - Desktop uses visibility/opacity (NOT display)
+     * - Mobile uses max-height animation (NOT display toggle)
+     * =========================================================
+     */
+
+
+    /* =========================================
+       ROOT
+    ========================================= */
+
+    .blog-navbar-wrapper {
+
+        background: var(--color-bg-alt);
+        border-bottom: 3px solid var(--color-border-accent);
+    }
+
+
+    /* =========================================
+       INNER LAYOUT
+    ========================================= */
+
+    .blog-navbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .blog-navbar-logo {
+        height: 48px;
+        width: auto;
+        display: block;
+    }
+
+
+    /* =========================================
+       DESKTOP NAVIGATION
+    ========================================= */
+
+    .blog-navbar-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .blog-navbar-actions{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .blog-navbar-list {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-navbar-link {
+        display: inline-block;
+
+        font-size: 0.95rem;
+        font-weight: 500;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+
+        padding: 0.4rem 0.6rem;
+        border-radius: var(--radius-sm);
+
+        transition: background 150ms ease, color 150ms ease;
+    }
+
+    @media (hover: hover) {
+        .blog-navbar-link:hover {
+            color: var(--color-text-inverse);
+            background: var(--color-surface-primary-hover);
+            font-weight: 600;
+        }
+    }
+
+    .blog-navbar-link[aria-current="page"] {
+        color: var(--color-text-inverse);
+        background: var(--color-accent);
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       DROPDOWN (DESKTOP)
+    ========================================= */
+
+    .dropdown {
+        position: relative;
+    }
+
+    .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        min-width: 200px;
+
+        background: var(--color-bg-alt);
+        border: 1px solid var(--color-border-default);
+        border-bottom: 2px solid var(--color-border-accent);
+        border-radius: 6px;
+
+        padding: 0.25rem 0;
+
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+
+        /* Visibility system (prevents flicker) */
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+
+        transform: translateY(4px);
+        transition: all 150ms ease;
+    }
+
+    .submenu li {
+        width: 100%;
+        border-bottom: 1px solid var(--color-border-default);
+    }
+
+    .submenu a {
+        display: block;
+        padding: 0.5rem 1rem;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    @media (hover: hover) {
+
+        .submenu a:hover {
+            background: var(--color-surface-primary-hover);
+            color: var(--color-text-inverse);
+        }
+
+        .dropdown:hover .submenu {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* =========================================
+       MOBILE NAVIGATION
+    ========================================= */
+
+    .blog-navbar-toggle {
+        width: 40px;
+        height: 40px;
+
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-main);
+
+        font-size: 1.4rem;
+    }
+
+    .blog-navbar-mobile {
+        background: var(--color-bg-alt);
+        border-top: 1px solid var(--color-border-default);
+    }
+
+    .blog-navbar-mobile-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-navbar-mobile-list li {
+        border-bottom: 1px solid var(--color-border-default);
+    }
+
+    .blog-navbar-mobile-list a,
+    .mobile-dropdown-toggle {
+        display: block;
+        width: 100%;
+
+        padding: 0.75rem 0.5rem;
+
+        background: none;
+        border: none;
+        text-align: left;
+
+        color: var(--color-text-primary);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+
+    /**
+     * =========================================
+     * MOBILE SUBMENU (ANIMATED)
+     * =========================================
+     *
+     * KEY IDEA:
+     * - Always present in layout (display: block)
+     * - Hidden using max-height (NOT display: none)
+     * - Smooth expand/collapse animation
+     */
+
+    /* =========================================
+   MOBILE SUBMENU OVERRIDE (CRITICAL FIX)
+========================================= */
+
+    .mobile-submenu {
+        max-height: 0;
+        overflow: hidden;
+        padding-left: 1rem;
+
+        transition: max-height 250ms ease;
+    }
+
+    .mobile-submenu:not(.open) {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .mobile-submenu.open {
+        position: static;
+        /* 👈 override absolute */
+        visibility: visible;
+        /* 👈 override hidden */
+        opacity: 1;
+        /* 👈 override opacity */
+        pointer-events: auto;
+        /* 👈 allow interaction */
+
+        display: block;
+        max-height: 300px;
+    }
+
+    /* =========================================
+       CHEVRON ANIMATION
+    ========================================= */
+
+    .chevron {
+        transition: transform 200ms ease;
+    }
+
+    .mobile-dropdown-toggle.open .chevron {
+        transform: rotate(180deg);
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (min-width: 768px) {
+
+        .navbar-mobile {
+            display: none;
+        }
+
+        .navbar-toggle {
+            display: none;
+        }
+    }
+
+    /* =========================================
+   MOBILE TOGGLE ICON SWITCH
+========================================= */
+
+    .icon-close {
+        display: none;
+    }
+
+    .navbar-toggle.open .icon-menu {
+        display: none;
+    }
+
+    .navbar-toggle.open .icon-close {
+        display: inline;
+    }
+
+    .navbar-toggle i {
+        transition: transform 200ms ease, opacity 200ms ease;
+    }
+}

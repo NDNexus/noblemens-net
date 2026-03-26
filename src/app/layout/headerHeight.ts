@@ -98,7 +98,9 @@ export function initHeaderHeightSystem(): void {
      */
     const updateHeight = (): boolean => {
 
-        const header = document.querySelector<HTMLElement>('.site-header');
+        const header =
+            document.querySelector<HTMLElement>('.site-header') ||
+            document.querySelector<HTMLElement>('.blog-header');
 
         if (!header) return false;
 
@@ -128,7 +130,7 @@ export function initHeaderHeightSystem(): void {
         }
 
         if (!success && attempts === 0) {
-            console.warn('[HeaderHeight] .site-header not found after retries');
+            console.warn('[HeaderHeight] .site-header or .blog-header not found after retries');
         }
     };
 
@@ -154,7 +156,9 @@ export function initHeaderHeightSystem(): void {
          * - Announcement bar toggles
          * - Content changes
          */
-        const header = document.querySelector<HTMLElement>('.site-header');
+        const header =
+            document.querySelector<HTMLElement>('.site-header') ||
+            document.querySelector<HTMLElement>('.blog-header');
 
         if (header && 'ResizeObserver' in window) {
 
