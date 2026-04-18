@@ -225,7 +225,7 @@ export function applyImage(
  */
 export function transformImageURL(
     src: string,
-    options?: {
+    _options?: {
         width?: number;
         format?: "webp" | "jpg" | "png";
     }
