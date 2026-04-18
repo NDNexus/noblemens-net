@@ -104,6 +104,7 @@ export type SchemaOverride =
     | FAQSchema
     | ArticleSchema
     | WebPageSchema
+    | null // Special value to disable schema on a page
 
 
 /**

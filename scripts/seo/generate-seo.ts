@@ -481,10 +481,19 @@ function generateMeta(page: PageInfo): string {
 
     const url = BASE_URL + page.urlPath
 
+    const canonical = page.flags?.noIndex
+        ? BASE_URL + "/"
+        : BASE_URL + page.urlPath
+
+    const robots = page.flags?.noIndex === true
+        ? `<meta name="robots" content="noindex, nofollow">`
+        : ""
+
     return `<title>${title}</title>
+    ${robots}
 
 <meta name="description" content="${description}">
-<link rel="canonical" href="${url}">
+<link rel="canonical" href="${canonical}">
 
 <meta property="og:site_name" content="${site.name}">
 <meta property="og:title" content="${title}">
@@ -586,10 +595,11 @@ files.forEach(file => {
 
     console.log(`✔ SEO processed → ${page.urlPath}`)
 
-    sitemapEntries.push(`
-  <url>
-    <loc>${BASE_URL}${page.urlPath}</loc>
-  </url>`)
+    if (!page.flags?.excludeFromSitemap) {
+        sitemapEntries.push(
+            `<url><loc>${BASE_URL}${page.urlPath}</loc></url>`
+        )
+    }
 })
 
 fs.readdirSync(SEO_DIR).forEach(file => {

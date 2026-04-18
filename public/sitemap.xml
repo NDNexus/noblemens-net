@@ -1,104 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://noblemens.net/about-us</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/natural-living/ditching-synthetic-products</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/natural-living/natural-perfume-vs-synthetic</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/natural-living/premium-morning-wellness-routine</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/acv-with-the-mother</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/apple-cider-vinegar-for-weight-loss</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/benefits-of-apple-cider-vinegar</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/dates-vinegar/dates-vinegar-benefits</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/dates-vinegar/dates-vinegar-for-digestion</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/how-to-use-natural-vinegar-daily</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/jamun-vinegar/jamun-vinegar-benefits</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/jamun-vinegar/jamun-vinegar-blood-sugar</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/vinegars/vinegar-comparison-guide</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/wellness/chronic-inflammation-natural-remedies</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/wellness/gut-microbiome-guide</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/articles/wellness/traditional-fermented-foods-india</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/contact-us</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/products</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/products/perfumes</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/products/vinegars/apple-cider-vinegar</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/products/vinegars</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/samples/blog</loc>
-  </url>
-
-  <url>
-    <loc>https://noblemens.net/samples</loc>
-  </url>
+<url><loc>https://noblemens.net/about-us</loc></url>
+<url><loc>https://noblemens.net/articles</loc></url>
+<url><loc>https://noblemens.net/articles/natural-living/ditching-synthetic-products</loc></url>
+<url><loc>https://noblemens.net/articles/natural-living/natural-perfume-vs-synthetic</loc></url>
+<url><loc>https://noblemens.net/articles/natural-living/premium-morning-wellness-routine</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/acv-with-the-mother</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/apple-cider-vinegar-for-weight-loss</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/apple-cider-vinegar/benefits-of-apple-cider-vinegar</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/dates-vinegar/dates-vinegar-benefits</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/dates-vinegar/dates-vinegar-for-digestion</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/how-to-use-natural-vinegar-daily</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/jamun-vinegar/jamun-vinegar-benefits</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/jamun-vinegar/jamun-vinegar-blood-sugar</loc></url>
+<url><loc>https://noblemens.net/articles/vinegars/vinegar-comparison-guide</loc></url>
+<url><loc>https://noblemens.net/articles/wellness/chronic-inflammation-natural-remedies</loc></url>
+<url><loc>https://noblemens.net/articles/wellness/gut-microbiome-guide</loc></url>
+<url><loc>https://noblemens.net/articles/wellness/traditional-fermented-foods-india</loc></url>
+<url><loc>https://noblemens.net/contact-us</loc></url>
+<url><loc>https://noblemens.net/</loc></url>
+<url><loc>https://noblemens.net/products</loc></url>
+<url><loc>https://noblemens.net/products/perfumes</loc></url>
+<url><loc>https://noblemens.net/products/vinegars/apple-cider-vinegar</loc></url>
+<url><loc>https://noblemens.net/products/vinegars</loc></url>
+<url><loc>https://noblemens.net/samples/blog</loc></url>
+<url><loc>https://noblemens.net/samples</loc></url>
 </urlset>

@@ -178,4 +178,28 @@
         padding-top: 1rem;
     }
 
+    /* =========================================================
+     CARD META (for content cards)  
+    ========================================================= */
+    .card__meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .meta-separator {
+        width: 8px;
+        height: 8px;
+        background-color: #C2A55F;
+
+        mask: url("/images/icons/diamond.svg") no-repeat center;
+        -webkit-mask: url("/images/icons/diamond.svg") no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+
+        display: inline-block;
+    }
+
 }

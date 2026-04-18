@@ -61,6 +61,14 @@ export interface PageInfo {
    * → ["products", "vinegars", "apple-cider-vinegar"]
    */
   hierarchy: string[]
+
+
+  /* FLAGS (NEW) — for special handling in SEO, Schema, Sitemap */
+  flags?: {
+    noIndex?: boolean
+    noSchema?: boolean
+    excludeFromSitemap?: boolean
+  }
 }
 
 /**
@@ -195,6 +203,21 @@ export function getPageInfo(filePath: string): PageInfo {
       ? "/"
       : urlPath.replace(/\/+/g, "/")
 
+  /* ==========================================================
+   * FLAGS (Defined in the function to allow dynamic logic based on path)
+   * ==========================================================*/
+  const flags = {
+    noIndex: false,
+    noSchema: false,
+    excludeFromSitemap: false
+  }
+
+  if (slug === "page-not-found") {
+    flags.noIndex = true
+    flags.noSchema = true
+    flags.excludeFromSitemap = true
+  }
+
   /**
    * RETURN FINAL OBJECT
    */
@@ -206,6 +229,8 @@ export function getPageInfo(filePath: string): PageInfo {
     type,
     hierarchy,
     ...(collection ? { collection } : {}),
-    ...(category ? { category } : {})
+    ...(category ? { category } : {}),
+
+    flags
   }
 }

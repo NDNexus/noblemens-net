@@ -139,9 +139,14 @@ function cleanUrlRewrite(): Plugin {
         // Ignore files with extension
         if (url.includes(".")) return next();
 
-        const cleanUrl = url.replace(/\/$/, "");
-        req.url = `${cleanUrl}/index.html`;
+        const cleanUrl = url.replace(/\/$/, "").replace(/^\//, "");
+        const filePath = path.join(__dirname, cleanUrl, "index.html");
 
+        if (fs.existsSync(filePath)) {
+          req.url = `/${cleanUrl}/index.html`;
+        } else {
+          req.url = "/page-not-found/index.html";
+        }
         next();
       });
     },
@@ -163,8 +168,14 @@ function cleanUrlRewrite(): Plugin {
 
         if (url.includes(".")) return next();
 
-        const cleanUrl = url.replace(/\/$/, "");
-        req.url = `${cleanUrl}/index.html`;
+        const cleanUrl = url.replace(/\/$/, "").replace(/^\//, "");
+        const filePath = path.join(__dirname, cleanUrl, "index.html");
+
+        if (fs.existsSync(filePath)) {
+          req.url = `/${cleanUrl}/index.html`;
+        } else {
+          req.url = "/page-not-found/index.html";
+        }
 
         next();
       });
@@ -197,12 +208,16 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@css": path.resolve(__dirname, "src/css"),
-      "@components": path.resolve(__dirname, "src/app/components"),
-      "@app-layout": path.resolve(__dirname, "src/app/layout"),
-      "@css-layout": path.resolve(__dirname, "src/css/layout"),
-      "@html": path.resolve(__dirname, "scripts/html"),
+      "@": path.resolve(__dirname, "./src"),
+      "@css": path.resolve(__dirname, "./src/css"),
+      "@utils": path.resolve(__dirname, "./scripts/utils"),
+      "@lib": path.resolve(__dirname, "./src/lib"),
+      "@components": path.resolve(__dirname, "./src/app/components"),
+      "@app-layout": path.resolve(__dirname, "./src/app/layout"),
+      "@css-layout": path.resolve(__dirname, "./src/css/layout"),
+      "@html": path.resolve(__dirname, "./scripts/html"),
+      "@data": path.resolve(__dirname, "./src/data"),
+      "@templates": path.resolve(__dirname, "./templates"),
     },
   },
 

@@ -31,31 +31,39 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     /* 🔥 ALIASES GO HERE 🔥 */
-    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@utils/*": [
-        "scripts/utils/*"
+        "./scripts/utils/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
       ],
       "@seo/*": [
-        "scripts/seo/*"
+        "./scripts/seo/*"
       ],
       "@schema/*": [
-        "scripts/schema/*"
+        "./scripts/schema/*"
       ],
       "@components/*": [
-        "src/app/components/*"
+        "./src/app/components/*"
       ],
       "@html/*": [
-        "scripts/html/*"
+        "./scripts/html/*"
       ],
       "@app-layout/*": [
-        "src/app/layout/*"
+        "./src/app/layout/*"
       ],
       "@css-layout/*": [
-        "src/css/layout/*"
+        "./src/css/layout/*"
+      ],
+      "@data/*": [
+        "./src/data/*"
+      ],
+      "@templates/*": [
+        "./templates/*"
       ]
     }
   }

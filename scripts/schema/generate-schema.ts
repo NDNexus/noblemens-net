@@ -205,6 +205,13 @@ function buildBreadcrumb(page: PageInfo) {
  */
 function generateSchemas(page: PageInfo): any[] {
 
+    // If noSchema flag is set, return empty array to skip schema generation
+     if (page.flags?.noSchema) {
+        return []
+    }
+
+    const override = schemaOverrides?.[page.slug]
+   
     const schemas: any[] = []
 
     const type = schemaTemplates?.[page.type] || "WebPage"
@@ -263,9 +270,11 @@ function generateSchemas(page: PageInfo): any[] {
     }
 
     /**
-     * ALWAYS ADD BREADCRUMB (NOW HIERARCHY-AWARE 🔥)
+     * ALWAYS ADD BREADCRUMB (IF OVERRIDE IS NOT NULL) — CRITICAL FOR SEO
      */
-    schemas.push(buildBreadcrumb(page))
+    if (override !== null) {
+        schemas.push(buildBreadcrumb(page))
+    }
 
     return schemas
 }

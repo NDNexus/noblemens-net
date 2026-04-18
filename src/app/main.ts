@@ -97,6 +97,7 @@ import { initNavbar } from '@components/navbar';
 
 import { initHeaderHeightSystem } from '@app-layout/headerHeight';
 import { initScrollSystem } from '@app-layout/scroll';
+import { initArchive } from '@app-layout/archives';
 
 /**
  * TOC SYSTEM (🔥 NEW)
@@ -146,6 +147,8 @@ function initApp(): void {
   initHeaderHeightSystem();
   initScrollSystem();
   initTOC();
+
+  initArchive();
 }
 
 

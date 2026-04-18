@@ -1,91 +1,185 @@
 /**
  * ==========================================================
- * BLOG BUILD PIPELINE (MARKDOWN → HTML)
+ * BLOG BUILD PIPELINE (PRODUCTION • SYSTEM-ALIGNED)
  * ==========================================================
  *
- * PURPOSE
+ * OVERVIEW
  * ----------------------------------------------------------
- * Converts markdown blog content into structured HTML pages
- * using a reusable template system.
+ * This script is responsible for transforming Markdown-based
+ * blog content into fully rendered static HTML pages and a
+ * structured data index used by the frontend.
  *
- * Integrates with:
- * ✔ Routing system (folder-based URLs)
- * ✔ SEO generator (runs later)
- * ✔ Schema generator (runs later)
- * ✔ TOC system (auto-generated navigation)
+ * It acts as a bridge between:
  *
- * ----------------------------------------------------------
+ *   AUTHORING LAYER  → /content/blog/*.md
+ *   RENDERED OUTPUT  → /articles/.../index.html
+ *   DATA LAYER       → /src/data/posts.ts
  *
- * ARCHITECTURE
  * ----------------------------------------------------------
  *
- * /content/blog (PRIVATE markdown)
+ * CORE RESPONSIBILITIES
+ * ----------------------------------------------------------
+ * 1. Discover markdown files recursively
+ * 2. Parse frontmatter using gray-matter
+ * 3. Convert markdown → HTML using marked
+ * 4. Enhance content (TOC generation, table safety)
+ * 5. Inject content into HTML template
+ * 6. Generate clean, filesystem-based routes
+ * 7. Write static HTML pages to /articles
+ * 8. Generate centralized blog index (posts.ts)
+ *
+ * ----------------------------------------------------------
+ *
+ * ARCHITECTURE PRINCIPLES
+ * ----------------------------------------------------------
+ *
+ * 1. FILESYSTEM-DRIVEN ROUTING
+ *    --------------------------------------------------------
+ *    URL structure is derived from folder structure.
+ *
+ *    Example:
+ *    /content/blog/health/acv.md
  *        ↓
- * build-blog.ts (THIS SCRIPT)
+ *    /articles/health/acv/index.html
  *        ↓
- * /articles/.../index.html (PUBLIC pages)
+ *    URL: /articles/health/acv
+ *
+ *    Routing metadata is resolved via:
+ *    → getPageInfo() (SINGLE SOURCE OF TRUTH)
+ *
+ *
+ * 2. SINGLE SOURCE OF TRUTH (CRITICAL)
+ *    --------------------------------------------------------
+ *    DO NOT manually compute:
+ *    - slug
+ *    - url
+ *    - hierarchy
+ *
+ *    ALWAYS use:
+ *    → getPageInfo(filePath)
+ *
+ *
+ * 3. SEPARATION OF CONCERNS
+ *    --------------------------------------------------------
+ *    CONTENT (authoring)
+ *      → /content/blog
+ *
+ *    BUILD LOGIC
+ *      → this script
+ *
+ *    ROUTING LOGIC
+ *      → getPageInfo()
+ *
+ *    UI DATA LAYER
+ *      → /src/data/posts.ts
+ *
+ *
+ * 4. DATA PIPELINE
+ *    --------------------------------------------------------
+ *    Markdown (source)
  *        ↓
- * SEO + Schema pipelines
+ *    buildPost() → HTML + metadata
+ *        ↓
+ *    buildBlog() → aggregates posts
+ *        ↓
+ *    createBlogIndex() → outputs posts.ts
+ *        ↓
+ *    Frontend UI consumes structured data
+ *
  *
  * ----------------------------------------------------------
  *
- * TEMPLATE SYSTEM
+ * FRONTMATTER SPECIFICATION
  * ----------------------------------------------------------
  *
- * Template file:
- * /templates/blog/blog-post.html
- *
- * Supported placeholders:
- *
- * {{title}}        → Blog title
- * {{description}}  → Blog description
- * {{content}}      → Parsed HTML content
- * {{toc}}          → Generated Table of Contents
- *
- * ----------------------------------------------------------
- *
- * FEATURES
- * ----------------------------------------------------------
- *
- * ✔ Recursive markdown discovery
- * ✔ Frontmatter parsing (gray-matter)
- * ✔ Markdown → HTML conversion (marked)
- * ✔ TOC generation (config-driven)
- * ✔ Template injection system
- * ✔ Clean URL structure (index.html)
- * ✔ Safe directory creation
- * ✔ Production-safe logging
- *
- * ----------------------------------------------------------
- *
- * FRONTMATTER FORMAT
- * ----------------------------------------------------------
+ * Each markdown file must define:
  *
  * ---
  * title: Blog Title
- * description: Short description
- * date: 2026-03-25
- * updated: 2026-03-25
+ * description: Short summary (SEO + preview)
+ * date: YYYY-MM-DD
+ * updated: YYYY-MM-DD (optional)
  * image: /images/blog/example.jpg
+ * tags: [optional, array]
  * ---
  *
+ *
  * ----------------------------------------------------------
  *
- * IMPORTANT
+ * OUTPUT STRUCTURE
  * ----------------------------------------------------------
  *
- * - This script ONLY generates HTML
- * - SEO + Schema are handled separately
- * - Do NOT add meta tags here
+ * 1. Static Pages
+ *    /articles/.../index.html
+ *
+ * 2. Data Index (UI Layer)
+ *    /src/data/posts.ts
+ *
+ *    Example:
+ *    export const posts = [
+ *      {
+ *        title,
+ *        slug,
+ *        url,
+ *        category,
+ *        hierarchy,
+ *        date,
+ *        image,
+ *        tags
+ *      }
+ *    ]
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * NON-RESPONSIBILITIES
+ * ----------------------------------------------------------
+ *
+ * This script DOES NOT handle:
+ *
+ * ✖ SEO meta tags
+ * ✖ Schema generation
+ * ✖ Sitemap generation
+ * ✖ Frontend rendering
+ *
+ * These are handled by separate systems.
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * EXTENSIBILITY
+ * ----------------------------------------------------------
+ *
+ * This pipeline pattern is reusable for:
+ *
+ * - Products
+ * - Guides
+ * - Case Studies
+ *
+ * By creating:
+ *   build-*.ts → create*Index()
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * SAFETY NOTES
+ * ----------------------------------------------------------
+ *
+ * - Output files are fully regenerated on each run
+ * - posts.ts is AUTO-GENERATED — DO NOT EDIT manually
+ * - Missing frontmatter fields fallback safely
+ *
  *
  * ==========================================================
  */
 
-import fs from "fs"
-import path from "path"
-import matter from "gray-matter"
-import { marked } from "marked"
-import { buildTOC } from "./toc-builder"
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import { buildTOC } from "./toc-builder";
+import { getPageInfo } from "@utils/page-utils";
+import { getReadingTime } from "@lib/readingTime";
 
 /**
  * ==========================================================
@@ -93,9 +187,9 @@ import { buildTOC } from "./toc-builder"
  * ==========================================================
  */
 
-const CONTENT_DIR = path.resolve("./content/blog")
-const OUTPUT_DIR = path.resolve("./articles")
-const TEMPLATE_PATH = path.resolve("./templates/blog/blog-post.html")
+const CONTENT_DIR = path.resolve("./content/blog");
+const OUTPUT_DIR = path.resolve("./articles");
+const TEMPLATE_PATH = path.resolve("./templates/blog/blog-post.html");
 
 /**
  * ==========================================================
@@ -103,49 +197,54 @@ const TEMPLATE_PATH = path.resolve("./templates/blog/blog-post.html")
  * ==========================================================
  */
 function getMarkdownFiles(dir: string): string[] {
-    let results: string[] = []
+    let results: string[] = [];
 
-    const files = fs.readdirSync(dir)
+    const files = fs.readdirSync(dir);
 
     for (const file of files) {
-        const fullPath = path.join(dir, file)
-        const stat = fs.statSync(fullPath)
+        const fullPath = path.join(dir, file);
+        const stat = fs.statSync(fullPath);
 
         if (stat.isDirectory()) {
-            results = results.concat(getMarkdownFiles(fullPath))
+            results = results.concat(getMarkdownFiles(fullPath));
         } else if (file.endsWith(".md")) {
-            results.push(fullPath)
+            results.push(fullPath);
         }
     }
 
-    return results
+    return results;
 }
 
 /**
  * ==========================================================
- * BUILD SINGLE POST
+ * BUILD SINGLE BLOG POST
  * ==========================================================
+ *
+ * RESPONSIBILITY:
+ * - Convert markdown → HTML
+ * - Inject template
+ * - Write output file
+ * - RETURN metadata (for blog index)
  */
 function buildPost(filePath: string, template: string) {
 
-    const raw = fs.readFileSync(filePath, "utf-8")
-
-    const { data, content } = matter(raw)
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(raw);
 
     /**
      * BASIC VALIDATION
      */
     if (!data.title) {
-        console.warn(`⚠ Missing title → ${filePath}`)
+        console.warn(`⚠ Missing title → ${filePath}`);
     }
 
     /**
-     * Markdown → HTML
+     * MARKDOWN → HTML
      */
     const rawHtml = marked.parse(content, { async: false }) as string;
 
     /**
-     * Wrap tables for safe overflow handling
+     * TABLE SAFETY WRAPPER
      */
     function wrapTables(html: string): string {
         return html.replace(
@@ -154,88 +253,180 @@ function buildPost(filePath: string, template: string) {
         );
     }
 
-    /**
-     * Wrap Markdown tables with div of class table-wrapper for making sure it stays responsive.
-     */
-
     const tableSafeHtml = wrapTables(rawHtml);
 
     /**
-    * Generate TOC + IDs after html has been processed for tables
-    */
+     * TOC GENERATION
+     */
     const { content: htmlContent, toc } = buildTOC(tableSafeHtml);
 
-    
     /**
-     * Resolve output path
+     * RESOLVE OUTPUT PATH (filesystem-driven routing)
      */
-    const relative = path.relative(CONTENT_DIR, filePath)
-    const cleanPath = relative.replace(/\.md$/, "")
-
-    const parts = cleanPath.split(path.sep)
-    const slug = parts.pop()
+    const relative = path.relative(CONTENT_DIR, filePath);
+    const cleanPath = relative.replace(/\.md$/, "");
+    const parts = cleanPath.split(path.sep);
+    const slug = parts.pop();
 
     if (!slug) {
-        console.error(`❌ Invalid slug → ${filePath}`)
-        return
+        console.error(`❌ Invalid slug → ${filePath}`);
+        return null;
     }
 
-    const outputDir = path.join(OUTPUT_DIR, ...parts, slug)
-    fs.mkdirSync(outputDir, { recursive: true })
+    const outputDir = path.join(OUTPUT_DIR, ...parts, slug);
+    fs.mkdirSync(outputDir, { recursive: true });
 
     /**
-     * Inject into template
+     * TEMPLATE INJECTION
      */
     const finalHtml = template
         .replace(/{{title}}/g, data.title || "Untitled")
         .replace(/{{description}}/g, data.description || "")
         .replace(/{{content}}/g, htmlContent)
-        .replace(/{{toc}}/g, toc)
+        .replace(/{{toc}}/g, toc);
 
     /**
-     * Write output
+     * WRITE HTML FILE
      */
-    fs.writeFileSync(path.join(outputDir, "index.html"), finalHtml)
+    const outputFilePath = path.join(outputDir, "index.html");
+    fs.writeFileSync(outputFilePath, finalHtml);
 
-    console.log(`✔ Generated → /articles/${[...parts, slug].join("/")}`)
+    console.log(`✔ Generated → /articles/${[...parts, slug].join("/")}`);
+
+    /**
+     * ==========================================================
+     * EXTRACT STRUCTURED PAGE INFO (CRITICAL)
+     * ==========================================================
+     *
+     * DO NOT manually compute slug or URL.
+     * Use your centralized system.
+     */
+    const pageInfo = getPageInfo(outputFilePath);
+
+    const reading = getReadingTime(content);
+
+    /**
+     * RETURN METADATA FOR INDEX GENERATION
+     */
+    return {
+        title: data.title || "Untitled",
+        description: data.description || "",
+        image: data.image || "",
+        date: data.date || "",
+        updated: data.updated || "",
+        tags: data.tags || [],
+
+        /* READING TIME ESTIMATION (from content) */
+        readingTime: reading,
+        wordCount: reading.words,
+
+        /**
+         * STRUCTURE (from PageInfo system)
+         */
+        slug: pageInfo.slug,
+        url: pageInfo.urlPath,
+        category: pageInfo.category || "blog",
+        hierarchy: pageInfo.hierarchy,
+    };
+}
+
+/**
+ * ==========================================================
+ * CREATE BLOG INDEX (posts.ts)
+ * ==========================================================
+ *
+ * PURPOSE:
+ * - Generate centralized UI-ready dataset
+ * - Used by blog listing page
+ */
+function createBlogIndex(posts: any[]) {
+
+    const outputPath = path.resolve("./src/data/posts.ts");
+
+    /**
+     * SORT POSTS (latest first)
+     */
+    posts.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
+    /**
+     * GENERATE FILE CONTENT
+     */
+    const fileContent = `
+/* AUTO-GENERATED FILE — DO NOT EDIT (Handled by scripts/blog/build-blog.ts) */
+
+export const posts = ${JSON.stringify(posts, null, 2)};
+`;
+
+    /**
+     * ENSURE DIRECTORY EXISTS
+     */
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+
+    /**
+     * WRITE FILE
+     */
+    fs.writeFileSync(outputPath, fileContent);
+
+    console.log("📦 Blog index generated → /src/data/posts.ts");
 }
 
 /**
  * ==========================================================
  * MAIN BUILD FUNCTION
  * ==========================================================
+ *
+ * ORCHESTRATES:
+ * - Build all posts
+ * - Collect metadata
+ * - Generate index
  */
 function buildBlog() {
 
-    console.log("\n🚀 Building blog...\n")
+    console.log("\n🚀 Building blog...\n");
 
     /**
-     * Load template ONCE (performance)
+     * TEMPLATE VALIDATION
      */
     if (!fs.existsSync(TEMPLATE_PATH)) {
-        console.error("❌ Blog template not found.")
-        return
+        console.error("❌ Blog template not found.");
+        return;
     }
 
-    const template = fs.readFileSync(TEMPLATE_PATH, "utf-8")
+    const template = fs.readFileSync(TEMPLATE_PATH, "utf-8");
 
-    const files = getMarkdownFiles(CONTENT_DIR)
+    /**
+     * DISCOVER MARKDOWN FILES
+     */
+    const files = getMarkdownFiles(CONTENT_DIR);
 
     if (files.length === 0) {
-        console.warn("⚠ No markdown files found.")
-        return
+        console.warn("⚠ No markdown files found.");
+        return;
     }
 
-    files.forEach(file => {
-        buildPost(file, template)
-    })
+    /**
+     * COLLECT POSTS
+     */
+    const posts: any[] = [];
 
-    console.log("\n✅ Blog build complete.\n")
+    files.forEach(file => {
+        const result = buildPost(file, template);
+        if (result) posts.push(result);
+    });
+
+    /**
+     * GENERATE BLOG INDEX
+     */
+    createBlogIndex(posts);
+
+    console.log("\n✅ Blog build complete.\n");
 }
 
 /**
  * ==========================================================
- * RUN
+ * RUN BUILD
  * ==========================================================
  */
-buildBlog()
+buildBlog();

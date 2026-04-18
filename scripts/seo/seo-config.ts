@@ -314,5 +314,8 @@ export const categorySEO: Record<string, {
  * ==========================================================
  */
 export const overrides: Overrides = {
-
+  "page-not-found": {
+    description:
+      "The page you are looking for does not exist."
+  }
 }
