@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "vite",
     "predev": "npm run build:html",
-    "build:html": "npx tsx -r tsconfig-paths/register scripts/build/process-html.ts",
-    "build": "npm run build:html && tsc && vite build",
+    "build:html": "tsx -r tsconfig-paths/register scripts/build/process-html.ts",
+    "build:404": "tsx scripts/build/generate-404.ts",
+    "build": "npm run build:html && vite build && npm run build:404",
     "preview": "vite preview",
-    "debug:seo": "npx tsx scripts/seo/generate-seo.ts",
-    "debug:schema": "npx tsx scripts/schema/generate-schema.ts",
-    "debug:head": "npx tsx scripts/html/inject-head.ts",
-    "fix:main": "npx tsx scripts/html/inject-site-main.ts"
+    "debug:seo": "tsx scripts/seo/generate-seo.ts",
+    "debug:schema": "tsx scripts/schema/generate-schema.ts",
+    "debug:head": "tsx scripts/html/inject-head.ts",
+    "fix:main": "tsx scripts/html/inject-site-main.ts"
   },
   "devDependencies": {
     "@types/micromatch": "^4.0.10",

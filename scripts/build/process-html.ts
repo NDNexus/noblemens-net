@@ -44,16 +44,14 @@ function runStep(name: string, command: string) {
  * ----------------------------------------------------------
  */
 
-runStep("Blog Build", "npx tsx scripts/blog/build-blog.ts")
+runStep("Blog Build", "tsx scripts/blog/build-blog.ts")
 
-runStep("Head Injection", "npx tsx scripts/html/inject-head.ts")
+runStep("Head Injection", "tsx scripts/html/inject-head.ts")
 
-runStep("Navbar State Injection", "npx tsx scripts/html/inject-navbar-state.ts")
+runStep("Navbar State Injection", "tsx scripts/html/inject-navbar-state.ts")
 
-runStep("SEO Generation", "npx tsx scripts/seo/generate-seo.ts")
+runStep("SEO Generation", "tsx scripts/seo/generate-seo.ts")
 
-runStep("Schema Generation", "npx tsx scripts/schema/generate-schema.ts")
-
-// runStep("Head Cleanup", "npx tsx scripts/clean-head.ts")
+runStep("Schema Generation", "tsx scripts/schema/generate-schema.ts")
 
 console.log("\n🚀 HTML build process completed successfully.\n")
