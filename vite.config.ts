@@ -218,6 +218,7 @@ export default defineConfig({
       "@html": path.resolve(__dirname, "./scripts/html"),
       "@data": path.resolve(__dirname, "./src/data"),
       "@templates": path.resolve(__dirname, "./templates"),
+      "@render": path.resolve(__dirname, "./src/app/render"),
     },
   },
 

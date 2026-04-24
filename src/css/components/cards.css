@@ -7,24 +7,13 @@
  * ---------------------------------------------------------
  * Defines a flexible, scalable card system.
  *
- * This system is built using:
- * - Base card (.card)
- * - Variants (.card-product, .card-feature, etc.)
- * - Structured internal sections
- *
- *
  * STRUCTURE
  * ---------------------------------------------------------
  * <div class="card card-product">
- *
  *   <div class="card__media"></div>
- *
  *   <div class="card__body"></div>
- *
  *   <div class="card__footer"></div>
- *
  * </div>
- *
  *
  * PRINCIPLES
  * ---------------------------------------------------------
@@ -32,15 +21,14 @@
  * - Clear visual hierarchy
  * - Minimal, premium styling
  * - Reusable structure across variants
- *
  * =========================================================
  */
 
 @layer components {
 
-    /* =========================================
-     BASE CARD
-  ========================================= */
+    /* =========================================================
+     BASE CARD (SHARED ACROSS ALL VARIANTS)
+  ========================================================= */
 
     .card {
         display: flex;
@@ -64,11 +52,11 @@
         }
     }
 
+    /* =========================================================
+     BASE CARD SECTIONS
+  ========================================================= */
 
-    /* =========================================
-     MEDIA (IMAGE)
-  ========================================= */
-
+    /* MEDIA (Image container) */
     .card__media {
         position: relative;
         overflow: hidden;
@@ -85,15 +73,11 @@
 
     @media (hover: hover) {
         .card:hover .card__media img {
-            transform: scale(1.05);
+            transform: scale(1.2);
         }
     }
 
-
-    /* =========================================
-     BODY
-  ========================================= */
-
+    /* BODY */
     .card__body {
         padding: 1.25rem;
         display: flex;
@@ -102,11 +86,7 @@
         flex-grow: 1;
     }
 
-
-    /* =========================================
-     FOOTER
-  ========================================= */
-
+    /* FOOTER */
     .card__footer {
         padding: 1rem 1.25rem 1.25rem;
         margin-top: auto;
@@ -117,20 +97,145 @@
         justify-content: center;
     }
 
+    /* =========================================================
+     PRODUCT CARD (PRIMARY COMMERCE COMPONENT)
+  ========================================================= */
 
-    /* =========================================
-     VARIANT: PRODUCT CARD
-  ========================================= */
-
-    .card-product .card__media {
-        aspect-ratio: 4 / 3;
+    /* Base layout (mobile + tablet) */
+    .card-product {
+        margin-inline: auto;
     }
 
+    /* Image container (square on smaller screens) */
+    .card-product .card__media {
+        aspect-ratio: 1 / 1;
 
-    /* =========================================
-     VARIANT: FEATURE CARD
-     (icon + text)
-  ========================================= */
+        /* Product-specific image treatment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 1.25rem;
+
+        background: linear-gradient(180deg,
+                #EFF5FB 0%,
+                #E3ECF5 100%);
+    }
+
+    /* Product image behavior */
+    .card-product .card__media img {
+        object-fit: contain;
+        object-position: center;
+    }
+
+    /* Description (clamped for consistency) */
+    .card-product .card__description {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Variant pills */
+    .card-product .card__variants {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.4rem;
+    }
+
+    .card-product .variant-pill {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+
+        border-radius: 999px;
+        border: 1px solid var(--color-border-default);
+
+        background: var(--color-bg-alt);
+        cursor: pointer;
+
+        transition: all 150ms ease;
+    }
+
+    .card-product .variant-pill:hover {
+        background: var(--color-bg-main);
+    }
+
+    .card-product .variant-pill.active {
+        background: var(--color-text-primary);
+        color: #fff;
+    }
+
+    /* Meta information */
+    .card-product .card__meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.4rem;
+    }
+
+    /* Pricing */
+    .card-product .card__price {
+        margin-top: 0.4rem;
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Footer adjustment */
+    .card-product .card__footer {
+        padding-top: 0.75rem;
+    }
+
+    /* =========================================================
+     PRODUCT CARD — DESKTOP LAYOUT
+  ========================================================= */
+
+    @media (min-width: 1024px) {
+
+        .card-product {
+            display: grid;
+            grid-template-columns: 0.7fr 1fr;
+            grid-template-rows: auto auto;
+            align-items: stretch;
+        }
+
+        /* Image spans full height */
+        .card-product .card__media {
+            grid-row: span 2;
+            height: 100%;
+            aspect-ratio: auto;
+        }
+
+        .card-product .card__media img {
+            height: 100%;
+        }
+
+        /* Body */
+        .card-product .card__body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        /* Footer */
+        .card-product .card__footer {
+            padding: 0 1.25rem 1rem;
+            border-top: 1px solid var(--color-border);
+
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+    }
+
+    /* =========================================================
+     FEATURE CARD (ICON + TEXT)
+  ========================================================= */
 
     .card-feature {
         padding: 1.5rem;
@@ -144,10 +249,9 @@
         justify-content: center;
     }
 
-
-    /* =========================================
-     VARIANT: CONTENT CARD (BLOG)
-  ========================================= */
+    /* =========================================================
+     CONTENT CARD (BLOG / ARTICLES)
+  ========================================================= */
 
     .card-content .card__media {
         aspect-ratio: 16 / 9;
@@ -157,10 +261,9 @@
         justify-content: flex-start;
     }
 
-
-    /* =========================================
-     VARIANT: CTA CARD
-  ========================================= */
+    /* =========================================================
+     CTA CARD (CALL TO ACTION BLOCK)
+  ========================================================= */
 
     .card-cta {
         padding: 2rem;
@@ -179,8 +282,9 @@
     }
 
     /* =========================================================
-     CARD META (for content cards)  
-    ========================================================= */
+     SHARED META UTILITIES
+  ========================================================= */
+
     .card__meta {
         display: flex;
         align-items: center;

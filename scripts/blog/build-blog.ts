@@ -329,19 +329,27 @@ function buildPost(filePath: string, template: string) {
         hierarchy: pageInfo.hierarchy,
     };
 }
-
 /**
  * ==========================================================
  * CREATE BLOG INDEX (posts.ts)
  * ==========================================================
  *
  * PURPOSE:
+ * ----------------------------------------------------------
  * - Generate centralized UI-ready dataset
- * - Used by blog listing page
+ * - Ensures correct TypeScript typing
+ *
+ * FIX:
+ * ----------------------------------------------------------
+ * - Forces tags to be string[]
+ * - Prevents "never[]" inference issue
+ *
+ * ==========================================================
  */
+
 function createBlogIndex(posts: any[]) {
 
-    const outputPath = path.resolve("./src/data/posts.ts");
+    const outputPath = path.resolve("./src/data/posts-database.ts");
 
     /**
      * SORT POSTS (latest first)
@@ -351,12 +359,39 @@ function createBlogIndex(posts: any[]) {
     );
 
     /**
+     * SAFETY: Ensure tags is always string[]
+     */
+    const safePosts = posts.map(post => ({
+        ...post,
+        tags: Array.isArray(post.tags) ? post.tags : []
+    }));
+
+    /**
      * GENERATE FILE CONTENT
      */
     const fileContent = `
 /* AUTO-GENERATED FILE — DO NOT EDIT (Handled by scripts/blog/build-blog.ts) */
 
-export const posts = ${JSON.stringify(posts, null, 2)};
+export type Post = {
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  updated: string;
+  tags: string[];
+  readingTime: {
+    minutes: number;
+    words: number;
+    text: string;
+  };
+  wordCount: number;
+  slug: string;
+  url: string;
+  category: string;
+  hierarchy: string[];
+};
+
+export const posts: Post[] = ${JSON.stringify(safePosts, null, 2)};
 `;
 
     /**

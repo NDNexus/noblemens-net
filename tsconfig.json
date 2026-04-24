@@ -64,7 +64,10 @@
       ],
       "@templates/*": [
         "./templates/*"
-      ]
+      ],
+      "@render/*": [
+        "./src/app/render/*"
+      ],
     }
   }
 }

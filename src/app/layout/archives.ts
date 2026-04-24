@@ -17,7 +17,7 @@
  * ==========================================================
  */
 
-import { posts } from "@data/posts";
+import { posts } from "@/data/posts-database";
 import {
   createBlogCard
 } from "@components/blogCard";

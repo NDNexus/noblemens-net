@@ -105,4 +105,27 @@
         }
     }
 
+    /* =========================================
+   PRODUCT GRID (CONTROLLED LAYOUT)
+========================================= */
+
+    .grid-products {
+        grid-template-columns: 1fr;
+        /* mobile default */
+    }
+
+    /* Tablet */
+    @media (min-width: 640px) {
+        .grid-products {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+        .grid-products {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
 }

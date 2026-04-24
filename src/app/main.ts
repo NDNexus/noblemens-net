@@ -68,19 +68,19 @@ import 'iconify-icon';
  * - Should be re-run if dynamic DOM is injected later
  */
 function initIconifyReplacement(): void {
-  const elements = document.querySelectorAll<HTMLElement>('i[icon]');
+   const elements = document.querySelectorAll<HTMLElement>('i[icon]');
 
-  elements.forEach((el) => {
-    const name = el.getAttribute('icon');
-    if (!name) return;
+   elements.forEach((el) => {
+      const name = el.getAttribute('icon');
+      if (!name) return;
 
-    const icon = document.createElement('iconify-icon');
+      const icon = document.createElement('iconify-icon');
 
-    icon.setAttribute('icon', name);
-    icon.className = el.className;
+      icon.setAttribute('icon', name);
+      icon.className = el.className;
 
-    el.replaceWith(icon);
-  });
+      el.replaceWith(icon);
+   });
 }
 
 
@@ -114,6 +114,57 @@ import { initArchive } from '@app-layout/archives';
  */
 import { initTOC } from '@app-layout/toc';
 
+/* =========================================================
+   RENDER SYSTEMS
+========================================================= */
+
+import { renderLatestPosts } from '@render/renderLatestPosts';
+
+/* =========================================================
+   PAGE-SPECIFIC RENDERING
+========================================================= */
+
+/**
+ * ==========================================================
+ * 404 PAGE ENHANCEMENTS
+ * ==========================================================
+ *
+ * PURPOSE
+ * ----------------------------------------------------------
+ * - Render dynamic content on 404 page
+ * - Improves UX and recovery rate
+ *
+ * BEHAVIOR
+ * ----------------------------------------------------------
+ * - Detects 404 page via URL or DOM
+ * - Injects latest blog posts
+ *
+ * SAFETY
+ * ----------------------------------------------------------
+ * - Runs only if container exists
+ * - No impact on other pages
+ *
+ * ==========================================================
+ */
+function init404Page(): void {
+
+   /**
+    * Ensure we are on 404 page
+    */
+   const page = document.body.dataset.page;
+   if (page !== "not-found") return;
+
+   /**
+    * Find container
+    */
+   const container = document.getElementById('latest-posts');
+   if (!container) return;
+
+   /**
+    * Render latest posts
+    */
+   renderLatestPosts(container, 6);
+}
 
 /* =========================================================
    INITIALIZATION
@@ -124,37 +175,44 @@ import { initTOC } from '@app-layout/toc';
  */
 function initApp(): void {
 
-  /* -------------------------------------------------------
-     DOM Enhancements
-  ------------------------------------------------------- */
-  initIconifyReplacement();
+   /* -------------------------------------------------------
+      DOM Enhancements
+   ------------------------------------------------------- */
+   initIconifyReplacement();
 
-  /* -------------------------------------------------------
-     Components
-  ------------------------------------------------------- */
-  initNavbar();
+   /* -------------------------------------------------------
+      Components
+   ------------------------------------------------------- */
+   initNavbar();
 
-  /* -------------------------------------------------------
-     Layout Systems
-  ------------------------------------------------------- */
+   /* -------------------------------------------------------
+      Layout Systems
+   ------------------------------------------------------- */
 
-  /**
-   * Order matters:
-   * 1. Header system (sets CSS variables)
-   * 2. Scroll system (depends on layout offsets)
-   * 3. TOC system (depends on scroll + layout)
-   */
-  initHeaderHeightSystem();
-  initScrollSystem();
-  initTOC();
+   /**
+    * Order matters:
+    * 1. Header system (sets CSS variables)
+    * 2. Scroll system (depends on layout offsets)
+    * 3. TOC system (depends on scroll + layout)
+    */
+   initHeaderHeightSystem();
+   initScrollSystem();
+   initTOC();
 
-  initArchive();
+   initArchive();
+
+   /* -------------------------------------------------------
+    Page-Specific Systems
+ ------------------------------------------------------- */
+
+   init404Page();
 }
 
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
+   document.addEventListener('DOMContentLoaded', initApp);
 } else {
-  initApp();
+   initApp();
 }
+
