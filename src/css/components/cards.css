@@ -45,12 +45,11 @@
             box-shadow 200ms ease;
     }
 
-    @media (hover: hover) {
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-        }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
     }
+
 
     /* =========================================================
      BASE CARD SECTIONS
@@ -71,11 +70,10 @@
         transition: transform 400ms ease;
     }
 
-    @media (hover: hover) {
-        .card:hover .card__media img {
-            transform: scale(1.2);
-        }
+    .card:hover .card__media img {
+        transform: scale(1.2);
     }
+
 
     /* BODY */
     .card__body {

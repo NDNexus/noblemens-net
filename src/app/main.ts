@@ -166,6 +166,18 @@ function init404Page(): void {
    renderLatestPosts(container, 6);
 }
 
+/* ==========================================================
+   RENDER PRODUCTS SYSTEM
+========================================================= */
+import { renderProducts } from '@render/renderProducts'
+
+function initProductsPage(): void {
+   const container = document.getElementById('products-grid')
+   if (!container) return
+
+   renderProducts(container)
+}
+
 /* =========================================================
    INITIALIZATION
 ========================================================= */
@@ -206,6 +218,12 @@ function initApp(): void {
  ------------------------------------------------------- */
 
    init404Page();
+
+   /* -------------------------------------------------------
+    Products Page initialization
+ ------------------------------------------------------- */
+
+   initProductsPage();
 }
 
 

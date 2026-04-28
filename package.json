@@ -23,6 +23,7 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
+    "@sanity/client": "^7.22.0",
     "@tailwindcss/vite": "^4.1.18",
     "gray-matter": "^4.0.3",
     "iconify-icon": "^3.0.2",
