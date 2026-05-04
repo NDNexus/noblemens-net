@@ -17,11 +17,19 @@ import type {
 // GET SLUG FROM URL
 // -------------------------------
 function getSlugFromURL(): string | null {
-    const parts = window.location.pathname
-        .split("/")
-        .filter(Boolean) // removes empty strings
+    const path = window.location.pathname
 
-    return parts.length ? parts[parts.length - 1] : null
+    console.log("[DEBUG] PATH:", path)
+
+    const parts = path.split("/").filter(Boolean)
+
+    console.log("[DEBUG] PARTS:", parts)
+
+    const slug = parts.length ? parts[parts.length - 1] : null
+
+    console.log("[DEBUG] SLUG:", slug)
+
+    return slug
 }
 
 /**
