@@ -58,6 +58,20 @@
         font-weight: 600;
     }
 
+    /* =========================================
+      MICRO HEADING (CONTENT SUBLEVEL - h4)
+  ========================================= */
+
+    .text-heading-sm {
+        font-size: 1.05rem;
+        /* ~16.8px */
+
+        line-height: 1.4;
+        font-weight: 600;
+
+        letter-spacing: 0.01em;
+    }
+
 
     /* =========================================
      BODY TEXT (PRIMARY BASE)

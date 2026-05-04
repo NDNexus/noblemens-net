@@ -62,6 +62,14 @@
             transparent);
 }
 
+.blog-content h2+.table-wrapper,
+.blog-content h3+.table-wrapper,
+.blog-content h4+.table-wrapper,
+.blog-content h5+.table-wrapper,
+.blog-content h6+.table-wrapper {
+    margin-top: 1rem;    /* tight connection */
+}
+
 
 /* =========================================================
    TABLE BASE

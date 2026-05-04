@@ -8,6 +8,7 @@ export interface ProductCard {
   description: string
   image: string
   alt: string
+  productType?: string
 
   variants: {
     key: string
@@ -18,7 +19,7 @@ export interface ProductCard {
     isDefault: boolean
   }[]
 
-  meta: string
+  meta: string[]
 
   price: {
     current: number

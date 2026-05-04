@@ -123,29 +123,32 @@ function cleanUrlRewrite(): Plugin {
       server.middlewares.use((req, _res, next) => {
         if (!req.url) return next();
 
-        const url = req.url;
+        // 🔥 Properly parse URL (keeps query params safe)
+        const parsed = new URL(req.url, "http://localhost");
 
+        const pathname = parsed.pathname; // clean path
+        const query = parsed.search; // includes "?variant=..."
         // 🔥 Ignore Vite internal paths
         if (
-          url.startsWith("/@") ||
-          url.startsWith("/src/") ||
-          url.startsWith("/node_modules/") ||
-          url.startsWith("/images/") ||
-          url.startsWith("/favicons/")
+          pathname.startsWith("/@") ||
+          pathname.startsWith("/src/") ||
+          pathname.startsWith("/node_modules/") ||
+          pathname.startsWith("/images/") ||
+          pathname.startsWith("/favicons/")
         ) {
           return next();
         }
 
         // Ignore files with extension
-        if (url.includes(".")) return next();
+        if (pathname.includes(".")) return next();
 
-        const cleanUrl = url.replace(/\/$/, "").replace(/^\//, "");
+        const cleanUrl = pathname.replace(/\/$/, "").replace(/^\//, "");
         const filePath = path.join(__dirname, cleanUrl, "index.html");
 
         if (fs.existsSync(filePath)) {
-          req.url = `/${cleanUrl}/index.html`;
+          req.url = `/${cleanUrl}/index.html${query}`;
         } else {
-          req.url = "/page-not-found/index.html";
+          req.url = `/page-not-found/index.html${query}`;
         }
         next();
       });
@@ -155,26 +158,31 @@ function cleanUrlRewrite(): Plugin {
       server.middlewares.use((req, _res, next) => {
         if (!req.url) return next();
 
-        const url = req.url;
+        // const url = req.url.split("?")[0];
+        // 🔥 Properly parse URL (keeps query params safe)
+const parsed = new URL(req.url, "http://localhost");
+
+        const pathname = parsed.pathname; // clean path
+        const query = parsed.search; // includes "?variant=..."
 
         if (
-          url.startsWith("/@") ||
-          url.startsWith("/assets/") ||
-          url.startsWith("/images/") ||
-          url.startsWith("/favicons/")
+          pathname.startsWith("/@") ||
+          pathname.startsWith("/assets/") ||
+          pathname.startsWith("/images/") ||
+          pathname.startsWith("/favicons/")
         ) {
           return next();
         }
 
-        if (url.includes(".")) return next();
+        if (pathname.includes(".")) return next();
 
-        const cleanUrl = url.replace(/\/$/, "").replace(/^\//, "");
+        const cleanUrl = pathname.replace(/\/$/, "").replace(/^\//, "");
         const filePath = path.join(__dirname, cleanUrl, "index.html");
 
         if (fs.existsSync(filePath)) {
-          req.url = `/${cleanUrl}/index.html`;
+          req.url = `/${cleanUrl}/index.html${query}`;
         } else {
-          req.url = "/page-not-found/index.html";
+          req.url = `/page-not-found/index.html${query}`;
         }
 
         next();
@@ -215,6 +223,7 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/app/components"),
       "@app-layout": path.resolve(__dirname, "./src/app/layout"),
       "@css-layout": path.resolve(__dirname, "./src/css/layout"),
+      "@css-products": path.resolve(__dirname, "./src/css/products"),
       "@html": path.resolve(__dirname, "./scripts/html"),
       "@data": path.resolve(__dirname, "./src/data"),
       "@templates": path.resolve(__dirname, "./templates"),

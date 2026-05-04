@@ -1,0 +1,60 @@
+/* =========================================
+   TESTIMONIALS
+========================================= */
+
+@layer components {
+
+    .testimonial-btn {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 999px;
+        transition: all 200ms ease;
+    }
+
+    .testimonial-btn:hover {
+        background: var(--color-bg-elevated);
+    }
+
+    .testimonial-btn svg {
+        width: 18px;
+        height: 18px;
+        transition: transform 150ms ease;
+    }
+
+    #testimonial-prev:hover svg {
+        transform: translateX(-2px);
+    }
+
+    #testimonial-next:hover svg {
+        transform: translateX(2px);
+    }
+
+    /* Card */
+    .testimonial-item {
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 4px;
+        padding: 1.5rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        min-width: 100%;
+    }
+
+    /* Tablet */
+    @media (min-width: 640px) {
+        .testimonial-item {
+            min-width: calc(50% - 0.75rem);
+        }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+        .testimonial-item {
+            min-width: calc(33.333% - 1rem);
+        }
+    }
+}

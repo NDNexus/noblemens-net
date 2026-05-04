@@ -1,0 +1,304 @@
+/**
+ * =========================================================
+ * NOBLEMENS CALLOUT SYSTEM
+ * =========================================================
+ *
+ * PURPOSE:
+ * - Provide structured, premium callout boxes across:
+ *   → Product pages
+ *   → Blog content
+ *   → Usage instructions
+ *   → Safety notes
+ *
+ * DESIGN GOALS:
+ * - Clean, soft backgrounds (not loud)
+ * - Subtle borders (not harsh)
+ * - Icon-led communication
+ * - Consistent spacing + typography
+ * - Scalable and reusable
+ *
+ * =========================================================
+ * CALLOUT TYPES
+ * =========================================================
+ *
+ * 1. NOTE (Informational)
+ * ---------------------------------------------------------
+ * Use for:
+ * - General information
+ * - Clarifications
+ * - Neutral guidance
+ *
+ * Example:
+ *
+ * <div class="callout callout-note">
+ *   <div class="callout__content">
+ *     <p class="callout__title">Note</p>
+ *     <p>Raw vinegar may appear cloudy. This is natural.</p>
+ *   </div>
+ * </div>
+ *
+ *
+ * 2. TIP (Helpful Guidance)
+ * ---------------------------------------------------------
+ * Use for:
+ * - Usage suggestions
+ * - Best practices
+ * - Value-adding advice
+ *
+ * Example:
+ *
+ * <div class="callout callout-tip">
+ *   <div class="callout__content">
+ *     <p class="callout__title">Tip</p>
+ *     <p>Mix with warm water for better absorption.</p>
+ *   </div>
+ * </div>
+ *
+ *
+ * 3. WARNING (Caution / Safety)
+ * ---------------------------------------------------------
+ * Use for:
+ * - Safety instructions
+ * - Important cautions
+ * - Preventing misuse
+ *
+ * Example:
+ *
+ * <div class="callout callout-warning">
+ *   <div class="callout__content">
+ *     <p class="callout__title">Warning</p>
+ *     <p>Do not consume vinegar directly. Always dilute it.</p>
+ *   </div>
+ * </div>
+ *
+ *
+ * 4. HOW-TO-USE (Product Context Box)
+ * ---------------------------------------------------------
+ * Use for:
+ * - Quick instructions beside product descriptions
+ * - Highlighted usage blocks
+ *
+ * NOTE:
+ * - No title required
+ * - Short and concise content (1–2 lines recommended)
+ *
+ * Example:
+ *
+ * <div class="callout-howto">
+ *   <p>Mix 1–2 tablespoons in water and consume daily before meals.</p>
+ * </div>
+ *
+ *
+ * =========================================================
+ * STRUCTURE RULES
+ * =========================================================
+ *
+ * Standard callout structure:
+ *
+ * <div class="callout callout-{type}">
+ *   <div class="callout__content">
+ *     <p class="callout__title">Title</p>   (optional but recommended)
+ *     <p>Content goes here...</p>
+ *   </div>
+ * </div>
+ *
+ * Notes:
+ * - Icon is automatically injected via CSS (::before)
+ * - Title is optional but improves readability
+ * - Content should be concise (1–3 lines ideal)
+ *
+ *
+ * =========================================================
+ * ICON SYSTEM
+ * =========================================================
+ *
+ * Icons are applied using CSS masks.
+ * Required SVG files:
+ *
+ * /images/icons/info.svg
+ * /images/icons/check-circle.svg
+ * /images/icons/exclamation-triangle.svg
+ * /images/icons/question-circle.svg
+ *
+ * Icons inherit color via `currentColor`
+ *
+ *
+ * =========================================================
+ * DESIGN NOTES
+ * =========================================================
+ *
+ * - Avoid stacking too many callouts together
+ * - Use sparingly for emphasis
+ * - Maintain spacing consistency:
+ *     → margin-top: var(--space-md)
+ *     → margin-bottom: var(--space-md)
+ *
+ * - Keep tone aligned with brand:
+ *     → calm, clear, trustworthy
+ *
+ *
+ * =========================================================
+ * EXTENSIBILITY
+ * =========================================================
+ *
+ * Future types can be added easily:
+ *
+ * .callout-error
+ * .callout-success
+ * .callout-info
+ *
+ * Following same pattern:
+ * - background
+ * - border-color
+ * - icon via mask
+ *
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================
+     BASE CALLOUT
+  ========================================= */
+
+    .callout {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+
+        padding: 1rem 1.25rem;
+
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+
+        font-size: 0.95rem;
+        line-height: 1.6;
+
+        /* Subtle premium depth */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    /* =========================================
+     ICON (via CSS mask)
+  ========================================= */
+
+    .callout::before {
+        content: "";
+        flex-shrink: 0;
+
+        width: 20px;
+        height: 20px;
+
+        margin-top: 2px;
+
+        background-color: currentColor;
+
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+    }
+
+    /* =========================================
+     CONTENT STRUCTURE
+  ========================================= */
+
+    .callout__content {
+        flex: 1;
+    }
+
+    .callout__title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    /* =========================================
+     NOTE (INFO - BLUE)
+  ========================================= */
+
+    .callout-note {
+        background: #EFF5FB;
+        /* Alice Blue */
+        border-color: #D6E6F8;
+        color: #1F2A44;
+    }
+
+    .callout-note::before {
+        mask: url("/images/icons/info.svg");
+        -webkit-mask: url("/images/icons/info.svg");
+    }
+
+    /* =========================================
+     TIP (SUCCESS - GREEN)
+  ========================================= */
+
+    .callout-tip {
+        background: rgba(22, 163, 74, 0.08);
+        border-color: rgba(22, 163, 74, 0.2);
+        color: #14532d;
+    }
+
+    .callout-tip::before {
+        mask: url("/images/icons/check-circle.svg");
+        -webkit-mask: url("/images/icons/check-circle.svg");
+    }
+
+    /* =========================================
+     WARNING (CAUTION - YELLOW)
+  ========================================= */
+
+    .callout-warning {
+        background: rgba(245, 158, 11, 0.12);
+        border-color: rgba(245, 158, 11, 0.3);
+        color: #78350f;
+    }
+
+    .callout-warning::before {
+        mask: url("/images/icons/exclamation-triangle.svg");
+        -webkit-mask: url("/images/icons/exclamation-triangle.svg");
+    }
+
+    /* =========================================
+     HOW TO USE BOX (SPECIAL)
+  ========================================= */
+
+    .callout-howto {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+
+        padding: 1rem 1.25rem;
+
+        border-radius: var(--radius-md);
+
+        background: var(--color-alice-blue);
+        /* #EFF5FB */
+        border: 1px solid #D6E6F8;
+
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .callout-howto::before {
+        content: "";
+        flex-shrink: 0;
+
+        width: 20px;
+        height: 20px;
+
+        margin-top: 2px;
+
+        background-color: #1F2A44;
+
+        mask: url("/images/icons/question-circle.svg") no-repeat center;
+        -webkit-mask: url("/images/icons/question-circle.svg") no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+    }
+
+}

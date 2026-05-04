@@ -1,0 +1,67 @@
+/* =========================================
+   FAQ SYSTEM (REFINED)
+========================================= */
+@layer components {
+
+    .faq-item {
+        transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+        background: transparent;
+    }
+
+    .faq-item:hover {
+        border-color: var(--color-border-accent);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Trigger */
+    .faq-trigger {
+        cursor: pointer;
+        font-weight: 500;
+        gap: 16px;
+    }
+
+    /* Question text */
+    .faq-question {
+        line-height: 1.5;
+    }
+
+    /* Chevron (clean arrow instead of plus) */
+    .faq-icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+
+        transform: rotate(-45deg);
+        transition: transform 220ms ease;
+    }
+
+    /* Content */
+    .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 260ms ease;
+    }
+
+    .faq-answer {
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    /* Active state */
+    .faq-item.active {
+        border-color: var(--color-border-accent);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .faq-item.active .faq-content {
+        max-height: 400px;
+        /* safer for real content */
+    }
+
+    .faq-item.active .faq-icon {
+        transform: rotate(45deg);
+    }
+}

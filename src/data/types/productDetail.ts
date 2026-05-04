@@ -16,6 +16,8 @@
  * =========================================================
  */
 
+import type { SanityPortableText } from '@/data/types/rawSanityData'
+ 
 
 /* =========================================================
    VARIANT (DETAIL PAGE)
@@ -27,10 +29,11 @@ export interface ProductDetailVariant {
 
     // Pricing
     price: number
-    compareAtPrice?: number
+    compareAtPrice?: number | null
 
     // Media
-    image: string
+    image?: string
+    images: string[] // 🔥 REQUIRED for gallery
 
     // Availability
     inStock: boolean
@@ -40,27 +43,35 @@ export interface ProductDetailVariant {
     packaging?: string
     hasMother?: boolean
 
-    // Structured attributes (cleaned in mapper)
+    // Clean attributes (no showOnCard needed)
     attributes: {
         label: string
         value: string
     }[]
 }
 
+// Product Testimonial on product detail page
+export interface ProductTestimonial {
+    content: string
+    name: string
+    subtitle?: string
+}
 
 /* =========================================================
    PRODUCT DETAIL (FULL PAGE)
 ========================================================= */
-
 export interface ProductDetail {
     id: string
     title: string
     slug: string
 
-    // 🔥 Sanity Portable Text (keep flexible but explicit)
-    description: unknown[]
+    // 🔥 REQUIRED (used for logic)
+    productType: string
 
-    // Short summary (for hero section)
+    // Rich content
+    description: SanityPortableText[]
+
+    // Hero content
     shortDescription: string
 
     // Media
@@ -71,10 +82,14 @@ export interface ProductDetail {
     variants: ProductDetailVariant[]
     defaultVariant: ProductDetailVariant
 
-    // Key Benefits (simple list)
-    benefits: string[] | undefined
+    // ✅ MATCH QUERY NAME
+    keyHighlights: string[]
 
-    // FAQs (fully validated in mapper)
+    testimonials: ProductTestimonial[]
+
+    howToUse?: SanityPortableText[]
+
+    // FAQs
     faqs: {
         question: string
         answer: string

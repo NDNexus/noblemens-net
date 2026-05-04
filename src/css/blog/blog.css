@@ -32,7 +32,6 @@
     }
 
 
-
     .blog-layout {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 400px;
@@ -211,7 +210,10 @@
         margin-top: var(--space-sm);
     }
 
-    /* Lists */
+    /* =========================================
+   BLOG LISTS
+========================================= */
+
     .blog-content ul,
     .blog-content ol {
         margin-top: var(--space-md);
@@ -221,20 +223,17 @@
     }
 
     .blog-content li {
-        margin-bottom: 0.6rem;
-        line-height: 1.7;
-    }
-
-    .blog-content ul {
-        list-style: none;
-    }
-
-    .blog-content li {
         position: relative;
         margin-bottom: 0.6rem;
         line-height: 1.7;
     }
 
+    /* Remove default bullets for UL */
+    .blog-content ul {
+        list-style: none;
+    }
+
+    /* Custom diamond bullet */
     .blog-content ul li::before {
         content: "";
         position: absolute;
@@ -244,13 +243,13 @@
         width: 12px;
         height: 12px;
 
-        /* fallback base */
+        /* fallback */
         background-color: #C2A55F;
         border-radius: 50%;
 
-        /* SVG on top (overrides visually if supported) */
-        mask: url("/public/images/icons/diamond.svg") no-repeat center;
-        -webkit-mask: url("/public/images/icons/diamond.svg") no-repeat center;
+        /* SVG mask */
+        mask: url("/images/icons/diamond.svg") no-repeat center;
+        -webkit-mask: url("/images/icons/diamond.svg") no-repeat center;
 
         mask-size: contain;
         -webkit-mask-size: contain;
@@ -318,7 +317,8 @@
     @media (max-width: 768px) {
 
         .blog-section {
-            padding-block: 0px; /* remove spacing to make TOC stick to top below header. */
+            padding-block: 0px;
+            /* remove spacing to make TOC stick to top below header. */
         }
 
         .blog-layout {
@@ -326,7 +326,7 @@
 
         }
 
-        .blog-navbar-list{
+        .blog-navbar-list {
             gap: 0rem;
         }
 

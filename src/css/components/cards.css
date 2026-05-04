@@ -71,7 +71,7 @@
     }
 
     .card:hover .card__media img {
-        transform: scale(1.2);
+        transform: scale(1.05);
     }
 
 
@@ -232,6 +232,74 @@
     }
 
     /* =========================================================
+     VARIANT CARD (Product Image + TEXT) (Used in product details page template)
+  ========================================================= */
+    .card-variant {
+        margin-inline: auto;
+        cursor: pointer;
+    }
+
+    .card-variant .card__media {
+        aspect-ratio: 1 / 1;
+
+        /* Product-specific image treatment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 1.25rem;
+
+        background: linear-gradient(180deg,
+                #EFF5FB 0%,
+                #E3ECF5 100%);
+    }
+
+    .card-variant .card__media img {
+        object-fit: contain;
+        object-position: center;
+    }
+
+    /* Body */
+    .card-variant .card__body {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    /* Footer adjustment */
+    .card-variant .card__footer {
+        display: none;
+    }
+
+    /* =========================================================
+     ACTIVE VARIANT CARD (Indicates currently selected product variant in product details page)
+  ========================================================= */
+
+    /* Only affect variant cards */
+    .card-variant.active {
+        border-color: var(--color-border-accent);
+        cursor: default;
+    }
+
+    .card-variant.active .card__media img {
+        transform: none;
+    }
+
+    .card-variant.active .card__body p{
+        font-weight: 700;
+        color: var(--color-accent);
+    }
+
+    
+
+    /* Disable hover ONLY for active variant cards */
+    .card-variant.active:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* =========================================================
      FEATURE CARD (ICON + TEXT)
   ========================================================= */
 
@@ -257,26 +325,6 @@
 
     .card-content .card__footer {
         justify-content: flex-start;
-    }
-
-    /* =========================================================
-     CTA CARD (CALL TO ACTION BLOCK)
-  ========================================================= */
-
-    .card-cta {
-        padding: 2rem;
-        text-align: center;
-        background: var(--color-bg-alt);
-    }
-
-    .card-cta .card__body {
-        padding: 0;
-        align-items: center;
-    }
-
-    .card-cta .card__footer {
-        border: none;
-        padding-top: 1rem;
     }
 
     /* =========================================================

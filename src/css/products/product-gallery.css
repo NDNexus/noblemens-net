@@ -1,0 +1,56 @@
+/* =========================================
+   APPLE-STYLE FULL IMAGE ZOOM + PAN
+   ========================================= */
+
+#zoom-container {
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+  touch-action: none;
+  /* prevents scroll conflict while dragging */
+}
+
+#main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  transition: transform 0.25s ease;
+  will-change: transform;
+
+  transform-origin: center;
+}
+
+/* Zoom active (desktop hover OR mobile tap) */
+#zoom-container.zoom-active #main-image {
+  transform: scale(2);
+}
+
+/* Hide old lens completely */
+.zoom-lens {
+  display: none !important;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  #zoom-container {
+    cursor: default;
+  }
+}
+
+.thumbnail {
+  aspect-ratio: 1 /1;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.5;
+  transition: opacity 200ms ease;
+}
+
+.thumbnail:hover {
+  opacity: 0.8;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border-color: var(--color-border-accent);
+}

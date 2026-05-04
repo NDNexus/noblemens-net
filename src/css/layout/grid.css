@@ -106,8 +106,8 @@
     }
 
     /* =========================================
-   PRODUCT GRID (CONTROLLED LAYOUT)
-========================================= */
+      PRODUCT GRID (CONTROLLED LAYOUT)
+    ========================================= */
 
     .grid-products {
         grid-template-columns: 1fr;
@@ -125,6 +125,37 @@
     @media (min-width: 1024px) {
         .grid-products {
             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* =========================================
+      PRODUCT GALLERY GRID (CONTROLLED LAYOUT)
+    ========================================= */
+    .grid-gallery-thumbnails {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 0.25fr));
+    }
+
+     /* Tablet and Mobile */
+     @media (max-width: 768px) {
+        .grid-gallery-thumbnails {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
+        }
+    }
+
+
+    /* =========================================
+      PRODUCT VARIANTS GRID (CONTROLLED LAYOUT)
+    ========================================= */
+
+    .grid-variants {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 0.25fr));
+        justify-content: start;
+    }
+
+    /* Tablet and Mobile */
+    @media (max-width: 768px) {
+        .grid-variants {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
         }
     }
 

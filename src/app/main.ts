@@ -176,7 +176,13 @@ function initProductsPage(): void {
    if (!container) return
 
    renderProducts(container)
+
 }
+
+import { initProductZoom} from '@components/productZoom'
+import { initProductPage } from "@/app/render/renderSingleProduct"
+
+
 
 /* =========================================================
    INITIALIZATION
@@ -213,6 +219,10 @@ function initApp(): void {
 
    initArchive();
 
+   // Initialize single product page actions
+   initProductZoom();
+   initProductPage();
+
    /* -------------------------------------------------------
     Page-Specific Systems
  ------------------------------------------------------- */
@@ -224,6 +234,7 @@ function initApp(): void {
  ------------------------------------------------------- */
 
    initProductsPage();
+   
 }
 
 

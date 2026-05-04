@@ -1,0 +1,192 @@
+/**
+ * =========================================================
+ * NOBLEMENS LIST SYSTEM
+ * =========================================================
+ *
+ * PURPOSE:
+ * - Unified list styling across website + blog
+ * - Flexible bullet system (dot, accent, diamond, none)
+ * - Clean typography alignment
+ * - Easy to extend
+ *
+ * USAGE:
+ * <ul class="list list-md list-diamond">
+ * <ol class="list list-numbered">
+ * <ul class="list list-none">
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================
+     BASE LIST (GLOBAL RESET + SPACING)
+  ========================================= */
+
+    .list {
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-md);
+        padding-left: 1.5rem;
+    }
+
+    .list li {
+        position: relative;
+        margin-bottom: 0.6rem;
+        line-height: 1.7;
+    }
+
+    .list li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* =========================================
+     TYPOGRAPHY SIZES (aligned to your system)
+  ========================================= */
+
+    .list-sm li {
+        font-size: 0.95rem;
+        /* matches text-body-sm */
+    }
+
+    .list-md li {
+        font-size: 1.125rem;
+        /* matches text-body */
+    }
+
+    .list-lg li {
+        font-size: 1.25rem;
+    }
+
+    /* =========================================
+     DEFAULT UL RESET
+  ========================================= */
+
+    .list-ul {
+        list-style: none;
+        padding-left: 1.75rem;
+    }
+
+    /* =========================================
+     BULLET: DEFAULT DOT
+  ========================================= */
+
+    .list-dot li::before {
+        content: "";
+        position: absolute;
+        left: -1.4rem;
+        top: 0.65em;
+
+        width: 6px;
+        height: 6px;
+
+        background-color: var(--color-text-secondary);
+        border-radius: 50%;
+    }
+
+    /* =========================================
+     BULLET: ACCENT DOT
+  ========================================= */
+
+    .list-accent li::before {
+        content: "";
+        position: absolute;
+        left: -1.4rem;
+        top: 0.65em;
+
+        width: 6px;
+        height: 6px;
+
+        background-color: var(--color-accent);
+        border-radius: 50%;
+    }
+
+    /* =========================================
+     BULLET: DIAMOND (BRAND STYLE)
+  ========================================= */
+
+    .list-diamond li::before {
+        content: "";
+        position: absolute;
+        left: -1.5rem;
+        top: 0.6em;
+
+        width: 10px;
+        height: 10px;
+
+        background-color: var(--color-accent);
+
+        mask: url("/images/icons/diamond.svg") no-repeat center;
+        -webkit-mask: url("/images/icons/diamond.svg") no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+    }
+
+    /* =========================================
+     BULLET: NONE (clean UI lists)
+  ========================================= */
+
+    .list-none {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .list-none li::before {
+        display: none;
+    }
+
+    /* =========================================
+     ORDERED LIST (CLEAN)
+  ========================================= */
+
+    .list-numbered {
+        list-style: decimal;
+        padding-left: 1.5rem;
+    }
+
+    .list-numbered li {
+        padding-left: 0.25rem;
+    }
+
+    /* =========================================
+     ORDERED LIST (ACCENT NUMBERS)
+  ========================================= */
+
+    .list-numbered-accent {
+        counter-reset: item;
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .list-numbered-accent li {
+        counter-increment: item;
+        margin-bottom: 0.6rem;
+        padding-left: 2rem;
+        position: relative;
+    }
+
+    .list-numbered-accent li::before {
+        content: counter(item) ".";
+        position: absolute;
+        left: 0;
+        color: var(--color-accent);
+        font-weight: 600;
+    }
+
+    /* =========================================
+     INLINE LIST (tags / meta)
+  ========================================= */
+
+    .list-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .list-inline li {
+        margin: 0;
+    }
+
+}

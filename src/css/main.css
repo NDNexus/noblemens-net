@@ -128,6 +128,9 @@
 @import "./components/header.css";
 @import "./components/navbar.css";
 @import "./components/footer.css";
+@import "./components/lists.css";
+@import "./components/callouts.css";
+@import "./components/faq.css";
 
 /* Layout */
 @import "./layout/main.css";
@@ -144,3 +147,7 @@
 @import "./blog/blog-navbar.css";
 @import "./blog/toc.css";
 @import "./blog/tables.css";
+
+/* Product Styles */
+@import "./products/product-gallery.css";
+@import "./products/testimonials.css";

@@ -158,6 +158,7 @@
 
         cursor: pointer;
         user-select: none;
+        text-decoration: none;
     }
 
     /** Primary Button: For main actions, like "Add to Cart" or "Buy Now". On light backgrounds */

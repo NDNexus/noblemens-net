@@ -17,13 +17,7 @@
    PRODUCT CARDS (ALL PRODUCTS)
    Used for: product grids
 ========================================================= */
-/**
- * NOTE: This query shape MUST match the SanityProductCard type in src/data/types/rawSanityData.ts
- * If you add/remove fields here, update the type accordingly.
- * 
- * "image": images[0].asset->url, - This is for product image in case the variant doesn't have its own image. We take the first product image as fallback.
- * "image": coalesce(image.asset->url, ^.images[0].asset->url) - This is for variant image. We first check if the variant has its own image, if not we fallback to the product image.
- */
+
 
 export const PRODUCT_CARDS_QUERY = `
 *[_type == "product"] | order(_createdAt desc){
@@ -31,7 +25,6 @@ export const PRODUCT_CARDS_QUERY = `
   title,
   "slug": slug.current,
   shortDescription,
-  "image": images[0].asset->url,
   productType,
 
   "category": category->{
@@ -51,7 +44,7 @@ export const PRODUCT_CARDS_QUERY = `
     inStock,
     isDefault,
 
-    "image": coalesce(image.asset->url, ^.images[0].asset->url),
+    "image": images[0].asset->url,
 
     "attributes": attributes[showOnCard == true]{
       label,
@@ -72,7 +65,6 @@ export const FEATURED_PRODUCTS_QUERY = `
   title,
   "slug": slug.current,
   shortDescription,
-  "image": images[0].asset->url,
 
   variants[]{
     _key,
@@ -82,7 +74,7 @@ export const FEATURED_PRODUCTS_QUERY = `
     compareAtPrice,
     isDefault,
 
-    "image": coalesce(image.asset->url, ^.images[0].asset->url)
+    "image": images[0].asset->url
   }
 }
 `
@@ -98,7 +90,6 @@ export const PRODUCT_WITH_CATEGORY_QUERY = `
   title,
   "slug": slug.current,
   shortDescription,
-  "image": images[0].asset->url,
   productType,
 
   "category": category->{
@@ -116,10 +107,10 @@ export const PRODUCT_WITH_CATEGORY_QUERY = `
     price,
     compareAtPrice,
     isDefault,
-    "image": coalesce(image.asset->url, ^.images[0].asset->url)
+    "image": images[0].asset->url
   }
 }
-`
+`;
 
 /** =========================================================
   * ALL CATEGORIES
@@ -137,22 +128,37 @@ export const ALL_CATEGORIES_QUERY = `
 
 /* =========================================================
    SINGLE PRODUCT (DETAIL PAGE)
-   Used for: /product/[slug]
+   Used for: /product/category/.../[slug]
 ========================================================= */
-
 export const PRODUCT_DETAIL_QUERY = `
 *[_type == "product" && slug.current == $slug][0]{
   _id,
   title,
   "slug": slug.current,
   shortDescription,
+  productType,
 
+  // OPTIONAL shared (lifestyle) images
   "images": images[].asset->url,
   videoUrl,
 
+  // FULL rich content
   description,
-  keyBenefits,
-  faqs,
+  keyHighlights,
+  howToUse,
+
+  faqs[]{
+    question,
+    answer
+  },
+
+  // CATEGORY (you missed this earlier here — important)
+  "category": category->{
+    _id,
+    title,
+    "slug": slug.current,
+    parent
+  },
 
   variants[]{
     _key,
@@ -166,13 +172,28 @@ export const PRODUCT_DETAIL_QUERY = `
     inStock,
     isDefault,
 
-    "image": coalesce(image.asset->url, ^.images[0].asset->url),
+    // ✅ PRIMARY image (for quick use)
+    "defaultVariantImage": images[0].asset->url,
+
+    // ✅ FULL gallery for zoom system
+    "images": images[].asset->url,
 
     attributes[]{
       label,
       value,
       showOnCard
     }
+  },
+
+   "testimonials": *[
+    _type == "testimonial" &&
+    references(^._id)
+  ] | order(_createdAt desc) {
+    _id,
+    content,
+    name,
+    subtitle
   }
 }
-`
+`;
+

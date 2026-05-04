@@ -2,134 +2,208 @@
 <html lang="en">
 
 <head>
-<include src="/templates/head.html"></include>
-<include src="/templates/seo/seo-apple-cider-vinegar.html"></include>
-<include src="/templates/schema/schema-apple-cider-vinegar.html"></include>
+    <include src="/templates/head.html"></include>
+    <include src="/templates/seo/seo-apple-cider-vinegar.html"></include>
+    <include src="/templates/schema/schema-apple-cider-vinegar.html"></include>
 </head>
 
 <body>
 
     <include src="/templates/header.html"></include>
 
-    <!-- ======================================================
-     NOBLEMENS PRODUCT PAGE TEMPLATE
-====================================================== -->
-
     <main class="site-main">
 
         <!-- =========================================
-       HERO SECTION
-  ========================================= -->
-        <section class="section">
-            <div class="container grid lg:grid-cols-2 gap-10 items-start">
+        PRODUCT DETAILS HERO SECTION
+        ========================================= -->
+        <section id="product-hero-section" class="section">
+            <div class="wide-container grid grid-products gap-lg items-start">
 
-                <!-- PRODUCT IMAGES -->
-                <div class="product-gallery">
-                    <div class="aspect-4/3 overflow-hidden rounded-lg bg-neutral-100">
-                        <img src="/images/products/acv.jpg" alt="Apple Cider Vinegar"
-                            class="w-full h-full object-cover">
+                <!-- PRODUCT GALLERY -->
+                <div id="product-gallery" class="space-y-4">
+
+                    <div id="zoom-container"
+                        class="aspect-4/3 rounded-sm overflow-hidden border border-border-subtle relative">
+
+                        <!-- MAIN IMAGE -->
+                        <img id="main-image" src="/images/products/dates-vinegar-300-ml.webp"
+                            class="w-full h-full object-center object-contain cursor-zoom-in" alt="Apple Cider Vinegar">
+
+                        <!-- LENS -->
+                        <div id="zoom-lens" class="zoom-lens hidden"></div>
+
                     </div>
-                </div>
+
+                    <!-- THUMBNAILS -->
+                    <div id="product-gallery-thumbnails" class="grid grid-gallery-thumbnails gap-sm">
+
+                    </div> <!-- Thumbnails End -->
+
+                </div> <!-- PRODUCT GALLERY End -->
 
                 <!-- PRODUCT INFO -->
-                <div class="product-info">
+                <div id="product-info">
 
                     <h1 class="text-heading-xl mb-4">
                         Apple Cider Vinegar
                     </h1>
 
-                    <p class="text-body text-muted mb-6">
-                        Raw, unfiltered vinegar with the mother. Made from organic apples using traditional fermentation methods.
-                    </p>
+                    <div id="product-short-description" class="blog-content text-body">
+                        <p class="text-body text-muted mb-6">
+                            Raw, unfiltered apple cider vinegar with the mother. Naturally fermented using traditional
+                            methods for purity and potency.
+                        </p>
+                    </div>
+
+                    <div class="product-price text-heading-lg mb-5"> ₹ 400</div>
 
                     <!-- VARIANTS -->
-                    <div class="mb-6">
-                        <p class="text-caption mb-2">Available Sizes</p>
+                    <div class="mb-8">
+                        <h3 class="text-heading-md mb-3">Available Sizes</h3>
 
-                        <div class="flex gap-2">
-                            <button class="btn btn-secondary">300 ml</button>
-                            <button class="btn btn-secondary">460 ml</button>
+                        <div id="variant-cards-container" class="grid grid-variants gap-sm group">
+
+                            <include src="/templates/product/product-variant-card.html"></include>
+
                         </div>
                     </div>
 
                     <!-- CTA -->
-                    <div class="flex gap-4 mt-6">
-                        <a href="https://wa.me/91XXXXXXXXXX" class="btn btn-primary">
-                            Order via WhatsApp
+                    <div id="product-details-cta-container" class="flex flex-wrap gap-md mt-6">
+                        <a id="order-button" href="https://wa.me/919193432784" target="_blank" class="btn btn-primary">
+                            Order on WhatsApp
                         </a>
 
-                        <a href="tel:+91XXXXXXXXXX" class="btn btn-secondary">
+                        <a href="tel:+919193432784" class="btn btn-secondary">
                             Call Now
                         </a>
-                    </div>
+                    </div> <!-- CTA END -->
+
+                </div> <!-- PRODUCT INFO END -->
+            </div>
+        </section>
+
+        <!-- =========================================
+        KEY PRODUCT HIGHLIGHTS
+        ========================================= -->
+        <section id="key-highlights-section" class="section bg-bg-alt">
+            <div class="wide-container grid grid-products gap-md">
+                <div id="key-product-highlights-container">
+                    <h2 class="text-heading-lg">Key Highlights</h2>
+                    <ul id="product-hilights-list" class="list list-md list-ul list-diamond text-body">
+                        <li>Supports digestion and gut health</li>
+                        <li>Rich in natural enzymes and probiotics</li>
+                        <li>Helps maintain healthy blood sugar levels</li>
+                        <li>Can aid in weight management</li>
+                        <li>Promotes skin health when used topically</li>
+
+                    </ul>
+                </div>
+
+                <div id="key-product-highlights-video-container" class="aspect-video rounded-md overflow-hidden">
+
+                    <iframe id="product-video" class="w-full h-full"
+                        src="https://www.youtube.com/embed/VXNb5-ixUZk?autoplay=0&mute=0&controls=1&modestbranding=1&rel=0&playsinline=1"
+                        title="Key Highlights of Apple Cider Vinegar" frameborder="0"
+                        allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+                    </iframe>
 
                 </div>
             </div>
         </section>
 
         <!-- =========================================
-       BENEFITS
-  ========================================= -->
-        <section class="section bg-neutral-50">
+         PRODUCT MAIN CONTENT
+        ========================================= -->
+        <section class="section blog-section">
+            <div class="wide-container blog-layout gap-md">
+
+                <div id="main-content">
+
+                    <h2 id="product-main-content-heading" class="text-heading-lg mb-6">
+                        About Apple Cider Vinegar
+                    </h2>
+
+                    <div id="product-full-description" class="blog-content text-body">
+
+                    </div>
+
+                </div>
+
+                <div id="how-to-use-box" class="callout callout-howto lg:mt-8 lg:sticky lg:top-24">
+
+                    <div class="callout__content">
+                        <p class="callout__title text-heading-md">How to Use</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section> <!-- END PRODUCT MAIN CONTENT SECTION -->
+
+
+        <!-- =========================================
+         FAQ SECTION
+        ========================================= -->
+        <section id="product-faq-section" class="section bg-bg-alt">
             <div class="container">
 
-                <h2 class="text-heading-md mb-6">Key Benefits</h2>
+                <!-- SECTION TITLE -->
+                <h2 class="text-heading-lg mb-8">
+                    Frequently Asked Questions
+                </h2>
 
-                <ul class="grid md:grid-cols-3 gap-4">
-                    <li class="card-minimal">Supports digestion</li>
-                    <li class="card-minimal">Naturally fermented</li>
-                    <li class="card-minimal">Contains the mother</li>
-                </ul>
+                <!-- FAQ LIST -->
+                <div class="faq space-y-3" id="faq-list">
 
-            </div>
-        </section>
+                    <include src="/templates/product/faq-item.html"></include>
 
-        <!-- =========================================
-       DESCRIPTION
-  ========================================= -->
-        <section class="section">
-            <div class="container max-w-3xl">
 
-                <h2 class="text-heading-md mb-4">About This Product</h2>
-
-                <div class="text-content">
-                    <p>
-                        Our apple cider vinegar is made using traditional methods,
-                        ensuring purity and natural fermentation.
-                    </p>
                 </div>
 
             </div>
         </section>
 
         <!-- =========================================
-       USAGE
-  ========================================= -->
-        <section class="section bg-neutral-50">
-            <div class="container max-w-3xl">
+        TESTIMONIALS
+        ========================================= -->
+        <section id="testimonials-section" class="section bg-bg-main hidden">
+            <div class="wide-container">
 
-                <h2 class="text-heading-md mb-4">How to Use</h2>
+                <h2 class="text-heading-lg mb-10">
+                    Success Stories
+                </h2>
 
-                <p class="text-body">
-                    Mix 1–2 tablespoons in water and consume daily.
-                </p>
+                <!-- Carousel -->
+                <div class="testimonials-wrapper overflow-hidden relative">
 
-            </div>
-        </section>
+                    <div id="testimonials-track"
+                        class="flex gap-6 transition-transform duration-500 ease will-change-transform"></div>
 
-        <!-- =========================================
-       FAQ
-  ========================================= -->
-        <section class="section">
-            <div class="container max-w-3xl">
+                </div>
 
-                <h2 class="text-heading-md mb-6">FAQs</h2>
+                <!-- Controls -->
+                <div class="flex justify-end gap-3 mt-6">
 
-                <div class="space-y-4">
-                    <div>
-                        <p class="font-medium">Can I drink it daily?</p>
-                        <p class="text-muted">Yes, in moderate amounts.</p>
-                    </div>
+                    <button id="testimonial-prev" class="testimonial-btn flex items-center justify-center"
+                        aria-label="Previous testimonials">
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                    </button>
+
+                    <button id="testimonial-next" class="testimonial-btn flex items-center justify-center"
+                        aria-label="Next testimonials">
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                    </button>
+
                 </div>
 
             </div>
@@ -140,6 +214,7 @@
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
+
 </body>
 
 </html>
