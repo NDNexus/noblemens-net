@@ -5,8 +5,7 @@ import { mapProductCard, getMeta, buildVariantLink } from "@/lib/sanity/mappers"
 
 import { createWhatsAppLink } from "@lib/utils/whatsapp"
 
-import type { SanityProductCard } from "@/data/types/rawSanityData"
-import type { CategoryNode } from "@/data/types/category"
+import type { SanityProductCard, RawSanityCategory } from "@/data/types/rawSanityData"
 import type { ProductCard } from "@/data/types/product"
 
 export async function renderProducts(container: HTMLElement) {
@@ -16,7 +15,7 @@ export async function renderProducts(container: HTMLElement) {
         // -------------------------------
         const [products, categories] = await Promise.all([
             fetchSanity<SanityProductCard[]>(PRODUCT_CARDS_QUERY),
-            fetchSanity<CategoryNode[]>(ALL_CATEGORIES_QUERY),
+            fetchSanity<RawSanityCategory[]>(ALL_CATEGORIES_QUERY),
         ])
 
         // -------------------------------

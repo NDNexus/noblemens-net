@@ -22,7 +22,10 @@
 
     /* Question text */
     .faq-question {
-        line-height: 1.5;
+        font-size: clamp(1.125rem, 1.3vw, 1.25rem);
+        /* 18px → 20px */
+
+        line-height: 1.7;
     }
 
     /* Chevron (clean arrow instead of plus) */
@@ -46,8 +49,9 @@
     }
 
     .faq-answer {
-        line-height: 1.6;
-        font-size: 14px;
+         font-size: 1.125rem;
+        /* 18px */
+        line-height: 1.65;
     }
 
     /* Active state */

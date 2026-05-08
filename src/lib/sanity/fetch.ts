@@ -1,90 +1,170 @@
-import { sanityClient } from './client'
+import { sanityClient } from "./client"
 
 /**
- * Fetch data from Sanity CMS using a GROQ query.
+ * =========================================================
+ * FRONTEND SANITY FETCH
+ * =========================================================
  *
- * ------------------------------------------------------------
- * ✅ PURPOSE
- * Centralized wrapper around Sanity client fetch.
- * Ensures consistent error handling, logging, and typing.
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Frontend-only Sanity fetch utility.
  *
- * ------------------------------------------------------------
- * ✅ GENERICS (Type Safety)
- * Use <T> to define expected return type.
+ * Used by:
+ * - Product archive pages
+ * - Category pages
+ * - Search pages
+ * - Runtime frontend rendering
+ * - Dynamic UI interactions
  *
- * Example:
- *   const products = await fetchSanity<Product[]>(query)
+ * IMPORTANT
+ * ---------------------------------------------------------
+ * This utility is STRICTLY for:
+ * - Browser runtime
+ * - Vite frontend environment
  *
- * ------------------------------------------------------------
- * ✅ PARAMETERS
- * @param query   GROQ query string
- * @param params  Optional query parameters (for dynamic queries)
+ * MUST NOT be used by:
+ * - Node build scripts
+ * - Static generation pipelines
+ * - SEO generators
+ * - Schema generators
  *
- * Example:
- *   *[_type == "product" && slug.current == $slug][0]
+ * WHY
+ * ---------------------------------------------------------
+ * Frontend runtime depends on:
+ * - import.meta.env
+ * - browser-safe modules
  *
- *   params: { slug: "apple-cider-vinegar" }
+ * Build scripts use a SEPARATE fetch layer:
+ * - fetchBuildSanity()
  *
- * ------------------------------------------------------------
- * ✅ RETURNS
- * Promise<T> → strongly typed data from Sanity
+ * This separation prevents:
+ * - dotenv leakage into browser bundles
+ * - process undefined errors
+ * - Node/browser environment conflicts
  *
- * ------------------------------------------------------------
- * ✅ ENVIRONMENT BEHAVIOR
- * - Development:
- *    Logs query, params, and result for debugging
+ * =========================================================
+ */
+
+/**
+ * =========================================================
+ * FETCH SANITY
+ * =========================================================
  *
- * - Production:
- *    Silent success (no logs)
- *    Only errors are logged
+ * @template T
+ * Expected response type
  *
- * ------------------------------------------------------------
- * ✅ ERROR HANDLING
- * - Logs full error context (query + params)
- * - Throws safe, generic error for UI layer
- * - Prevents leaking internal details to users
+ * @param query
+ * GROQ query string
  *
- * ------------------------------------------------------------
- * ⚠️ BEST PRACTICES
- * - Keep queries in separate `queries.ts`
- * - Always type your responses (use interfaces)
- * - Avoid inline queries in UI components
+ * @param params
+ * Optional GROQ query params
  *
- * ------------------------------------------------------------
- * 🔐 SECURITY NOTE
- * This function uses a public Sanity client (no token).
- * Safe for frontend usage.
+ * @returns
+ * Promise<T>
  *
- * DO NOT use authenticated clients here.
- * (Those belong in server-side code only)
+ * =========================================================
+ *
+ * EXAMPLE
+ * ---------------------------------------------------------
+ *
+ * const products =
+ *   await fetchSanity<Product[]>(query)
+ *
+ * const product =
+ *   await fetchSanity<Product>(
+ *     query,
+ *     { slug: "apple-cider-vinegar" }
+ *   )
+ *
+ * =========================================================
  */
 
 export async function fetchSanity<T>(
   query: string,
   params?: Record<string, unknown>
 ): Promise<T> {
-  try {
-    const data = (await sanityClient.fetch(query, params)) as T
 
-    // DEV-ONLY: Debug logging
-    if (import.meta.env.DEV) {
-      console.log('🟢 Sanity Fetch Success:', {
-        query,
-        params,
-        data,
-      })
+  /**
+   * -------------------------------------------------------
+   * VITE DEV DETECTION
+   * -------------------------------------------------------
+   */
+
+  const isDev =
+    import.meta.env.DEV
+
+  try {
+
+    /**
+     * -----------------------------------------------------
+     * EXECUTE QUERY
+     * -----------------------------------------------------
+     *
+     * NOTE:
+     * We intentionally cast AFTER fetch instead of
+     * using fetch<T>() because Sanity overload
+     * typings can become unstable in certain setups.
+     */
+
+    const data =
+      (
+        await sanityClient.fetch(
+          query,
+          params
+        )
+      ) as T
+
+    /**
+     * -----------------------------------------------------
+     * DEV LOGGING
+     * -----------------------------------------------------
+     */
+
+    if (isDev) {
+
+      console.log(
+        "🟢 Frontend Sanity Fetch Success:",
+        {
+          query,
+          params,
+          data
+        }
+      )
     }
 
-    return data
-  } catch (error) {
-    // Always log full context for debugging
-    console.error('🔴 Sanity Fetch Error:', {
-      query,
-      params,
-      error,
-    })
+    /**
+     * -----------------------------------------------------
+     * RETURN DATA
+     * -----------------------------------------------------
+     */
 
-    // Throw safe error (UI should not see internal details)
-    throw new Error('Failed to fetch data from CMS')
+    return data
+
+  } catch (error) {
+
+    /**
+     * -----------------------------------------------------
+     * ERROR LOGGING
+     * -----------------------------------------------------
+     */
+
+    console.error(
+      "🔴 Frontend Sanity Fetch Error:",
+      {
+        query,
+        params,
+        error
+      }
+    )
+
+    /**
+     * -----------------------------------------------------
+     * SAFE ERROR
+     * -----------------------------------------------------
+     */
+
+    throw new Error(
+      "Failed to fetch frontend data from CMS"
+    )
   }
 }

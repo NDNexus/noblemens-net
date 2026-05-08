@@ -3,8 +3,8 @@ import type { SanityProductCard } from "@/data/types/rawSanityData"
 import type { ProductTestimonial } from "@data/types/productDetail"
 import type { SanityTestimonial } from "@data/types/rawSanityData"
 
-import { buildCategoryPath } from "@/lib/utils/category"
 import { createWhatsAppLink } from "@/lib/utils/whatsapp"
+import { resolveCategoryHierarchy } from "@lib/sanity/resolveCategoryHierarchy"
 
 /**
  * Build meta tags for a given variant
@@ -40,6 +40,73 @@ export function getMeta(
 
   // Limit for UI cleanliness 3 items maximum
   return meta.slice(0, 3)
+}
+
+/**
+ * Build all meta tags for a given variant
+ * Priority:
+ * 1. Packaging first
+ * 2. With Mother (vinegar only)
+ * 3. All attribute values
+ * 4. Additional variant meta
+ *
+ * Returns all metadata items for display
+ */
+
+export function getAllMeta(
+  variant: any,
+  productType: string | undefined
+): string[] {
+
+  const meta: string[] = []
+
+  /**
+   * --------------------------------------------------
+   * Packaging always first
+   * --------------------------------------------------
+   */
+
+  if (variant.packaging) {
+    meta.push(variant.packaging)
+  }
+
+  /**
+   * --------------------------------------------------
+   * Vinegar specific
+   * --------------------------------------------------
+   */
+
+  if (
+    productType === "vinegar" &&
+    variant.hasMother === true
+  ) {
+    meta.push("With Mother")
+  }
+
+  /**
+   * --------------------------------------------------
+   * Attributes always included
+   * --------------------------------------------------
+   */
+
+  if (variant.attributes?.length) {
+
+    variant.attributes.forEach((attr: any) => {
+
+      if (attr?.value) {
+        meta.push(attr.value)
+      }
+
+    })
+  }
+
+  /**
+   * --------------------------------------------------
+   * Remove duplicates
+   * --------------------------------------------------
+   */
+
+  return [...new Set(meta)]
 }
 
 /**
@@ -137,36 +204,79 @@ export function mapProductCard(
   }
 
   // -------------------------------
-  // CATEGORY PATH
+  // CATEGORY HIERARCHY
   // -------------------------------
-  const categoryId = sanityData.category?._id
 
-  const categoryPath = categoryId
-    ? buildCategoryPath(categoryId, allCategories)
-    : []
+  const categoryId =
+    sanityData.category?._id
 
-  // -------------------------------
-  // BASE LINK (same for all variants)
-  // -------------------------------
-  const baseLink =
-    categoryPath.length > 0
-      ? `/products/${categoryPath.join("/")}/${sanityData.slug}`
-      : `/products/${sanityData.slug}`
+  /**
+   * Full resolved hierarchy
+   *
+   * Example:
+   * [
+   *   "products",
+   *   "vinegars"
+   * ]
+   */
+  const categoryPath =
+    resolveCategoryHierarchy(
+      categoryId,
+      allCategories
+    )
 
-  // -------------------------------
-  // META (from DEFAULT variant)
-  // -------------------------------
+  /**
+   * Full product hierarchy
+   *
+   * Example:
+   * [
+   *   "products",
+   *   "vinegars",
+   *   "apple-cider-vinegar"
+   * ]
+   */
+  const hierarchy = [
+    ...categoryPath,
+    sanityData.slug
+  ]
+
+  /**
+ * =========================================================
+ * URL PATH
+ * =========================================================
+ *
+ * Final resolved canonical product URL
+ *
+ * Example:
+ * /products/vinegars/apple-cider-vinegar
+ */
+
+  const urlPath =
+    "/" + hierarchy.join("/")
+
+  /**
+   * =========================================================
+   * META
+   * =========================================================
+   *
+   * Uses default variant for primary metadata
+   */
+
   const meta = defaultVariant
     ? getMeta(defaultVariant, productType)
     : []
 
-  // -------------------------------
-  // ORDER LINK (default)
-  // -------------------------------
+  /**
+   * =========================================================
+   * DEFAULT ORDER LINK
+   * =========================================================
+   */
+
   const orderLink = createWhatsAppLink({
     title,
-    link: baseLink,
-    price: price.current
+    urlPath,
+    price: price.current,
+
   })
 
   // -------------------------------
@@ -181,7 +291,7 @@ export function mapProductCard(
     variants,
     meta,
     price,
-    link: baseLink,
+    link: urlPath,
     orderLink
   }
 }
@@ -205,10 +315,9 @@ export function mapProductCard(
  * =========================================================
  */
 
-import type { SanityProductDetail } from "@/data/types/rawSanityData"
+import type { SanityProductDetail, RawSanityCategory } from "@/data/types/rawSanityData"
 import type {
-  ProductDetail,
-  ProductDetailVariant,
+  ProductDetail, ProductDetailVariant
 } from "@/data/types/productDetail"
 
 /**
@@ -228,7 +337,7 @@ function buildVariantLabel(
  * Main mapper function
  */
 export function mapProductDetail(
-  data: SanityProductDetail | null
+  data: SanityProductDetail | null, allCategories: RawSanityCategory[]
 ): ProductDetail {
   // -------------------------------
   // HARD FAIL (critical data missing)
@@ -251,7 +360,7 @@ export function mapProductDetail(
 
   console.log("RAW TESTIMONIALS FROM SANITY:", data?.testimonials)
 
-  
+
   /**
    * --------------------------------
    * TYPE GUARD - FOR TESTIMONIALS
@@ -311,6 +420,15 @@ export function mapProductDetail(
     console.log("[ProductDetailMapper] Images of variant: ", v.images);
     console.log("[ProductDetailMapper] Images of product: ", data.images);
 
+    console.log("============================================================")
+    console.log("[ProductDetailMapper] VARIANT OBJECT is: ", v)
+    console.log("============================================================")
+
+    const variantMeta = getAllMeta(v, data.productType)
+
+    console.log("============================================================")
+    console.log("[MAPPERS] variantMeta is: ", variantMeta)
+    console.log("============================================================")
 
     return {
       key: v._key,
@@ -333,6 +451,8 @@ export function mapProductDetail(
         "/images/placeholders/product-placeholder.webp",
 
       images: mergedImages,
+
+      meta: variantMeta,
 
       // Availability
       inStock: v.inStock ?? true,
@@ -369,12 +489,57 @@ export function mapProductDetail(
   }
 
   // -------------------------------
+  // CATEGORY HIERARCHY
+  // -------------------------------
+
+  const categoryId =
+    data.category?._id
+
+  /**
+   * Example:
+   * [
+   *   "products",
+   *   "vinegars"
+   * ]
+   */
+  const categoryPath =
+    resolveCategoryHierarchy(
+      categoryId,
+      allCategories
+    )
+
+  /**
+   * Example:
+   * [
+   *   "products",
+   *   "vinegars",
+   *   "apple-cider-vinegar"
+   * ]
+   */
+  const hierarchy = [
+    ...categoryPath,
+    data.slug
+  ]
+
+  /**
+   * Final canonical URL
+   *
+   * Example:
+   * /products/vinegars/apple-cider-vinegar
+   */
+  const urlPath =
+    "/" + hierarchy.join("/")
+
+  // -------------------------------
   // FINAL OBJECT
   // -------------------------------
   const mappedProduct: ProductDetail = {
     id: data._id,
     title: data.title,
     slug: data.slug,
+    categoryPath,
+    hierarchy,
+    urlPath,
 
     productType: data.productType || "unknown",
 
@@ -403,8 +568,6 @@ export function mapProductDetail(
 
     // How To Use (Portable Text)
     howToUse: data.howToUse ?? [],
-
-
 
     // FAQs
     faqs:

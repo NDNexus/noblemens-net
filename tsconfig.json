@@ -68,6 +68,9 @@
       "@render/*": [
         "./src/app/render/*"
       ],
+      "@scripts/*": [
+        "./scripts/*"
+      ],
       
     }
   }

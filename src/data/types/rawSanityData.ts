@@ -26,6 +26,16 @@
  */
 
 /**
+ * RAW SANITY CATEGORY DATA
+ */
+export interface RawSanityCategory {
+    _id: string
+    title?: string
+    slug?: string
+    parent?: string | null
+}
+
+/**
  * =========================================
  * PORTABLE TEXT TYPES (FULL SUPPORT)
  * =========================================

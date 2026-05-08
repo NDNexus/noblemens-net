@@ -1,8 +1,19 @@
+
 /**
- * This file contains TypeScript type definitions for the Category schema in Sanity. 
+ * Resolved App ready category data.
  */
-export interface CategoryNode {
-  _id: string
+export interface Category {
+  id: string
+
+  title: string
+
   slug: string
-  parent: string | null
+
+  hierarchy: string[]
+
+  urlPath: string
+
+  depth: number
+
+  parent?: string | null
 }

@@ -1,17 +1,24 @@
+/**
+ * @deprecated
+ * Static generation replaced runtime product rendering.
+ */
+
 import { fetchSanity } from "@/lib/sanity/fetch"
-import { PRODUCT_DETAIL_QUERY } from "@/lib/sanity/queries"
-import { renderFAQs } from "./renderFAQs"
+import { PRODUCT_DETAIL_QUERY, ALL_CATEGORIES_QUERY } from "@/lib/sanity/queries"
+import { initFAQInteractions } from "./renderFAQs"
 import { portableTextToHTML } from "./portableTextRenderer"
 import { createWhatsAppLink } from "@/lib/utils/whatsapp"
 
 import { renderTestimonials } from "@components/testimonialCarousel"
 
-import type { SanityProductDetail } from "@/data/types/rawSanityData"
-import { mapProductDetail } from "@/lib/sanity/mappers"
+import type { SanityProductDetail, RawSanityCategory } from "@/data/types/rawSanityData"
+import { mapProductDetail, getAllMeta } from "@/lib/sanity/mappers"
 import type {
     ProductDetail,
     ProductDetailVariant
 } from "@/data/types/productDetail"
+
+
 
 // -------------------------------
 // GET SLUG FROM URL
@@ -134,7 +141,12 @@ export async function renderSingleProduct() {
         { slug }
     )
 
-    const product = mapProductDetail(raw)
+    const allCategories =
+        await fetchSanity<RawSanityCategory[]>(
+            ALL_CATEGORIES_QUERY
+        )
+
+    const product = mapProductDetail(raw, allCategories)
 
     console.log("[Product Loaded]", product)
 
@@ -161,6 +173,18 @@ export async function renderSingleProduct() {
     // -------------------------------
     const descEl = document.querySelector("#product-short-description p")
     if (descEl) descEl.textContent = product.shortDescription
+
+    // -------------------------------
+    // VARIANT META
+    // -------------------------------
+    const metaEl =
+        document.getElementById("product-meta")
+
+    if (metaEl) {
+        metaEl.innerHTML =
+            renderMeta(variant, product)
+    }
+
 
     // -------------------------------
     // MAIN IMAGE
@@ -205,17 +229,17 @@ export async function renderSingleProduct() {
         }
     }
 
+
     // -------------------------------
-    // WHATSAPP LINK
+    // CURRENT VARIANT
     // -------------------------------
-    const orderBtn = document.getElementById("order-button") as HTMLAnchorElement
-    if (orderBtn) {
-        orderBtn.href = createWhatsAppLink({
-            title: product.title,
-            link: window.location.href,
-            price: variant.price
-        })
-    }
+    const selectedVariant =
+        getSelectedVariant(product)
+
+    // -------------------------------
+    // ORDER BUTTON
+    // -------------------------------
+    updateOrderButton(product, selectedVariant)
 
     // -------------------------------
     // KEY HIGHLIGHTS
@@ -272,6 +296,8 @@ export async function renderSingleProduct() {
             const content = howToUseBox.querySelector(".callout__content")
 
             if (content) {
+                // Resetting the content to avoid duplication
+                content.innerHTML = `<p class="callout__title text-heading-md">How to Use</p>`
                 content.innerHTML += html
             }
         }
@@ -305,10 +331,10 @@ export async function renderSingleProduct() {
     }
 
     // -------------------------------
-    // FAQ
+    // FAQ INTERACTIONS
     // -------------------------------
     if (product.faqs?.length) {
-        renderFAQs(product.faqs)
+        initFAQInteractions()
     }
 
     renderVariantCards(product, variant)
@@ -356,6 +382,61 @@ export function initProductPage(): void {
         }
     }
 }
+
+
+/**
+ * RENDER VARIANT META
+ */
+
+function renderMeta(
+    variant: ProductDetailVariant,
+    product: ProductDetail
+): string {
+
+    /**
+     * --------------------------------------------------
+     * Get all metadata items
+     * --------------------------------------------------
+     */
+
+    const metaItems =
+        getAllMeta(
+            variant,
+            product.productType
+        )
+
+    /**
+     * --------------------------------------------------
+     * Empty state
+     * --------------------------------------------------
+     */
+
+    if (!metaItems.length) {
+        return ""
+    }
+
+    /**
+     * --------------------------------------------------
+     * Return HTML string
+     * --------------------------------------------------
+     */
+
+    return metaItems
+        .map((item, index) => {
+
+            const separator =
+                index < metaItems.length - 1
+                    ? `<span class="meta-separator"></span>`
+                    : ""
+
+            return `
+<span>${item}</span>
+${separator}
+`
+        })
+        .join("")
+}
+
 
 /**
  * =========================================================
@@ -464,6 +545,8 @@ function renderVariantCards(
                     )
                     btn.classList.add("active")
 
+                    updateOrderButton(product, variant)
+
                 } catch (error) {
                     console.error("[Variants] Failed to update UI:", error)
                 }
@@ -472,6 +555,48 @@ function renderVariantCards(
             console.error("[Variants] Failed to render variant:", variant, error)
         }
     })
+}
+
+/**
+ * =========================================================
+ * UPDATE ORDER BUTTON
+ * =========================================================
+ *
+ * Syncs WhatsApp CTA with the CURRENT selected variant.
+ *
+ * Handles:
+ * - variant pricing
+ * - variant label
+ * - current product URL
+ *
+ * =========================================================
+ */
+
+function updateOrderButton(
+    product: ProductDetail,
+    variant: ProductDetailVariant
+) {
+
+    const orderBtn =
+        document.getElementById(
+            "order-button"
+        ) as HTMLAnchorElement | null
+
+    if (!orderBtn) {
+        return
+    }
+
+    orderBtn.href =
+        createWhatsAppLink({
+
+            title: product.title,
+
+            urlPath: product.urlPath,
+
+            price: variant.price,
+
+            variantLabel: variant.label
+        })
 }
 
 /**
@@ -543,6 +668,17 @@ function updateProductUI(
     }
 
     // -------------------------------
+    // VARIANT META
+    // -------------------------------
+    const metaEl =
+        document.getElementById("product-meta")
+
+    if (metaEl) {
+        metaEl.innerHTML =
+            renderMeta(variant, product)
+    }
+
+    // -------------------------------
     // PRICE
     // -------------------------------
     const priceEl = document.querySelector<HTMLElement>(".product-price")
@@ -578,19 +714,15 @@ function updateProductUI(
     }
 
     // -------------------------------
-    // WHATSAPP LINK
+    // CURRENT VARIANT
     // -------------------------------
-    const orderBtn = document.querySelector(
-        ".btn-primary"
-    ) as HTMLAnchorElement | null
+    const selectedVariant =
+        getSelectedVariant(product)
 
-    if (orderBtn) {
-        orderBtn.href = createWhatsAppLink({
-            title: product.title,
-            link: window.location.href,
-            price: variant.price,
-        })
-    }
+    // -------------------------------
+    // ORDER BUTTON
+    // -------------------------------
+    updateOrderButton(product, selectedVariant)
 
     // -------------------------------
     // (NEXT STEP)

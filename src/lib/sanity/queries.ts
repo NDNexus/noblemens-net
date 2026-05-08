@@ -152,7 +152,7 @@ export const PRODUCT_DETAIL_QUERY = `
     answer
   },
 
-  // CATEGORY (you missed this earlier here — important)
+  // CATEGORY (For processing product category)
   "category": category->{
     _id,
     title,
@@ -197,3 +197,19 @@ export const PRODUCT_DETAIL_QUERY = `
 }
 `;
 
+/* =========================================================
+   ALL PRODUCT SLUGS
+   Used for:
+   - Static product generation
+   - Sitemap generation
+   - Build pipelines
+========================================================= */
+
+export const ALL_PRODUCT_SLUGS_QUERY = `
+*[
+  _type == "product" &&
+  defined(slug.current)
+]{
+  "slug": slug.current
+}
+`

@@ -50,6 +50,8 @@ runStep("Head Injection", "tsx scripts/html/inject-head.ts")
 
 runStep("Navbar State Injection", "tsx scripts/html/inject-navbar-state.ts")
 
+runStep("Product Generation", "tsx scripts/product/build-all-products.ts")
+
 runStep("SEO Generation", "tsx scripts/seo/generate-seo.ts")
 
 runStep("Schema Generation", "tsx scripts/schema/generate-schema.ts")

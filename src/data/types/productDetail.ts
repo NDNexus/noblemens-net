@@ -17,7 +17,7 @@
  */
 
 import type { SanityPortableText } from '@/data/types/rawSanityData'
- 
+
 
 /* =========================================================
    VARIANT (DETAIL PAGE)
@@ -30,6 +30,8 @@ export interface ProductDetailVariant {
     // Pricing
     price: number
     compareAtPrice?: number | null
+
+    meta: string[]
 
     // Media
     image?: string
@@ -64,6 +66,9 @@ export interface ProductDetail {
     id: string
     title: string
     slug: string
+    categoryPath: string[]
+    hierarchy: string[]
+    urlPath: string
 
     // 🔥 REQUIRED (used for logic)
     productType: string
