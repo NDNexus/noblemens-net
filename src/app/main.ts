@@ -168,20 +168,191 @@ function init404Page(): void {
 
 /* ==========================================================
    RENDER PRODUCTS SYSTEM
-========================================================= */
-import { renderProducts } from '@render/renderProducts'
+========================================================== */
 
-function initProductsPage(): void {
-   const container = document.getElementById('products-grid')
-   if (!container) return
+import { fetchSanity } from "@lib/sanity/fetch"
 
-   renderProducts(container)
+import { renderProducts } from "@render/renderProducts"
+
+import { renderProductFilters } from "@render/renderProductFilters"
+
+import {
+   PRODUCT_CARDS_QUERY,
+   ALL_CATEGORIES_QUERY
+} from "@/lib/sanity/queries"
+
+import type { SanityProductCard, RawSanityCategory } from "@/data/types/rawSanityData"
+
+import { filterProductsByCategory, getProductFilters } from "@/data/productCategories"
+
+import { mapProductCard } from "@/lib/sanity/mappers"
+
+
+/**
+ * =========================================================
+ * INITIALIZE PRODUCT ARCHIVE PAGE
+ * =========================================================
+ */
+
+export async function initProductArchivePage(): Promise<void> {
+
+   /**
+    * ------------------------------------------------------
+    * PRODUCTS GRID
+    * ------------------------------------------------------
+    */
+
+   const productsGrid =
+      document.getElementById("products-grid")
+
+   if (!productsGrid) {
+
+      console.warn(
+         "[ProductArchive] Missing #products-grid"
+      )
+
+      return
+
+   }
+
+   /**
+    * ------------------------------------------------------
+    * FILTER BAR
+    * ------------------------------------------------------
+    */
+
+   const filterBar =
+      document.getElementById("products-filter-bar")
+
+   /**
+    * ------------------------------------------------------
+    * INITIAL CATEGORY
+    * ------------------------------------------------------
+    */
+
+   const category =
+      productsGrid.dataset.category
+
+   /**
+    * ------------------------------------------------------
+    * DEBUG
+    * ------------------------------------------------------
+    */
+
+   console.log(
+      `[ProductArchive] Initial category: ${category || "ALL"}`
+   )
+
+   try {
+
+      /**
+       * ---------------------------------------------------
+       * FETCH DATA
+       * ---------------------------------------------------
+       */
+
+      const [products, categories] =
+         await Promise.all([
+
+            fetchSanity<SanityProductCard[]>(PRODUCT_CARDS_QUERY),
+
+            fetchSanity<RawSanityCategory[]>(ALL_CATEGORIES_QUERY)
+
+         ])
+
+      /**
+       * ---------------------------------------------------
+       * FILTER PRODUCTS
+       * ---------------------------------------------------
+       */
+
+      const filteredProducts =
+
+         category
+
+            ? filterProductsByCategory(
+
+               products,
+               categories,
+               category
+
+            )
+
+            : products
+
+      /**
+       * ---------------------------------------------------
+       * MAP PRODUCTS
+       * ---------------------------------------------------
+       */
+
+      const mappedProducts =
+         filteredProducts.map(product =>
+
+            mapProductCard(
+               product,
+               categories
+            )
+
+         )
+
+      /**
+       * ---------------------------------------------------
+       * INITIAL RENDER
+       * ---------------------------------------------------
+       */
+
+      renderProducts(
+         mappedProducts,
+         productsGrid
+      )
+
+      /**
+       * ---------------------------------------------------
+       * FILTER BAR
+       * ---------------------------------------------------
+       */
+
+      if (!filterBar) return
+
+      /**
+       * ---------------------------------------------------
+       * RENDER FILTERS
+       * ---------------------------------------------------
+       */
+
+      renderProductFilters(
+
+         filterBar,
+
+         getProductFilters(
+            products,
+            categories
+         ),
+
+         productsGrid,
+
+         products,
+
+         categories
+
+      )
+
+   }
+
+   catch (error) {
+
+      console.error(
+         "[ProductArchive] Initialization failed:",
+         error
+      )
+
+   }
 
 }
 
-import { initProductZoom} from '@components/productZoom'
+import { initProductZoom } from '@components/productZoom'
 import { initProductPage } from "@/app/render/renderSingleProduct"
-
 
 
 /* =========================================================
@@ -233,8 +404,7 @@ function initApp(): void {
     Products Page initialization
  ------------------------------------------------------- */
 
-   initProductsPage();
-   
+   initProductArchivePage();
 }
 
 

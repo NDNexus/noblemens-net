@@ -246,4 +246,11 @@
         vertical-align: middle;
     }
 
+    /* =========================================
+     SCROLL MARGIN (ANCHOR LINKS) for default anchor links to account for fixed header
+    ========================================= */
+    [id] {
+    scroll-margin-top: calc(var(--header-height));
+}
+
 }

@@ -1,38 +1,46 @@
-import { fetchSanity } from "@/lib/sanity/fetch"
-import { PRODUCT_CARDS_QUERY, ALL_CATEGORIES_QUERY } from "@/lib/sanity/queries"
 
-import { mapProductCard, getMeta, buildVariantLink } from "@/lib/sanity/mappers"
+import {  getMeta, buildVariantLink } from "@/lib/sanity/mappers"
 
 import { createWhatsAppLink } from "@lib/utils/whatsapp"
 
-import type { SanityProductCard, RawSanityCategory } from "@/data/types/rawSanityData"
 import type { ProductCard } from "@/data/types/product"
 
-export async function renderProducts(container: HTMLElement) {
-    try {
-        // -------------------------------
-        // FETCH DATA
-        // -------------------------------
-        const [products, categories] = await Promise.all([
-            fetchSanity<SanityProductCard[]>(PRODUCT_CARDS_QUERY),
-            fetchSanity<RawSanityCategory[]>(ALL_CATEGORIES_QUERY),
-        ])
 
-        // -------------------------------
-        // MAP DATA
-        // -------------------------------
-        const mappedProducts = products.map(product =>
-            mapProductCard(product, categories)
+export function renderProducts(
+
+    products: ProductCard[],
+
+    container: HTMLElement
+
+): void {
+
+    /**
+     * -----------------------------------------------------
+     * SAFETY GUARD
+     * -----------------------------------------------------
+     */
+
+    if (!container) {
+
+        console.warn(
+            "[RenderProducts] Missing container."
         )
 
-        // -------------------------------
-        // RENDER
-        // -------------------------------
-        renderProductCards(mappedProducts, container)
+        return
 
-    } catch (error) {
-        console.error("Failed to render products:", error)
     }
+
+    /**
+     * -----------------------------------------------------
+     * RENDER CARDS
+     * -----------------------------------------------------
+     */
+
+    renderProductCards(
+        products,
+        container
+    )
+
 }
 
 /**
@@ -65,9 +73,17 @@ function renderMeta(metaEl: HTMLElement, meta: string[]) {
 function renderProductCards(products: ProductCard[], container: HTMLElement) {
     const template = document.querySelector<HTMLTemplateElement>("#product-card-template")
 
-    if (!template) return
+    console.log("Card template:", template)
+
+    if (!template)
+        return
 
     container.innerHTML = ""
+
+    console.log(
+        "Rendering cards:",
+        products.map(p => p.title)
+    )
 
     products.forEach(product => {
         const node = template.content.cloneNode(true) as HTMLElement
@@ -187,7 +203,7 @@ function attachVariantHandlers(
             if (orderLink) {
                 orderLink.href = createWhatsAppLink({
                     title: product.title,
-                    link: product.link,
+                    urlPath: product.link,
                     price: variant.price
                 })
             }

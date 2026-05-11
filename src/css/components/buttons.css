@@ -220,5 +220,36 @@
         pointer-events: none;
     }
 
+    /* =========================================
+     FILTER BUTTONS (used in product archive page)
+  ========================================= */
+    .filter-btn {
+
+        background: transparent;
+
+        color: var(--color-text-secondary);
+
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .filter-btn:hover {
+
+        border-color: var(--color-accent);
+
+        color: var(--color-text-primary);
+    }
+
+    .filter-btn.is-active {
+
+        background: var(--color-accent);
+
+        border-color: var(--color-accent);
+
+        color: white;
+    }
+
 
 }

@@ -33,20 +33,18 @@
 
 
         <!-- =========================================
-         FILTER BAR
-    ========================================= -->
+     FILTER BAR
+========================================= -->
         <section class="section-xs">
-            <div class="container flex justify-center">
 
-                <div class="flex gap-3 flex-wrap justify-center">
+            <div class="container">
 
-                    <button class="px-4 py-2 rounded-full border text-sm">All</button>
-                    <button class="px-4 py-2 rounded-full border text-sm">Vinegars</button>
-                    <button class="px-4 py-2 rounded-full border text-sm">Perfumes</button>
+                <div id="products-filter-bar" class="flex flex-wrap justify-center gap-3">
 
                 </div>
 
             </div>
+
         </section>
 
 
@@ -56,9 +54,9 @@
         <section class="section">
             <div class="wide-container">
 
-                <div id="products-grid" class="grid grid-lg gap-lg grid-products">
+                <include src="/templates/product/product-card.html"></include>
 
-                    <include src="/templates/product/product-card.html"></include>
+                <div id="products-grid" class="grid grid-lg gap-lg grid-products">
 
                 </div>
 
