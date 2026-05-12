@@ -1,5 +1,5 @@
 
-import {  getMeta, buildVariantLink } from "@/lib/sanity/mappers"
+import { getMeta, buildVariantLink } from "@/lib/sanity/mappers"
 
 import { createWhatsAppLink } from "@lib/utils/whatsapp"
 
@@ -90,9 +90,9 @@ function renderProductCards(products: ProductCard[], container: HTMLElement, lim
 
     const productsToRender =
 
-    limit
-        ? products.slice(0, limit)
-        : products
+        limit
+            ? products.slice(0, limit)
+            : products
 
     productsToRender.forEach(product => {
         const node = template.content.cloneNode(true) as HTMLElement
@@ -108,6 +108,59 @@ function renderProductCards(products: ProductCard[], container: HTMLElement, lim
 
         const desc = node.querySelector(".product-description")
         if (desc) desc.textContent = product.description
+
+        /**
+         * -------------------------------------------------------
+         * PRICE
+         * -------------------------------------------------------
+         */
+        const priceContainer =
+            node.querySelector(".product-price")
+
+        if (priceContainer) {
+
+            const currentPrice =
+                product.price.current.toLocaleString("en-IN")
+
+            const compareAtPrice =
+                product.price.compareAt
+
+            /**
+             * Premium pricing markup
+             */
+
+            priceContainer.innerHTML = compareAtPrice &&
+                compareAtPrice > product.price.current
+
+                ? `
+            <div class="flex items-center gap-3 flex-wrap">
+
+                <span class="text-heading-md text-text-primary font-serif font-semibold">
+                    ₹${currentPrice}
+                </span>
+
+                <span class="text-body-sm text-muted line-through">
+                    ₹${compareAtPrice.toLocaleString("en-IN")}
+                </span>
+
+                <span
+                    class="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-1 text-[0.72rem] font-medium uppercase tracking-[0.08em] text-accent">
+                    Offer
+                </span>
+
+            </div>
+        `
+
+                : `
+            <div class="flex items-center">
+
+                <span class="text-heading-md text-text-primary font-serif font-semibold">
+                    ₹${currentPrice}
+                </span>
+
+            </div>
+        `
+        }
 
         // -------------------------------
         // META (default variant)
@@ -183,7 +236,48 @@ function attachVariantHandlers(
             // UPDATE PRICE
             // -----------------------
             if (priceEl) {
-                priceEl.textContent = `₹${variant.price}`
+                
+                const currentPrice =
+                    variant.price.toLocaleString("en-IN")
+
+                const compareAtPrice =
+                    variant.compareAt
+
+                /**
+                 * Premium pricing markup
+                 */
+
+                priceEl.innerHTML = compareAtPrice &&
+                    compareAtPrice > product.price.current
+
+                    ? `
+            <div class="flex items-center gap-3 flex-wrap">
+
+                <span class="text-heading-md text-text-primary font-serif font-semibold">
+                    ₹${currentPrice}
+                </span>
+
+                <span class="text-body-sm text-muted line-through">
+                    ₹${compareAtPrice.toLocaleString("en-IN")}
+                </span>
+
+                <span
+                    class="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-1 text-[0.72rem] font-medium uppercase tracking-[0.08em] text-accent">
+                    Offer
+                </span>
+
+            </div>
+        `
+
+                    : `
+            <div class="flex items-center">
+
+                <span class="text-heading-md text-text-primary font-serif font-semibold">
+                    ₹${currentPrice}
+                </span>
+
+            </div>
+        `
             }
 
             // -----------------------
@@ -193,6 +287,7 @@ function attachVariantHandlers(
                 const meta = getMeta(variant, product.productType)
                 renderMeta(metaEl, meta)
             }
+
 
             // -----------------------
             // BUILD VARIANT LINK
