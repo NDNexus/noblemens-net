@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-<include src="/templates/head.html"></include>
-<include src="/templates/seo/seo-about-us.html"></include>
-<include src="/templates/schema/schema-about-us.html"></include>
+    <include src="/templates/head.html"></include>
+    <include src="/templates/seo/seo-about-us.html"></include>
+    <include src="/templates/schema/schema-about-us.html"></include>
 </head>
 
 <body>
@@ -12,143 +12,727 @@
 
     <main class="site-main">
 
-        <!-- PAGE TITLE -->
-        <section class="section bg-bg-alt">
-            <div class="container">
+        <!-- HERO -->
+        <section id="hero"
+            class="hero-section section-lg relative bg-fixed bg-cover bg-center flex items-center min-h-screen"
+            style="background-image: url('/images/about-us/about-us-hero-image.webp');">
 
-                <h1 class="text-heading-xl mb-6 mt-10">
-                    About Us
-                </h1>
+            <!-- OVERLAY -->
+            <div class="absolute inset-0 z-0 bg-overlay-primary"></div>
 
-                <div class="text-content">
+            <!-- GRADIENT -->
+            <div class="absolute inset-0 z-0 bg-linear-to-b from-deep-twilight/70 via-black/45 to-black/90"></div>
 
-                    <p class="text-body">
-                        We manufacture natural perfumes and non-perfume products that are beneficial, healthy, and
-                        non-toxic. Our current range includes agarwood oil, natural attars, and traditionally brewed raw
-                        vinegar.
-                    </p>
+            <!-- CONTENT -->
+            <div class="relative z-10 container">
 
-                    <p class="text-body mt-4">
-                        Agarwood is also known as Oud, Oudh, or Gaharu, and is among the most valued natural fragrance
-                        ingredients in the world.
-                    </p>
+                <div class="max-w-4xl">
 
-                </div>
+                    <!-- EYEBROW -->
+                    <div class="mb-8">
 
-            </div>
-        </section>
+                        <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-white/75">
 
+                            <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
 
-        <!-- WHAT WE DO -->
-        <section class="section bg-bg-alt">
-            <div class="container">
+                            Our Story
 
-                <div class="text-content">
+                        </span>
 
-                    <h2 class="text-heading-lg mb-4">
-                        What We Do
-                    </h2>
-
-                    <p class="text-body">
-                        We focus on producing pure, natural products using traditional methods refined within our family
-                        over generations. Our approach emphasizes authenticity, quality, and long-term health benefits.
-                    </p>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- LOCATION -->
-        <section class="section">
-            <div class="container">
-
-                <div class="text-content">
-
-                    <h2 class="text-heading-lg mb-4">
-                        Our Location
-                    </h2>
-
-                    <p class="text-body">
-                        We originate from Assam in eastern India, a region where agarwood trees grow naturally. The
-                        finest quality Indian Oud is sourced from this region.
-                    </p>
-
-                    <p class="text-body mt-4">
-                        Since January 2021, some members of our family have also settled in Gujarat in western India,
-                        which now serves as a hub for marketing and vinegar production.
-                    </p>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- FAMILY BUSINESS -->
-        <section class="section bg-bg-alt">
-            <div class="container">
-
-                <div class="text-content">
-
-                    <h2 class="text-heading-lg mb-4">
-                        A Family-Owned Business
-                    </h2>
-
-                    <p class="text-body">
-                        We are a small, family-run business rooted in Assam, India.
-                    </p>
-
-                    <p class="text-body mt-4">
-                        By the grace of the Almighty, we strive to remain honest and truthful in all that we do. We see
-                        humanity as one family and do not discriminate based on country, region, language, ethnicity,
-                        race, religion, or colour.
-                    </p>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- AGARWOOD SECTION -->
-        <section class="section">
-            <div class="container">
-
-                <div class="text-content">
-
-                    <h2 class="text-heading-lg mb-6">
-                        Agarwood from Our Roots
-                    </h2>
-
-                </div>
-
-                <!-- Images -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <!-- Image 1 -->
-                    <div>
-                        <img src="/images/agarwood-trees.jpg" alt="Agarwood trees in family backyard" class="w-full">
-
-                        <p class="text-body-sm text-muted mt-2">
-                            The larger tree on the right is an old agarwood tree. The straight tree on the left is a
-                            betel nut tree. Others are young agar trees.
-                        </p>
                     </div>
 
-                    <!-- Image 2 -->
-                    <div>
-                        <img src="/images/agarwood-mature-tree.jpg" alt="Mature agarwood tree" class="w-full">
+                    <!-- HEADING -->
+                    <h1 class="text-heading-xl text-text-inverse max-w-5xl mb-8">
 
-                        <p class="text-body-sm text-muted mt-2">
-                            Mature agarwood tree.
+                        Built On Science, Tradition, and a Deep Respect for
+                        <span class="text-accent">
+                            Natural Living.
+                        </span>
+
+                    </h1>
+
+                    <!-- SUPPORT -->
+                    <div class="text-content max-w-3xl space-y-6">
+
+                        <p class="text-body-lg text-white/90">
+
+                            Noblemens was created with a simple belief:
+                            products people bring into their lives should be chosen with greater care.
+
                         </p>
+
+                        <p class="text-body text-white/72">
+
+                            In a world increasingly shaped by synthetic shortcuts,
+                            industrial convenience, and mass-produced formulations,
+                            we remain committed to creating thoughtfully crafted natural products
+                            rooted in authenticity, research, and timeless craftsmanship.
+
+                        </p>
+
                     </div>
 
                 </div>
 
             </div>
+
+        </section>
+
+
+        <!-- INTRODUCTION -->
+        <section class="section">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-12 gap-y-16 lg:gap-x-20 items-start">
+
+                    <!-- LEFT -->
+                    <div class="lg:col-span-7">
+
+                        <div class="mb-8">
+
+                            <span
+                                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                About Noblemens
+
+                            </span>
+
+                        </div>
+
+                        <h2 class="text-heading-lg mb-8 max-w-[18ch]">
+
+                            A Small Family Business With A Larger Purpose.
+
+                        </h2>
+
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Noblemens is a family-led Indian brand focused on creating premium natural products
+                                that reflect authenticity, thoughtful craftsmanship, and long-term trust.
+                            </p>
+
+                            <p>
+                                Our work spans traditionally crafted vinegars,
+                                natural attar-style perfumes, and heritage fragrance ingredients
+                                rooted in genuine sourcing traditions.
+                            </p>
+
+                            <p>
+                                While we remain intentionally small,
+                                our mission is deeply meaningful:
+                                helping people rediscover products that feel closer to nature,
+                                more intentional, and more honest.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="lg:col-span-5">
+
+                        <div class="rounded-sm bg-bg-alt p-8 lg:p-12">
+
+                            <div class="space-y-10">
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Premium Natural Products
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Carefully developed with a preference for authenticity,
+                                        ingredient integrity, and thoughtful craftsmanship.
+
+                                    </p>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Research-Led Thinking
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Guided by scientific curiosity,
+                                        long-term wellbeing considerations,
+                                        and practical real-world understanding.
+
+                                    </p>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Family Values
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Built on honesty, ethical conduct,
+                                        and a belief in simple living with meaningful purpose.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- FOUNDER -->
+        <section class="section bg-bg-alt">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-12 gap-y-16 lg:gap-x-20 items-start">
+
+                    <!-- LEFT PANEL -->
+                    <div class="lg:col-span-5">
+
+                        <div class="rounded-sm bg-bg-main p-8 lg:p-12 h-full">
+
+                            <div class="mb-8">
+
+                                <span
+                                    class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                    <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                    Founder Story
+
+                                </span>
+
+                            </div>
+
+                            <h2 class="text-heading-lg mb-6 max-w-[14ch]">
+
+                                Science,
+                                Curiosity,
+                                and Purpose.
+
+                            </h2>
+
+                            <p class="text-body text-muted">
+                                Noblemens was founded with the belief that products should be chosen
+                                not merely for convenience,
+                                but for their long-term impact on the lives of the people who use them.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT CONTENT -->
+                    <div class="lg:col-span-7 lg:ml-5">
+
+                        <h3 class="text-heading-md mb-6">
+
+                            Meet Syed Zamil Ahmed
+
+                        </h3>
+
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Noblemens was founded by
+                                <strong class="text-text-primary">
+                                    Syed Zamil Ahmed
+                                </strong>,
+                                a retired senior scientist from
+                                <strong class="text-text-primary">
+                                    BARC, Mumbai
+                                </strong>,
+                                whose lifelong approach has been shaped by scientific inquiry,
+                                disciplined research, and a deep concern for human wellbeing.
+                            </p>
+
+                            <p>
+                                Over the years, his curiosity extended beyond formal scientific work
+                                into extensive independent exploration of natural products,
+                                traditional fragrance materials,
+                                fermentation methods,
+                                and ingredient authenticity.
+                            </p>
+
+                            <p>
+                                His perspective has always remained clear:
+                                while modern industrial products often prioritize scale,
+                                cost efficiency, and convenience,
+                                people deserve better awareness about what they bring into their daily lives.
+                            </p>
+
+                            <p>
+                                Noblemens reflects that philosophy —
+                                combining scientific thought,
+                                traditional knowledge,
+                                and a long-term commitment to products rooted in authenticity.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+
+
+
+        <!-- ROOTS -->
+        <section class="section">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-2 gap-xl items-center">
+
+                    <!-- CONTENT -->
+                    <div>
+
+                        <!-- EYEBROW -->
+                        <div class="mb-8">
+
+                            <span
+                                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                Our Roots
+
+                            </span>
+
+                        </div>
+
+                        <!-- HEADING -->
+                        <h2 class="text-heading-lg mb-8 max-w-[18ch]">
+
+                            Rooted In Family Heritage,
+                            Nature, and Authentic Sourcing.
+
+                        </h2>
+
+                        <!-- CONTENT -->
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Noblemens is not a brand created in a boardroom.
+                            </p>
+
+                            <p>
+                                We are a small family business in India shaped by deeply held values,
+                                practical life experience,
+                                and a long-standing appreciation for naturally rooted products.
+                            </p>
+
+                            <p>
+                                Our story is connected to Assam,
+                                a region known for its extraordinary natural richness,
+                                where our family has longstanding ties and access to Agarwood trees —
+                                one of the world’s most treasured fragrance materials.
+                            </p>
+
+                            <p>
+                                That heritage continues to influence our fragrance philosophy today:
+                                respecting authentic materials,
+                                patient craftsmanship,
+                                and the timeless elegance of natural aromatic traditions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- VISUAL PANEL -->
+                    <div>
+
+                        <div class="rounded-sm bg-bg-alt p-8 lg:p-12">
+
+                            <div class="grid grid-sm gap-lg">
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Family-Owned
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Built with long-term values rather than short-term commercial thinking.
+
+                                    </p>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Assam Heritage
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Connected to one of India’s most naturally rich regions.
+
+                                    </p>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Authentic Sourcing
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        A commitment to genuine materials wherever possible.
+
+                                    </p>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Heritage Craftsmanship
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Inspired by traditions that value patience and substance.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AGARWOOD -->
+        <section class="section bg-bg-alt">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-2 gap-xl items-center">
+
+                    <!-- IMAGE -->
+                    <div>
+
+                        <img src="/images/about-us/Agarwood-trees.webp"
+                            alt="Agarwood trees connected to Noblemens heritage"
+                            class="w-full rounded-sm object-cover" />
+
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div>
+
+                        <!-- EYEBROW -->
+                        <div class="mb-8">
+
+                            <span
+                                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                Agarwood Heritage
+
+                            </span>
+
+                        </div>
+
+                        <!-- HEADING -->
+                        <h2 class="text-heading-lg mb-8 max-w-[18ch]">
+
+                            One Of The World’s Most Revered Fragrance Materials.
+
+                        </h2>
+
+                        <!-- CONTENT -->
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Agarwood has long been treasured across cultures
+                                for its remarkable aromatic depth,
+                                rarity,
+                                and association with refined perfumery traditions.
+                            </p>
+
+                            <p>
+                                Our family’s access to Agarwood trees in Assam gives Noblemens
+                                a uniquely authentic relationship with this extraordinary material.
+                            </p>
+
+                            <p>
+                                While our brand extends beyond fragrance alone,
+                                this heritage continues to shape our appreciation for quality,
+                                authenticity,
+                                and the timeless beauty of natural aromatic craftsmanship.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- OUR PHILOSOPHY -->
+        <section class="section bg-bg-main">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-2 gap-xl items-start">
+
+                    <!-- LEFT -->
+                    <div>
+
+                        <!-- EYEBROW -->
+                        <div class="mb-8">
+
+                            <span
+                                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                Our Philosophy
+
+                            </span>
+
+                        </div>
+
+                        <!-- HEADING -->
+                        <h2 class="text-heading-lg mb-8 max-w-[18ch]">
+
+                            Thoughtfully Crafted Products,
+                            Rooted In Authentic Values.
+
+                        </h2>
+
+                        <!-- CONTENT -->
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Noblemens was created from a simple conviction:
+                                products people use every day deserve greater care,
+                                greater integrity,
+                                and more thoughtful consideration.
+                            </p>
+
+                            <p>
+                                In an increasingly convenience-driven world,
+                                we choose a more intentional approach —
+                                one that respects authentic ingredients,
+                                traditional craftsmanship,
+                                and the long-term trust of the people we serve.
+                            </p>
+
+                            <p>
+                                Our collection reflects that philosophy,
+                                from naturally inspired perfumes rooted in aromatic heritage
+                                to thoughtfully crafted vinegars shaped by patience and care.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div>
+
+                        <div class="grid grid-sm gap-lg">
+
+                            <div class="rounded-sm bg-bg-alt p-8">
+
+                                <h3 class="text-heading-sm mb-3">
+
+                                    Research-Led Thinking
+
+                                </h3>
+
+                                <p class="text-body-sm text-muted">
+
+                                    Guided by scientific curiosity,
+                                    practical understanding,
+                                    and thoughtful product choices.
+
+                                </p>
+
+                            </div>
+
+                            <div class="rounded-sm bg-bg-alt p-8">
+
+                                <h3 class="text-heading-sm mb-3">
+
+                                    Authentic Craftsmanship
+
+                                </h3>
+
+                                <p class="text-body-sm text-muted">
+
+                                    Products shaped by patience,
+                                    heritage methods,
+                                    and respect for quality.
+
+                                </p>
+
+                            </div>
+
+                            <div class="rounded-sm bg-bg-alt p-8">
+
+                                <h3 class="text-heading-sm mb-3">
+
+                                    Ethical Values
+
+                                </h3>
+
+                                <p class="text-body-sm text-muted">
+
+                                    Built on honesty,
+                                    simple living,
+                                    and meaningful long-term trust.
+
+                                </p>
+
+                            </div>
+
+                            <div class="rounded-sm bg-bg-alt p-8">
+
+                                <h3 class="text-heading-sm mb-3">
+
+                                    Intentional Collection
+
+                                </h3>
+
+                                <p class="text-body-sm text-muted">
+
+                                    A focused range of products we genuinely believe in,
+                                    not endless catalog expansion.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CTA -->
+        <section class="section bg-bg-highlight">
+
+            <div class="container">
+
+                <div class="max-w-4xl mx-auto text-center">
+
+                    <!-- EYEBROW -->
+                    <p class="mb-6 text-body-sm uppercase tracking-[0.22em] text-muted">
+
+                        Experience Noblemens
+
+                    </p>
+
+                    <!-- HEADING -->
+                    <h2 class="text-heading-lg max-w-[18ch] mx-auto mb-8">
+
+                        Discover Products Crafted With
+                        <span class="text-accent">
+                            Purpose, Purity, and Tradition.
+                        </span>
+
+                    </h2>
+
+                    <!-- SUPPORT -->
+                    <div class="max-w-2xl mx-auto mb-10 space-y-6 text-body text-text-primary">
+
+                        <p>
+                            From naturally inspired perfumes to thoughtfully crafted vinegars,
+                            every Noblemens product reflects our commitment to authenticity,
+                            craftsmanship, and long-term trust.
+                        </p>
+
+                        <p>
+                            Explore our growing collection and experience products shaped by a more intentional
+                            philosophy.
+                        </p>
+
+                    </div>
+
+                    <!-- CTA BUTTONS -->
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+
+                        <a href="/products/" class="btn btn-primary">
+
+                            Explore Products
+
+                        </a>
+
+                        <a href="/contact-us/" class="btn btn-secondary">
+
+                            Contact Noblemens
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
     </main>
