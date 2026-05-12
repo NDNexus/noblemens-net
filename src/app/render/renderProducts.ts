@@ -10,7 +10,9 @@ export function renderProducts(
 
     products: ProductCard[],
 
-    container: HTMLElement
+    container: HTMLElement,
+
+    limit?: number
 
 ): void {
 
@@ -38,7 +40,8 @@ export function renderProducts(
 
     renderProductCards(
         products,
-        container
+        container,
+        limit
     )
 
 }
@@ -70,7 +73,7 @@ function renderMeta(metaEl: HTMLElement, meta: string[]) {
     })
 }
 
-function renderProductCards(products: ProductCard[], container: HTMLElement) {
+function renderProductCards(products: ProductCard[], container: HTMLElement, limit?: number) {
     const template = document.querySelector<HTMLTemplateElement>("#product-card-template")
 
     console.log("Card template:", template)
@@ -85,7 +88,13 @@ function renderProductCards(products: ProductCard[], container: HTMLElement) {
         products.map(p => p.title)
     )
 
-    products.forEach(product => {
+    const productsToRender =
+
+    limit
+        ? products.slice(0, limit)
+        : products
+
+    productsToRender.forEach(product => {
         const node = template.content.cloneNode(true) as HTMLElement
 
         const img = node.querySelector("img")

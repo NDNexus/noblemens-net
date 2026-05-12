@@ -41,90 +41,149 @@
 
     </section> <!-- End of Hero Section -->
 
-    <!-- VINEGAR SECTION -->
-    <section id="vinegars" class="section bg-bg-main">
+    <!-- ======================================================
+     PERFUMES COLLECTION
+======================================================= -->
+    <section id="perfumes" class="section bg-bg-main">
+
       <div class="container">
 
-        <!-- Heading (optional) -->
-        <div class="mb-10">
-          <h2 class="text-heading-lg text-center">Vinegars</h2>
+        <!-- HEADER -->
+        <div class="max-w-3xl mb-16">
+
+          <!-- EYEBROW -->
+          <div class="mb-8">
+
+            <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+              <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+              Pure Natural Perfumes
+
+            </span>
+
+          </div>
+
+          <!-- HEADING -->
+          <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+
+            Natural Fragrances Crafted With
+            <span class="text-accent">
+              Timeless Aromatic Tradition.
+            </span>
+
+          </h2>
+
+          <!-- SUPPORTING CONTENT -->
+          <div class="text-content space-y-6 text-body text-muted">
+
+            <p>
+              Our perfume collection is inspired by traditional fragrance craftsmanship,
+              carefully selected natural aromatic ingredients, and a commitment to purity.
+            </p>
+
+            <p>
+              From the warmth of Sandal to the richness of Oud and the elegance of Rose,
+              each fragrance is created to feel refined, balanced, and authentically personal.
+            </p>
+
+          </div>
+
         </div>
 
-        <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <include src="/templates/product/product-card.html"></include>
 
-          <!-- CARD 1 -->
-          <div class="card">
-            <div class="card__media">
-              <img src="/images/dates-vinegar.png" alt="Natural Dates Vinegar">
-            </div>
+        <!-- PRODUCTS GRID -->
+        <div data-products-grid data-category="perfumes" data-limit="2" class="grid grid-lg gap-lg grid-products">
 
-            <div class="card__body text-center">
-              <h3 class="text-heading-md">
-                Natural Dates Vinegar
-              </h3>
+        </div>
 
-              <p class="text-body text-muted">
-                Made using high quality imported dates (Khajoor)
-              </p>
-            </div>
+        <!-- CTA -->
+        <div class="mt-14 flex justify-center">
 
-            <div class="card__footer">
-              <button class="btn btn-accent">
-                View Details
-              </button>
-            </div>
-          </div>
+          <a href="/products/perfumes/" class="btn btn-primary">
 
-          <!-- CARD 2 -->
-          <div class="card">
-            <div class="card__media">
-              <img src="/images/jamun-vinegar.png" alt="Natural Jamun Vinegar">
-            </div>
+            Explore Full Perfume Collection
 
-            <div class="card__body text-center">
-              <h3 class="text-heading-md">
-                Natural Jamun Vinegar
-              </h3>
+          </a>
 
-              <p class="text-body text-muted">
-                Made using high quality jamuns (Indian blackberries)
-              </p>
-            </div>
-
-            <div class="card__footer">
-              <button class="btn btn-accent">
-                View Details
-              </button>
-            </div>
-          </div>
-
-          <!-- CARD 3 -->
-          <div class="card">
-            <div class="card__media">
-              <img src="/images/apple-cider-vinegar.png" alt="Apple Cider Vinegar">
-            </div>
-
-            <div class="card__body text-center">
-              <h3 class="text-heading-md">
-                Apple Cider Vinegar
-              </h3>
-
-              <p class="text-body text-muted">
-                Made using premium apples from Kashmir
-              </p>
-            </div>
-
-            <div class="card__footer">
-              <button class="btn btn-accent">
-                View Details
-              </button>
-            </div>
-          </div>
-
-        </div> <!-- End of Grid -->
+        </div>
 
       </div>
+
+    </section>
+
+    <!-- ======================================================
+     VINEGARS COLLECTION
+======================================================= -->
+    <section id="vinegars" class="section bg-bg-main">
+
+      <div class="container">
+
+        <!-- HEADER -->
+        <div class="max-w-3xl mb-16">
+
+          <!-- EYEBROW -->
+          <div class="mb-8">
+
+            <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+              <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+              Naturally Crafted Vinegars
+
+            </span>
+
+          </div>
+
+          <!-- HEADING -->
+          <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+
+            Traditional Vinegars Crafted With
+            <span class="text-accent">
+              Authentic Ingredients.
+            </span>
+
+          </h2>
+
+          <!-- SUPPORTING CONTENT -->
+          <div class="text-content space-y-6 text-body text-muted">
+
+            <p>
+              Our vinegar collection is rooted in traditional fermentation methods,
+              thoughtful ingredient selection, and a commitment to natural craftsmanship.
+            </p>
+
+            <p>
+              From Apple Cider Vinegar with Mother to Dates Vinegar and
+              Black Jamun Vinegar, each product is designed to feel naturally rich,
+              balanced, and authentic.
+            </p>
+
+          </div>
+
+        </div>
+
+        <include src="/templates/product/product-card.html"></include>
+
+        <!-- PRODUCTS GRID -->
+        <div  data-products-grid data-category="vinegars" data-limit="2" class="grid grid-lg gap-lg grid-products">
+
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-14 flex justify-center">
+
+          <a href="/products/vinegars/" class="btn btn-primary">
+
+            Explore Full Vinegar Collection
+
+          </a>
+
+        </div>
+
+      </div>
+
     </section>
 
     <!-- Blog Section -->
@@ -156,9 +215,11 @@
             </div>
 
             <div class="card__footer">
-              <button class="btn btn-secondary">
-                Read More
-              </button>
+              <a href="/articles/natural-vinegar-benefits/">
+                <button class="btn btn-secondary">
+                  Read More
+                </button>
+              </a>
             </div>
           </div>
 
@@ -179,9 +240,11 @@
             </div>
 
             <div class="card__footer">
-              <button class="btn btn-secondary">
-                Read More
-              </button>
+              <a href="/articles/how-we-make-our-vinegar/">
+                <button class="btn btn-secondary">
+                  Read More
+                </button>
+              </a>
             </div>
           </div>
 
@@ -202,8 +265,11 @@
             </div>
 
             <div class="card__footer">
-              <button class="btn btn-secondary">
-                Read More </button>
+              <a href="/articles/natural-perfumes-fragrant-journey/">
+                <button class="btn btn-secondary">
+                  Read More
+                </button>
+              </a>
             </div>
           </div>
 

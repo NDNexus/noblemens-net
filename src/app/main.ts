@@ -190,7 +190,19 @@ import { mapProductCard } from "@/lib/sanity/mappers"
 
 /**
  * =========================================================
- * INITIALIZE PRODUCT ARCHIVE PAGE
+ * INITIALIZE PRODUCT SYSTEM
+   * =========================================================
+ *
+ * Handles:
+ * - archive product grids
+   * - homepage featured product grids
+      * - optional archive filter bar
+         *
+ * Uses:
+ * data - products - grid
+   * data - category
+   * data - limit
+   *
  * =========================================================
  */
 
@@ -198,17 +210,19 @@ export async function initProductArchivePage(): Promise<void> {
 
    /**
     * ------------------------------------------------------
-    * PRODUCTS GRID
+    * ALL PRODUCT GRIDS
     * ------------------------------------------------------
     */
 
-   const productsGrid =
-      document.getElementById("products-grid")
+   const productGrids =
+      document.querySelectorAll<HTMLElement>(
+         "[data-products-grid]"
+      )
 
-   if (!productsGrid) {
+   if (!productGrids.length) {
 
       console.warn(
-         "[ProductArchive] Missing #products-grid"
+         "[ProductSystem] No product grids found."
       )
 
       return
@@ -217,108 +231,141 @@ export async function initProductArchivePage(): Promise<void> {
 
    /**
     * ------------------------------------------------------
-    * FILTER BAR
+    * FILTER BAR (OPTIONAL)
     * ------------------------------------------------------
     */
 
    const filterBar =
-      document.getElementById("products-filter-bar")
-
-   /**
-    * ------------------------------------------------------
-    * INITIAL CATEGORY
-    * ------------------------------------------------------
-    */
-
-   const category =
-      productsGrid.dataset.category
-
-   /**
-    * ------------------------------------------------------
-    * DEBUG
-    * ------------------------------------------------------
-    */
-
-   console.log(
-      `[ProductArchive] Initial category: ${category || "ALL"}`
-   )
+      document.getElementById(
+         "products-filter-bar"
+      )
 
    try {
 
       /**
        * ---------------------------------------------------
-       * FETCH DATA
+       * FETCH DATA ONCE
        * ---------------------------------------------------
        */
 
       const [products, categories] =
          await Promise.all([
 
-            fetchSanity<SanityProductCard[]>(PRODUCT_CARDS_QUERY),
+            fetchSanity<SanityProductCard[]>(
+               PRODUCT_CARDS_QUERY
+            ),
 
-            fetchSanity<RawSanityCategory[]>(ALL_CATEGORIES_QUERY)
+            fetchSanity<RawSanityCategory[]>(
+               ALL_CATEGORIES_QUERY
+            )
 
          ])
 
       /**
        * ---------------------------------------------------
-       * FILTER PRODUCTS
+       * INITIALIZE ALL PRODUCT GRIDS
        * ---------------------------------------------------
        */
 
-      const filteredProducts =
+      productGrids.forEach(productsGrid => {
 
-         category
+         /**
+          * Category
+          */
 
-            ? filterProductsByCategory(
+         const category =
+            productsGrid.dataset.category
 
-               products,
-               categories,
-               category
+         /**
+          * Limit
+          */
 
-            )
+         const limit =
+            productsGrid.dataset.limit
+               ? Number(productsGrid.dataset.limit)
+               : undefined
 
-            : products
+         /**
+          * Debug
+          */
 
-      /**
-       * ---------------------------------------------------
-       * MAP PRODUCTS
-       * ---------------------------------------------------
-       */
-
-      const mappedProducts =
-         filteredProducts.map(product =>
-
-            mapProductCard(
-               product,
-               categories
-            )
-
+         console.log(
+            `[ProductSystem] Grid category: ${category || "ALL"}`
          )
 
+         console.log(
+            `[ProductSystem] Grid limit: ${limit || "NONE"}`
+         )
+
+         /**
+          * Filter products
+          */
+
+         const filteredProducts =
+
+            category
+
+               ? filterProductsByCategory(
+                  products,
+                  categories,
+                  category
+               )
+
+               : products
+
+
+         /**
+          * Map + limit
+          */
+
+         const mappedProducts =
+            filteredProducts
+               .map(product =>
+
+                  mapProductCard(
+                     product,
+                     categories
+                  )
+
+               )
+               .slice(
+                  0,
+                  limit || filteredProducts.length
+               )
+
+         /**
+          * Render
+          */
+
+         renderProducts(
+            mappedProducts,
+            productsGrid
+         )
+
+      })
+
       /**
        * ---------------------------------------------------
-       * INITIAL RENDER
-       * ---------------------------------------------------
-       */
-
-      renderProducts(
-         mappedProducts,
-         productsGrid
-      )
-
-      /**
-       * ---------------------------------------------------
-       * FILTER BAR
+       * FILTER BAR (ARCHIVE ONLY)
        * ---------------------------------------------------
        */
 
       if (!filterBar) return
 
       /**
-       * ---------------------------------------------------
-       * RENDER FILTERS
-       * ---------------------------------------------------
+       * Main archive grid only
+       */
+
+      const archiveGrid =
+         document.querySelector<HTMLElement>(
+            '[data-products-grid]:not([data-limit])'
+         )
+
+      if (!archiveGrid) return
+
+
+      /**
+       * Render filters
        */
 
       renderProductFilters(
@@ -330,7 +377,7 @@ export async function initProductArchivePage(): Promise<void> {
             categories
          ),
 
-         productsGrid,
+         archiveGrid,
 
          products,
 
@@ -343,7 +390,7 @@ export async function initProductArchivePage(): Promise<void> {
    catch (error) {
 
       console.error(
-         "[ProductArchive] Initialization failed:",
+         "[ProductSystem] Initialization failed:",
          error
       )
 

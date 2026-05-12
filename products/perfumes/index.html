@@ -2,35 +2,422 @@
 <html lang="en">
 
 <head>
-<include src="/templates/head.html"></include>
-<include src="/templates/seo/seo-perfumes.html"></include>
-<include src="/templates/schema/schema-perfumes.html"></include>
+    <include src="/templates/head.html"></include>
+    <include src="/templates/seo/seo-perfumes.html"></include>
+    <include src="/templates/schema/schema-perfumes.html"></include>
 </head>
 
 <body>
+
     <include src="/templates/header.html"></include>
 
     <main class="site-main">
 
-        <!-- PAGE TITLE -->
-        <section class="section">
-            <div class="container">
+        <!-- HERO -->
+        <section id="hero"
+            class="hero-section section-lg relative bg-fixed bg-cover bg-center flex items-center min-h-screen"
+            style="background-image: url('/images/products/perfumes/perfumes-hero-image.webp');">
 
-                <h1 class="text-heading-xl mb-6 mt-10">
-                    Perfumes Archive
-                </h1>
+            <!-- OVERLAY -->
+            <div class="absolute inset-0 z-0 bg-overlay-primary"></div>
 
-                <div class="text-content">
+            <!-- OPTIONAL GRADIENT -->
+            <div class="absolute inset-0 z-0 bg-linear-to-b from-deep-twilight/70 via-black/45 to-black/95">
+            </div>
 
-                    <p class="text-body">
-                        Our perfumes are crafted using traditional methods and natural ingredients, ensuring a pure and
-                        authentic fragrance experience. Each perfume is designed to evoke a unique scent profile,
-                        reflecting the rich heritage of natural perfumery.
-                    </p>
+            <!-- CONTENT -->
+            <div class="relative z-10 container">
+
+                <div class="max-w-4xl">
+
+                    <!-- EYEBROW -->
+                    <div class="mb-8">
+
+                        <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-white/75">
+
+                            <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                            Pure Natural Perfumes
+
+                        </span>
+
+                    </div>
+
+                    <!-- HEADING -->
+                    <h1 class="text-heading-xl text-text-inverse max-w-5xl mb-8">
+
+                        Crafted From Natural Essences,
+                        <span class="text-accent">
+                            Not Synthetic Fragrance Formulas.
+                        </span>
+
+                    </h1>
+
+                    <!-- SUPPORTING CONTENT -->
+                    <div class="text-content max-w-3xl space-y-6">
+
+                        <p class="text-body-lg text-white/90">
+
+                            At Noblemens, we believe fragrance should feel refined,
+                            natural, and deeply connected to tradition and character.
+
+                        </p>
+
+                        <p class="text-body text-white/72">
+
+                            Our perfumes are created using carefully selected natural aromatic ingredients,
+                            traditional attar-inspired craftsmanship, and a commitment to purity.
+                            From rich Oud to elegant Rose and timeless Sandal,
+                            every fragrance is designed to feel warm, balanced, and authentic.
+
+                        </p>
+
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="mt-12 flex flex-wrap gap-4">
+
+                        <a href="/products/perfumes/#product-section" class="btn btn-primary">
+
+                            Explore Our Perfume Collection
+
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
+
+        </section>
+
+        <!-- INTRO STORY -->
+        <section class="section">
+
+            <div class="container">
+
+                <div class="grid lg:grid-cols-12 gap-y-16 lg:gap-x-20 items-start">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="lg:col-span-7">
+
+                        <!-- EYEBROW -->
+                        <div class="mb-8">
+
+                            <span
+                                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                                Our Approach
+
+                            </span>
+
+                        </div>
+
+                        <!-- HEADING -->
+                        <h2 class="text-heading-lg mb-8">
+
+                            Rooted in Natural Fragrance Traditions —
+                            Not Synthetic Perfumery Trends.
+
+                        </h2>
+
+                        <!-- BODY CONTENT -->
+                        <div class="text-content space-y-6 text-body text-muted">
+
+                            <p>
+                                Many modern perfumes rely heavily on synthetic fragrance compounds,
+                                artificial aroma boosters, and chemically engineered scent profiles.
+                            </p>
+
+                            <p class="text-heading-md text-text-primary leading-normal">
+
+                                We chose a different direction.
+
+                            </p>
+
+                            <p>
+                                Our focus is on creating perfumes that feel naturally elegant,
+                                balanced, and authentic — fragrances that develop gently
+                                and create a more personal experience.
+                            </p>
+
+                            <p>
+                                Natural perfumes have long been associated with emotional comfort,
+                                mood enhancement, and a more grounded sensory experience,
+                                especially when crafted with traditional aromatic ingredients.
+                            </p>
+
+                            <p>
+                                Rather than overpowering intensity,
+                                we value depth, warmth, refinement,
+                                and ingredients people can genuinely appreciate.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT PANEL -->
+                    <div class="lg:col-span-5">
+
+                        <div class="rounded-sm bg-bg-alt p-8 lg:p-12">
+
+                            <div class="space-y-10">
+
+                                <!-- ITEM -->
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Natural Aromatic Ingredients
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Crafted using carefully selected natural fragrance materials
+                                        inspired by traditional attar craftsmanship.
+
+                                    </p>
+
+                                </div>
+
+                                <!-- ITEM -->
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Alcohol-Free Attar
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Concentrated natural perfume oils designed for a richer,
+                                        longer-lasting personal fragrance experience.
+
+                                    </p>
+
+                                </div>
+
+                                <!-- ITEM -->
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Refined & Balanced Profiles
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Fragrances designed to feel elegant,
+                                        warm, and naturally sophisticated.
+
+                                    </p>
+
+                                </div>
+
+                                <!-- ITEM -->
+                                <div>
+
+                                    <h3 class="text-heading-sm mb-3">
+
+                                        Crafted For Daily Wear
+
+                                    </h3>
+
+                                    <p class="text-body-sm text-muted">
+
+                                        Suitable for everyday use,
+                                        personal rituals, gatherings,
+                                        and thoughtful gifting.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PRODUCT COLLECTION -->
+        <section id="product-section" class="section bg-bg-alt">
+
+            <div class="container">
+
+                <div class="max-w-3xl mb-16">
+
+                    <!-- EYEBROW -->
+                    <div class="mb-8">
+
+                        <span
+                            class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
+
+                            <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
+
+                            Our Collection
+
+                        </span>
+
+                    </div>
+
+                    <!-- HEADING -->
+                    <h2 class="text-heading-lg mb-6">
+
+                        A Collection Inspired By Timeless Fragrance Traditions.
+
+                    </h2>
+
+                    <!-- SUPPORT -->
+                    <p class="text-body">
+
+                        Each perfume in our collection carries its own distinct personality —
+                        from the calming warmth of Sandal to the richness of Oud
+                        and the elegance of Rose.
+
+                    </p>
+
+                </div>
+
+                <include src="/templates/product/product-card.html"></include>
+
+                <!-- PRODUCTS GRID -->
+                <div data-products-grid data-category="perfumes" class="grid grid-lg gap-lg grid-products">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- DIFFERENCE -->
+        <section class="section overflow-hidden">
+
+            <div class="container">
+
+                <div class="max-w-5xl mx-auto text-center">
+
+                    <!-- EYEBROW -->
+                    <p class="mb-6 text-body-sm uppercase tracking-[0.22em] text-muted">
+
+                        The Noblemens Difference
+
+                    </p>
+
+                    <!-- HEADING -->
+                    <h2 class="text-heading-lg max-w-[18ch] mx-auto mb-10">
+
+                        Fragrance Should Feel Personal —
+                        <span class="text-accent">
+                            Not Artificial.
+                        </span>
+
+                    </h2>
+
+                    <!-- SUPPORTING CONTENT -->
+                    <div class="max-w-3xl mx-auto space-y-7 text-body text-muted">
+
+                        <p>
+                            In a world dominated by synthetic fragrances and mass-market formulations,
+                            we aim to create perfumes that feel refined,
+                            intentional, and naturally elegant.
+                        </p>
+
+                        <p class="text-body-lg text-text-primary max-w-2xl mx-auto">
+
+                            Our goal is simple:
+                            create fragrances people genuinely enjoy wearing every day.
+
+                        </p>
+
+                        <p>
+                            Every bottle reflects our focus on purity,
+                            balance, craftsmanship, and long-term trust
+                            with the people who choose Noblemens.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CTA -->
+        <section class="section bg-bg-highlight">
+
+            <div class="container">
+
+                <div class="max-w-4xl mx-auto text-center">
+
+                    <!-- EYEBROW -->
+                    <p class="mb-6 text-body-sm uppercase tracking-[0.22em] text-muted">
+
+                        Explore Noblemens
+
+                    </p>
+
+                    <!-- HEADING -->
+                    <h2 class="text-heading-lg max-w-[18ch] mx-auto mb-8">
+
+                        Discover More From Our
+                        <span class="text-accent">
+                            Premium Natural Collection.
+                        </span>
+
+                    </h2>
+
+                    <!-- SUPPORTING CONTENT -->
+                    <div class="max-w-2xl mx-auto mb-10 space-y-6 text-body text-text-primary">
+
+                        <p>
+                            Beyond our natural perfumes,
+                            Noblemens offers a growing collection of products
+                            rooted in authenticity, craftsmanship,
+                            and thoughtful living.
+                        </p>
+
+                        <p>
+                            Explore our naturally crafted vinegars
+                            and other carefully developed offerings
+                            designed for people who value purity,
+                            quality, and refined simplicity.
+                        </p>
+
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+
+                        <a href="/products/" class="btn btn-primary">
+
+                            Explore Full Collection
+
+                        </a>
+
+                        <a href="/contact-us/" class="btn btn-secondary">
+
+                            Contact Noblemens
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
     </main>
