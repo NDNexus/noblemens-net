@@ -18,7 +18,7 @@ import type {
     ProductDetailVariant
 } from "@/data/types/productDetail"
 
-import { trackProductViewed } from "@/telemetry/events"
+import { trackPhoneClick, trackProductViewed, trackWhatsAppClick } from "@/telemetry/events"
 
 
 
@@ -245,6 +245,24 @@ export async function renderSingleProduct() {
     // ORDER BUTTON
     // -------------------------------
     updateOrderButton(product, selectedVariant)
+
+    // -------------------------------
+    // CALL NOW BUTTON
+    // -------------------------------
+    const callNowBtn =
+        document.getElementById(
+            "call-now-button"
+        ) as HTMLAnchorElement | null;
+
+    if (callNowBtn) {
+        const phoneNumber = "+919193432784";
+
+        callNowBtn.href = `tel:${phoneNumber}`;
+
+        callNowBtn.addEventListener("click", () => {
+            trackPhoneClick(phoneNumber);
+        });
+    }
 
     // -------------------------------
     // KEY HIGHLIGHTS
@@ -728,6 +746,20 @@ function updateProductUI(
     // ORDER BUTTON
     // -------------------------------
     updateOrderButton(product, selectedVariant)
+
+    // -------------------------------
+    // ORDER BUTTON TRACKING
+    // -------------------------------
+    const orderBtn =
+        document.getElementById(
+            "order-button"
+        ) as HTMLAnchorElement | null;
+
+    if (orderBtn) {
+        orderBtn.addEventListener("click", () => {
+            trackWhatsAppClick(product.slug);
+        });
+    }
 
     // -------------------------------
     // (NEXT STEP)

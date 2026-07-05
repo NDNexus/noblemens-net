@@ -62,20 +62,26 @@ export function trackArticleRead(
 /**
  * Tracks a WhatsApp click.
  */
-export function trackWhatsAppClick(): void {
-    trackEvent('whatsapp_click');
+export function trackWhatsAppClick(productSlug: string): void {
+    trackEvent('whatsapp_click', {
+        product_slug: productSlug,
+    });
 }
 
 /**
  * Tracks a phone link click.
  */
-export function trackPhoneClick(): void {
-    trackEvent('phone_click');
+export function trackPhoneClick(phoneNumber: string): void {
+    trackEvent('phone_click', {
+        phone_number: phoneNumber,
+    });
 }
 
 /**
  * Tracks an email link click.
  */
-export function trackEmailClick(): void {
-    trackEvent('email_click');
+export function trackEmailClick(emailAddress: string): void {
+    trackEvent('email_click', {
+        email_address: emailAddress,
+    });
 }
