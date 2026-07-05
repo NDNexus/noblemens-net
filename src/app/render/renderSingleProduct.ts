@@ -18,6 +18,8 @@ import type {
     ProductDetailVariant
 } from "@/data/types/productDetail"
 
+import { trackProductViewed } from "@/telemetry/events"
+
 
 
 // -------------------------------
@@ -151,6 +153,9 @@ export async function renderSingleProduct() {
     console.log("[Product Loaded]", product)
 
     if (!product) return
+
+    // Track product view event
+    trackProductViewed(product.slug);
 
     renderTestimonials(product.testimonials)
 

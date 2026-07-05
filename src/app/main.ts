@@ -38,6 +38,12 @@
 // Register Iconify Web Component
 import 'iconify-icon';
 
+/* =========================================================
+   TELEMETRY SETUP (ANALYTICS)
+========================================================= */
+
+// Initialize Google Analytics 4
+import { initializeAnalytics } from "../telemetry/init"
 
 /* =========================================================
    DOM ENHANCEMENTS — ICON SYSTEM
@@ -410,6 +416,12 @@ import { initProductPage } from "@/app/render/renderSingleProduct"
  * Bootstraps the application
  */
 function initApp(): void {
+
+   /* -------------------------------------------------------
+      Analytics
+   ------------------------------------------------------- */
+   initializeAnalytics()
+
 
    /* -------------------------------------------------------
       DOM Enhancements
