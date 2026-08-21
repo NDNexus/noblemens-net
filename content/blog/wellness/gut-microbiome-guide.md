@@ -3,7 +3,7 @@ title: "The Gut Microbiome: Why Your Inner Ecosystem Is the Foundation of All He
 description: "A comprehensive guide to understanding your gut microbiome — what it is, why it matters more than almost any other factor in your health, and how to cultivate it naturally."
 date: 2026-02-28
 updated: 2026-03-25
-image: /images/blog/wellness/gut-microbiome-guide.jpg
+image: /images/blog/wellness/gut-microbiome-guide.webp
 author: Noblemens
 category: wellness
 keywords:

@@ -1,32 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-ditching-synthetic-products.html"></include>
 <include src="/templates/schema/schema-ditching-synthetic-products.html"></include>
 </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">Why Premium Clients Are Ditching Synthetic Products for Natural Alternatives</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              
+        <figure class="blog-featured-image">
+            <img
+                src="/images/blog/natural-living/ditching-synthetic-products.webp"
+                alt="Why Premium Clients Are Ditching Synthetic Products for Natural Alternatives"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        <h1>Why Premium Clients Are Ditching Synthetic Products for Natural Alternatives</h1>
-<p>Something is shifting in the upper segment of the Indian consumer market. The people who once measured quality by brand prestige, price premium, and the reassurance of laboratory-made precision are now asking a different question: <em>What is actually in this product, and what is it doing to my body?</em></p>
+              <!-- ARTICLE CONTENT -->
+              <p>Something is shifting in the upper segment of the Indian consumer market. The people who once measured quality by brand prestige, price premium, and the reassurance of laboratory-made precision are now asking a different question: <em>What is actually in this product, and what is it doing to my body?</em></p>
 <p>This is not a fringe movement. It is a quiet, accelerating revolution among informed, educated, health-conscious consumers who have done their research and arrived at a shared conclusion: the synthetic chemical environment that modern life has normalised is a primary driver of the chronic health conditions that are now epidemic.</p>
 <p>At <strong>Noblemens</strong>, this is the community we have always served — people who want the genuine best, and who understand that genuine quality cannot coexist with synthetic shortcuts.</p>
 <h2 id="the-synthetic-chemical-burden-how-did-we-get-here">The Synthetic Chemical Burden: How Did We Get Here?</h2>
@@ -182,34 +192,30 @@
 <hr>
 <p><em>For educational purposes only. Product choices should be made based on individual research and, where relevant, professional guidance.</em></p>
 
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
+                </div>
 
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                
+                <nav class="toc-body">
 <div class="toc-item level-2 has-children">
 
   <div class="toc-row">
@@ -449,24 +455,16 @@
   
 
 </div>
-    
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
-                </div>
-
-            </div>
-        </section>
-
+    </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

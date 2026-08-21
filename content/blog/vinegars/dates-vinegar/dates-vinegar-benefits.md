@@ -3,7 +3,7 @@ title: "Dates Vinegar: The Ancient Tonic That Modern Wellness Forgot"
 description: "Explore the remarkable health benefits of naturally fermented dates vinegar — one of the oldest traditional remedies in the world, now crafted to premium standards by Noblemens."
 date: 2026-03-18
 updated: 2026-03-25
-image: /images/blog/vinegars/dates-vinegar/dates-vinegar-benefits.jpg
+image: /images/blog/vinegars/dates-vinegar/dates-vinegar-benefits.webp
 author: Noblemens
 category: vinegars
 subcategory: dates-vinegar

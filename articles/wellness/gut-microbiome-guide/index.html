@@ -1,32 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-gut-microbiome-guide.html"></include>
 <include src="/templates/schema/schema-gut-microbiome-guide.html"></include>
 </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">The Gut Microbiome: Why Your Inner Ecosystem Is the Foundation of All Health</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              
+        <figure class="blog-featured-image">
+            <img
+                src="/images/blog/wellness/gut-microbiome-guide.webp"
+                alt="The Gut Microbiome: Why Your Inner Ecosystem Is the Foundation of All Health"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        <h1>The Gut Microbiome: Why Your Inner Ecosystem Is the Foundation of All Health</h1>
-<p>Somewhere in the neighbourhood of 100 trillion microorganisms are living inside you right now. They outnumber your own human cells by approximately 10 to 1. They weigh roughly 1.5–2 kilograms. They communicate with your brain via the vagus nerve, they regulate your immune system, they influence your mood, and they determine how efficiently you extract energy from food.</p>
+              <!-- ARTICLE CONTENT -->
+              <p>Somewhere in the neighbourhood of 100 trillion microorganisms are living inside you right now. They outnumber your own human cells by approximately 10 to 1. They weigh roughly 1.5–2 kilograms. They communicate with your brain via the vagus nerve, they regulate your immune system, they influence your mood, and they determine how efficiently you extract energy from food.</p>
 <p>This is your <strong>gut microbiome</strong> — and it may be the single most consequential factor in your health that most people have never thought seriously about.</p>
 <p>At <strong>Noblemens</strong>, gut health is not a side interest. It is the philosophical core of everything we produce. Every raw, unpasteurized vinegar we make is designed to support and nourish this inner ecosystem that governs so much of who you are.</p>
 <h2 id="what-is-the-gut-microbiome">What Is the Gut Microbiome?</h2>
@@ -195,34 +205,30 @@
 <hr>
 <p><em>For informational purposes only. Always consult a healthcare professional for personalised medical guidance.</em></p>
 
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
+                </div>
 
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                
+                <nav class="toc-body">
 <div class="toc-item level-2 has-children">
 
   <div class="toc-row">
@@ -494,24 +500,16 @@
   
 
 </div>
-    
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
-                </div>
-
-            </div>
-        </section>
-
+    </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

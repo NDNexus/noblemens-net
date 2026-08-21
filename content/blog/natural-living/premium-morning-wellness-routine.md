@@ -3,7 +3,7 @@ title: "The Premium Morning Wellness Routine: How India's Most Health-Conscious 
 description: "An inspiring, practical guide to building a morning wellness routine grounded in natural practices, Ayurvedic wisdom, and modern science — for the premium client who refuses to compromise on their health."
 date: 2026-02-05
 updated: 2026-03-25
-image: /images/blog/natural-living/premium-morning-wellness-routine.jpg
+image: /images/blog/natural-living/premium-morning-wellness-routine.webp
 author: Noblemens
 category: natural-living
 keywords:

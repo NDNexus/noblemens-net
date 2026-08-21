@@ -1,32 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-traditional-fermented-foods-india.html"></include>
 <include src="/templates/schema/schema-traditional-fermented-foods-india.html"></include>
 </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">Traditional Fermented Foods of India: A Living Heritage Worth Reclaiming</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              
+        <figure class="blog-featured-image">
+            <img
+                src="/images/blog/wellness/traditional-fermented-foods-india.webp"
+                alt="Traditional Fermented Foods of India: A Living Heritage Worth Reclaiming"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        <h1>Traditional Fermented Foods of India: A Living Heritage Worth Reclaiming</h1>
-<p>Long before microbiology existed as a science, long before the word &quot;probiotic&quot; had been coined, the people of the Indian subcontinent were systematically fermenting their food. Not by accident, not out of desperation, but through accumulated wisdom that recognised — empirically, across thousands of years — that fermented food made people healthier, more energetic, and more resistant to illness.</p>
+              <!-- ARTICLE CONTENT -->
+              <p>Long before microbiology existed as a science, long before the word &quot;probiotic&quot; had been coined, the people of the Indian subcontinent were systematically fermenting their food. Not by accident, not out of desperation, but through accumulated wisdom that recognised — empirically, across thousands of years — that fermented food made people healthier, more energetic, and more resistant to illness.</p>
 <p>Today, that wisdom is being rediscovered by functional medicine, microbiome science, and an increasingly health-conscious consumer class. At <strong>Noblemens</strong>, we are proud to stand at the intersection of this ancient heritage and modern premium wellness.</p>
 <h2 id="the-history-of-fermentation-in-india">The History of Fermentation in India</h2>
 <h3 id="an-unbroken-thread-of-8000-years">An Unbroken Thread of 8,000 Years</h3>
@@ -133,34 +143,30 @@
 <hr>
 <p><em>For informational and cultural educational purposes. Consult a healthcare professional for personalised health guidance.</em></p>
 
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
+                </div>
 
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                
+                <nav class="toc-body">
 <div class="toc-item level-2 has-children">
 
   <div class="toc-row">
@@ -400,24 +406,16 @@
   
 
 </div>
-    
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
-                </div>
-
-            </div>
-        </section>
-
+    </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

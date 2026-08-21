@@ -3,7 +3,7 @@ title: "10 Proven Benefits of Apple Cider Vinegar You Need to Know"
 description: "Discover the science-backed benefits of raw, unfiltered apple cider vinegar — from gut health to blood sugar balance — and why Noblemens ACV is in a class of its own."
 date: 2026-03-25
 updated: 2026-03-25
-image: /images/blog/vinegars/apple-cider-vinegar/benefits-of-acv.jpg
+image: /images/blog/vinegars/apple-cider-vinegar/benefits-of-acv.webp
 author: Noblemens
 category: vinegars
 subcategory: apple-cider-vinegar

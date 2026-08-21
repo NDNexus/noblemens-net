@@ -3,7 +3,7 @@ title: "How Dates Vinegar Transforms Your Digestive Health Naturally"
 description: "A deep dive into why dates vinegar is one of the most effective natural remedies for digestive issues — from hyperacidity to constipation — backed by both tradition and science."
 date: 2026-03-10
 updated: 2026-03-25
-image: /images/blog/vinegars/dates-vinegar/dates-vinegar-digestion.jpg
+image: /images/blog/vinegars/dates-vinegar/dates-vinegar-digestion.webp
 author: Noblemens
 category: vinegars
 subcategory: dates-vinegar

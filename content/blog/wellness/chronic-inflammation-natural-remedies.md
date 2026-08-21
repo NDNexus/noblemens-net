@@ -3,7 +3,7 @@ title: "Chronic Inflammation: The Silent Driver of Modern Disease and How to Fig
 description: "Learn what chronic inflammation really is, why it underlies virtually every modern health condition, and the natural dietary strategies — including fermented foods — that can help bring it under control."
 date: 2026-02-15
 updated: 2026-03-25
-image: /images/blog/wellness/chronic-inflammation-natural-remedies.jpg
+image: /images/blog/wellness/chronic-inflammation-natural-remedies.webp
 author: Noblemens
 category: wellness
 keywords:

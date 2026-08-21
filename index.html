@@ -1,406 +1,296 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-index.html"></include>
 <include src="/templates/schema/schema-index.html"></include>
 </head>
 
-<body class="antialiased">
+  <body class="antialiased" data-page="home">
+    <include src="/templates/header.html"></include>
 
-  <include src="/templates/header.html"></include>
+    <main class="site-main">
+      <section
+        id="hero"
+        class="section-lg relative bg-fixed bg-center bg-cover flex items-center min-h-[calc(80vh-var(--header-height))]"
+        style="background-image: url(&quot;/images/perfume.webp&quot;)"
+      >
+        <!-- Overlay (separate layer) -->
+        <div class="absolute inset-0 bg-overlay-primary"></div>
 
-  <main class="site-main">
+        <!-- Content -->
+        <div class="relative container text-center">
+          <h1 class="mb-4 text-text-inverse text-heading-xl">
+            We manufacture natural unpasteurized vinegar and natural perfumes
+          </h1>
 
-    <section id="hero"
-      class="section-lg relative bg-fixed bg-center bg-cover flex items-center min-h-[calc(80vh-var(--header-height))]"
-      style="background-image: url('/images/perfume.webp');">
+          <p class="mt-15 text-text-bright text-body-lg">
+            Free from artificially created chemicals, toxic and harmful
+            substances.
+          </p>
 
-      <!-- Overlay (separate layer) -->
-      <div class="absolute inset-0 bg-overlay-primary"></div>
-
-      <!-- Content -->
-      <div class="relative container text-center">
-
-        <h1 class="mb-4 text-text-inverse text-heading-xl ">
-          We manufacture natural unpasteurized vinegar and natural perfumes
-        </h1>
-
-        <p class="mt-15 text-text-bright text-body-lg">
-          Free from artificially created chemicals, toxic and harmful substances.
-        </p>
-
-        <div class="mt-10">
-          <a href="/about-us/" class="btn btn-accent">
-            Learn More
-          </a>
+          <div class="mt-10">
+            <a href="/about-us/" class="btn btn-accent"> Learn More </a>
+          </div>
         </div>
+      </section>
+      <!-- End of Hero Section -->
 
-      </div>
-
-    </section> <!-- End of Hero Section -->
-
-    <!-- ======================================================
+      <!-- ======================================================
      PERFUMES COLLECTION
 ======================================================= -->
-    <section id="perfumes" class="section bg-bg-main">
+      <section id="perfumes" class="section bg-bg-main">
+        <div class="container">
+          <!-- HEADER -->
+          <div class="max-w-3xl mb-16">
+            <!-- EYEBROW -->
+            <div class="mb-8">
+              <span
+                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary"
+              >
+                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
 
-      <div class="container">
+                Pure Natural Perfumes
+              </span>
+            </div>
 
-        <!-- HEADER -->
-        <div class="max-w-3xl mb-16">
+            <!-- HEADING -->
+            <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+              Natural Fragrances Crafted With
+              <span class="text-accent"> Timeless Aromatic Tradition. </span>
+            </h2>
 
-          <!-- EYEBROW -->
-          <div class="mb-8">
+            <!-- SUPPORTING CONTENT -->
+            <div class="text-content space-y-6 text-body text-muted">
+              <p>
+                Our perfume collection is inspired by traditional fragrance
+                craftsmanship, carefully selected natural aromatic ingredients,
+                and a commitment to purity.
+              </p>
 
-            <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
-
-              <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
-
-              Pure Natural Perfumes
-
-            </span>
-
+              <p>
+                From the warmth of Sandal to the richness of Oud and the
+                elegance of Rose, each fragrance is created to feel refined,
+                balanced, and authentically personal.
+              </p>
+            </div>
           </div>
 
-          <!-- HEADING -->
-          <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+          <include src="/templates/product/product-card.html"></include>
 
-            Natural Fragrances Crafted With
-            <span class="text-accent">
-              Timeless Aromatic Tradition.
-            </span>
+          <!-- PRODUCTS GRID -->
+          <div
+            data-products-grid
+            data-category="perfumes"
+            data-limit="2"
+            class="grid grid-lg gap-lg grid-products"
+          ></div>
 
-          </h2>
-
-          <!-- SUPPORTING CONTENT -->
-          <div class="text-content space-y-6 text-body text-muted">
-
-            <p>
-              Our perfume collection is inspired by traditional fragrance craftsmanship,
-              carefully selected natural aromatic ingredients, and a commitment to purity.
-            </p>
-
-            <p>
-              From the warmth of Sandal to the richness of Oud and the elegance of Rose,
-              each fragrance is created to feel refined, balanced, and authentically personal.
-            </p>
-
+          <!-- CTA -->
+          <div class="mt-14 flex justify-center">
+            <a href="/products/perfumes/" class="btn btn-primary">
+              Explore Full Perfume Collection
+            </a>
           </div>
-
         </div>
+      </section>
 
-        <include src="/templates/product/product-card.html"></include>
-
-        <!-- PRODUCTS GRID -->
-        <div data-products-grid data-category="perfumes" data-limit="2" class="grid grid-lg gap-lg grid-products">
-
-        </div>
-
-        <!-- CTA -->
-        <div class="mt-14 flex justify-center">
-
-          <a href="/products/perfumes/" class="btn btn-primary">
-
-            Explore Full Perfume Collection
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ======================================================
+      <!-- ======================================================
      VINEGARS COLLECTION
 ======================================================= -->
-    <section id="vinegars" class="section bg-bg-main">
+      <section id="vinegars" class="section bg-bg-main">
+        <div class="container">
+          <!-- HEADER -->
+          <div class="max-w-3xl mb-16">
+            <!-- EYEBROW -->
+            <div class="mb-8">
+              <span
+                class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary"
+              >
+                <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
 
-      <div class="container">
+                Naturally Crafted Vinegars
+              </span>
+            </div>
 
-        <!-- HEADER -->
-        <div class="max-w-3xl mb-16">
+            <!-- HEADING -->
+            <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+              Traditional Vinegars Crafted With
+              <span class="text-accent"> Authentic Ingredients. </span>
+            </h2>
 
-          <!-- EYEBROW -->
-          <div class="mb-8">
+            <!-- SUPPORTING CONTENT -->
+            <div class="text-content space-y-6 text-body text-muted">
+              <p>
+                Our vinegar collection is rooted in traditional fermentation
+                methods, thoughtful ingredient selection, and a commitment to
+                natural craftsmanship.
+              </p>
 
-            <span class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.24em] text-text-primary">
-
-              <span class="h-0.5 w-10 bg-[#C2A55F]"></span>
-
-              Naturally Crafted Vinegars
-
-            </span>
-
+              <p>
+                From Apple Cider Vinegar with Mother to Dates Vinegar and Black
+                Jamun Vinegar, each product is designed to feel naturally rich,
+                balanced, and authentic.
+              </p>
+            </div>
           </div>
 
-          <!-- HEADING -->
-          <h2 class="text-heading-lg mb-6 max-w-[18ch]">
+          <include src="/templates/product/product-card.html"></include>
 
-            Traditional Vinegars Crafted With
-            <span class="text-accent">
-              Authentic Ingredients.
-            </span>
+          <!-- PRODUCTS GRID -->
+          <div
+            data-products-grid
+            data-category="vinegars"
+            data-limit="2"
+            class="grid grid-lg gap-lg grid-products"
+          ></div>
 
-          </h2>
+          <!-- CTA -->
+          <div class="mt-14 flex justify-center">
+            <a href="/products/vinegars/" class="btn btn-primary">
+              Explore Full Vinegar Collection
+            </a>
+          </div>
+        </div>
+      </section>
 
-          <!-- SUPPORTING CONTENT -->
-          <div class="text-content space-y-6 text-body text-muted">
+      <!-- Blog Section -->
+      <section class="section bg-bg-alt">
+        <div class="container">
+          <div class="mb-10">
+            <h2 class="text-heading-lg text-center">Latest Blog Posts</h2>
+          </div>
 
-            <p>
-              Our vinegar collection is rooted in traditional fermentation methods,
-              thoughtful ingredient selection, and a commitment to natural craftsmanship.
+          <!-- Latest posts are rendered dynamically by renderLatestPosts() -->
+          <div
+            id="latest-blog-posts"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          ></div>
+
+          <div class="mt-10 text-center">
+            <a href="/articles" class="btn btn-primary"> View All Posts </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Article Section -->
+      <section class="section">
+        <div class="container">
+          <div class="text-content">
+            <!-- Heading -->
+            <h2 class="text-heading-lg mb-4">Health Benefits of Vinegar</h2>
+
+            <!-- Intro -->
+            <p class="text-body mb-4">
+              We manufacture vinegar from imported dates (khajur) using a
+              traditional method refined by experts in our family over many
+              years. It is 100% natural and free from artificial and synthesized
+              chemicals.
             </p>
 
-            <p>
-              From Apple Cider Vinegar with Mother to Dates Vinegar and
-              Black Jamun Vinegar, each product is designed to feel naturally rich,
-              balanced, and authentic.
+            <!-- Subheading -->
+            <h3 class="text-heading-md mb-2">Health Benefits</h3>
+
+            <p class="text-body mb-3">
+              From our experience, our vinegar helps rejuvenate the digestive
+              system. For a person of normal health, positive results are
+              noticeable within a few days of regular use.
             </p>
 
+            <!-- List -->
+            <ul class="text-body mb-6">
+              <li>Improves digestion</li>
+              <li>Cures excessive acidity in the stomach</li>
+              <li>Cures excessive gas formation</li>
+              <li>Removes uneasy feeling after heavy or oily meals</li>
+              <li>Beneficial for constipation (may vary)</li>
+            </ul>
+
+            <!-- More benefits -->
+            <p class="text-body mb-3">
+              Medical studies suggest that vinegar may help lower bad
+              cholesterol, reduce the risk of heart disease, support blood sugar
+              control, and aid in weight loss. However, it should not replace
+              prescribed medication.
+            </p>
+
+            <!-- Gut section -->
+            <h3 class="text-heading-md mb-2">
+              Gut Microbiota & Overall Health
+            </h3>
+
+            <p class="text-body mb-4">
+              Our vinegar is unpasteurized and contains live microorganisms. A
+              healthy gut microbiota plays a significant role in physical and
+              mental well-being. These microorganisms influence digestion, mood,
+              sleep, and overall health through biochemical interactions within
+              the body.
+            </p>
+
+            <p class="text-body mb-6">
+              Research indicates that imbalanced gut bacteria may contribute to
+              conditions such as diabetes, heart disease, obesity, anxiety, and
+              digestive disorders. Our vinegar supports the development of
+              beneficial gut bacteria.
+            </p>
+
+            <!-- Usage -->
+            <h3 class="text-heading-md mb-2">How To Use</h3>
+
+            <p class="text-body mb-4">
+              Mix 5–10 ml (1–2 teaspoons) of vinegar in one cup of water.
+              Consume with or immediately after meals, 2–3 times daily. Do not
+              consume undiluted vinegar.
+            </p>
+
+            <!-- Culinary -->
+            <h3 class="text-heading-md mb-2">Culinary Use</h3>
+
+            <ul class="text-body mb-6">
+              <li>Salad dressing</li>
+              <li>Pickles and homemade sauces</li>
+              <li>Healthy drink with water and natural sweeteners</li>
+            </ul>
+
+            <!-- Instructions -->
+            <h3 class="text-heading-md mb-2">General Instructions</h3>
+
+            <ul class="text-body mb-6">
+              <li>Keep cap tightly closed</li>
+              <li>No refrigeration needed</li>
+              <li>Keep away from sunlight</li>
+              <li>Consume within 90 days of opening</li>
+              <li>Keep away from children</li>
+              <li>Natural sediments are safe and edible</li>
+            </ul>
+
+            <!-- Lifestyle -->
+            <h3 class="text-heading-md mb-2">For Better Results</h3>
+
+            <p class="text-body mb-6">
+              Avoid repeatedly heated oils, hydrogenated fats, refined oils, and
+              heavily processed foods. Minimize intake of synthetic chemicals,
+              packaged foods, and artificial fragrances for overall wellness.
+            </p>
+
+            <!-- References -->
+            <h3 class="text-heading-md mb-2">References</h3>
+
+            <ul class="text-body-sm text-muted">
+              <li>Medscape Journal of Medicine (2006)</li>
+              <li>Journal of Food Science (2014)</li>
+              <li>Bioscience, Biotechnology, Biochemistry (2009)</li>
+              <li>Journal of Medicinal Food</li>
+              <li>Journal of Neuroscience</li>
+              <li>Gastroenterology & Hepatology</li>
+            </ul>
           </div>
-
         </div>
+      </section>
+    </main>
 
-        <include src="/templates/product/product-card.html"></include>
+    <include src="/templates/footer.html"></include>
 
-        <!-- PRODUCTS GRID -->
-        <div  data-products-grid data-category="vinegars" data-limit="2" class="grid grid-lg gap-lg grid-products">
-
-        </div>
-
-        <!-- CTA -->
-        <div class="mt-14 flex justify-center">
-
-          <a href="/products/vinegars/" class="btn btn-primary">
-
-            Explore Full Vinegar Collection
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- Blog Section -->
-    <section class="section bg-bg-alt">
-      <div class="container">
-
-        <!-- Heading (optional) -->
-        <div class="mb-10">
-          <h2 class="text-heading-lg text-center">Latest Blog Posts</h2>
-        </div>
-
-        <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <!-- BLOG CARD 1 -->
-          <div class="card card-content">
-            <div class="card__media">
-              <img src="/images/dates-vinegar-in-bowl.png" alt="Dates Vinegar in bowl">
-            </div>
-
-            <div class="card__body">
-              <h3 class="text-heading-md">
-                The Benefits of Natural Vinegar
-              </h3>
-
-              <p class="text-body text-muted">
-                Discover the health benefits of using natural vinegar in your daily routine.
-              </p>
-            </div>
-
-            <div class="card__footer">
-              <a href="/articles/natural-vinegar-benefits/">
-                <button class="btn btn-secondary">
-                  Read More
-                </button>
-              </a>
-            </div>
-          </div>
-
-          <!-- BLOG CARD 2 -->
-          <div class="card card-content">
-            <div class="card__media">
-              <img src="/images/how-we-make-vinegar.jpg" alt="How we make our vinegar">
-            </div>
-
-            <div class="card__body">
-              <h3 class="text-heading-md">
-                How We Make Our Vinegar
-              </h3>
-
-              <p class="text-body text-muted">
-                A behind-the-scenes look at our traditional vinegar-making process.
-              </p>
-            </div>
-
-            <div class="card__footer">
-              <a href="/articles/how-we-make-our-vinegar/">
-                <button class="btn btn-secondary">
-                  Read More
-                </button>
-              </a>
-            </div>
-          </div>
-
-          <!-- BLOG CARD 3 -->
-          <div class="card card-content">
-            <div class="card__media">
-              <img src="/images/sandalwood-oil.jpg" alt="Sandalwood oil in bottle">
-            </div>
-
-            <div class="card__body">
-              <h3 class="text-heading-md">
-                Natural Perfumes: A Fragrant Journey
-              </h3>
-
-              <p class="text-body text-muted">
-                Explore the world of natural perfumes and their unique scents.
-              </p>
-            </div>
-
-            <div class="card__footer">
-              <a href="/articles/natural-perfumes-fragrant-journey/">
-                <button class="btn btn-secondary">
-                  Read More
-                </button>
-              </a>
-            </div>
-          </div>
-
-        </div> <!-- End of Grid -->
-
-        <div class="mt-10 text-center">
-          <a href="/articles" class="btn btn-primary">
-            View All Posts
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Article Section -->
-    <section class="section">
-      <div class="container">
-
-        <div class="text-content">
-
-          <!-- Heading -->
-          <h2 class="text-heading-lg mb-4">
-            Health Benefits of Vinegar
-          </h2>
-
-          <!-- Intro -->
-          <p class="text-body mb-4">
-            We manufacture vinegar from imported dates (khajur) using a traditional method refined by experts in our
-            family over many years. It is 100% natural and free from artificial and synthesized chemicals.
-          </p>
-
-          <!-- Subheading -->
-          <h3 class="text-heading-md mb-2">Health Benefits</h3>
-
-          <p class="text-body mb-3">
-            From our experience, our vinegar helps rejuvenate the digestive system. For a person of normal health,
-            positive results are noticeable within a few days of regular use.
-          </p>
-
-          <!-- List -->
-          <ul class="text-body mb-6">
-            <li>Improves digestion</li>
-            <li>Cures excessive acidity in the stomach</li>
-            <li>Cures excessive gas formation</li>
-            <li>Removes uneasy feeling after heavy or oily meals</li>
-            <li>Beneficial for constipation (may vary)</li>
-          </ul>
-
-          <!-- More benefits -->
-          <p class="text-body mb-3">
-            Medical studies suggest that vinegar may help lower bad cholesterol, reduce the risk of heart disease,
-            support blood sugar control, and aid in weight loss. However, it should not replace prescribed medication.
-          </p>
-
-          <!-- Gut section -->
-          <h3 class="text-heading-md mb-2">
-            Gut Microbiota & Overall Health
-          </h3>
-
-          <p class="text-body mb-4">
-            Our vinegar is unpasteurized and contains live microorganisms. A healthy gut microbiota plays a significant
-            role in physical and mental well-being. These microorganisms influence digestion, mood, sleep, and overall
-            health through biochemical interactions within the body.
-          </p>
-
-          <p class="text-body mb-6">
-            Research indicates that imbalanced gut bacteria may contribute to conditions such as diabetes, heart
-            disease, obesity, anxiety, and digestive disorders. Our vinegar supports the development of beneficial gut
-            bacteria.
-          </p>
-
-          <!-- Usage -->
-          <h3 class="text-heading-md mb-2">How To Use</h3>
-
-          <p class="text-body mb-4">
-            Mix 5–10 ml (1–2 teaspoons) of vinegar in one cup of water. Consume with or immediately after meals, 2–3
-            times daily. Do not consume undiluted vinegar.
-          </p>
-
-          <!-- Culinary -->
-          <h3 class="text-heading-md mb-2">Culinary Use</h3>
-
-          <ul class="text-body mb-6">
-            <li>Salad dressing</li>
-            <li>Pickles and homemade sauces</li>
-            <li>Healthy drink with water and natural sweeteners</li>
-          </ul>
-
-          <!-- Instructions -->
-          <h3 class="text-heading-md mb-2">General Instructions</h3>
-
-          <ul class="text-body mb-6">
-            <li>Keep cap tightly closed</li>
-            <li>No refrigeration needed</li>
-            <li>Keep away from sunlight</li>
-            <li>Consume within 90 days of opening</li>
-            <li>Keep away from children</li>
-            <li>Natural sediments are safe and edible</li>
-          </ul>
-
-          <!-- Lifestyle -->
-          <h3 class="text-heading-md mb-2">For Better Results</h3>
-
-          <p class="text-body mb-6">
-            Avoid repeatedly heated oils, hydrogenated fats, refined oils, and heavily processed foods. Minimize intake
-            of synthetic chemicals, packaged foods, and artificial fragrances for overall wellness.
-          </p>
-
-          <!-- References -->
-          <h3 class="text-heading-md mb-2">References</h3>
-
-          <ul class="text-body-sm text-muted">
-            <li>Medscape Journal of Medicine (2006)</li>
-            <li>Journal of Food Science (2014)</li>
-            <li>Bioscience, Biotechnology, Biochemistry (2009)</li>
-            <li>Journal of Medicinal Food</li>
-            <li>Journal of Neuroscience</li>
-            <li>Gastroenterology & Hepatology</li>
-          </ul>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <include src="/templates/footer.html"></include>
-
-  <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+    <script type="module" src="/src/app/main.ts"></script>
+  </body>
 </html>

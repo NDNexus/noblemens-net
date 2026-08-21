@@ -172,6 +172,31 @@ function init404Page(): void {
    renderLatestPosts(container, 6);
 }
 
+/**
+ * =========================================================
+ * HOMEPAGE — LATEST BLOG POSTS
+ * =========================================================
+ *
+ * Initializes the homepage blog section.
+ *
+ * - Runs only on the homepage
+ * - Renders the latest 3 posts
+ * - Safely exits if the target container is missing
+ * =========================================================
+ */
+function initHomepage(): void {
+   const page = document.body.dataset.page;
+
+   if (page !== "home") return;
+
+   const container =
+      document.getElementById("latest-blog-posts");
+
+   if (!container) return;
+
+   renderLatestPosts(container, 3);
+}
+
 /* ==========================================================
    RENDER PRODUCTS SYSTEM
 ========================================================== */
@@ -458,6 +483,7 @@ function initApp(): void {
  ------------------------------------------------------- */
 
    init404Page();
+   initHomepage();
 
    /* -------------------------------------------------------
     Products Page initialization

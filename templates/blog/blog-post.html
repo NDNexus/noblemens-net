@@ -1,74 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <include src="/templates/head.html"></include>
-</head>
+  </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">{{title}}</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              {{featuredImage}}
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        {{content}}
+              <!-- ARTICLE CONTENT -->
+              {{content}}
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
-
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                {{toc}}
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
                 </div>
 
-            </div>
-        </section>
-
+                <nav class="toc-body">{{toc}}</nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

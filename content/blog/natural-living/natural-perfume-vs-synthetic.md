@@ -3,7 +3,7 @@ title: "Natural Perfume vs Synthetic Fragrance: What You're Really Putting on Yo
 description: "A deep dive into the hidden dangers of synthetic fragrance ingredients, why natural attar and botanical perfumes are the premium choice, and how Noblemens approaches fragrance with the same integrity it brings to everything."
 date: 2026-01-28
 updated: 2026-03-25
-image: /images/blog/natural-living/natural-perfume-vs-synthetic.jpg
+image: /images/blog/natural-living/natural-perfume-vs-synthetic.webp
 author: Noblemens
 category: natural-living
 keywords:

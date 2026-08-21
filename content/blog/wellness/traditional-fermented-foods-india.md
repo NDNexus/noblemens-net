@@ -3,7 +3,7 @@ title: "Traditional Fermented Foods of India: A Living Heritage Worth Reclaiming
 description: "India has one of the world's richest traditions of fermented foods. Discover the science behind these ancient preservation methods, their health benefits, and why Noblemens is proud to continue this heritage."
 date: 2026-02-20
 updated: 2026-03-25
-image: /images/blog/wellness/traditional-fermented-foods-india.jpg
+image: /images/blog/wellness/traditional-fermented-foods-india.webp
 author: Noblemens
 category: wellness
 keywords:

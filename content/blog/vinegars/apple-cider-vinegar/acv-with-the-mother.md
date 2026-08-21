@@ -3,7 +3,7 @@ title: "ACV With the Mother: What It Is and Why It Matters"
 description: "Understand what 'the mother' in apple cider vinegar really is, why it's essential for health benefits, and how Noblemens preserves it in every bottle."
 date: 2026-03-20
 updated: 2026-03-25
-image: /images/blog/vinegars/apple-cider-vinegar/acv-with-mother.jpg
+image: /images/blog/vinegars/apple-cider-vinegar/acv-with-mother.webp
 author: Noblemens
 category: vinegars
 subcategory: apple-cider-vinegar

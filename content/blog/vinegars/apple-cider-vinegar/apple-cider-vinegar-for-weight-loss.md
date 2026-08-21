@@ -3,7 +3,7 @@ title: "Apple Cider Vinegar for Weight Loss: What the Science Actually Says"
 description: "Can apple cider vinegar really help you lose weight? We cut through the hype to give you the honest, science-backed truth about ACV and fat metabolism."
 date: 2026-03-15
 updated: 2026-03-25
-image: /images/blog/vinegars/apple-cider-vinegar/acv-weight-loss.jpg
+image: /images/blog/vinegars/apple-cider-vinegar/acv-weight-loss.webp
 author: Noblemens
 category: vinegars
 subcategory: apple-cider-vinegar

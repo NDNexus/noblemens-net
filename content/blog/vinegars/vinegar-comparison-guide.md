@@ -3,7 +3,7 @@ title: "ACV vs Dates Vinegar vs Jamun Vinegar: Which One Is Right for You?"
 description: "A comprehensive comparison of Noblemens' three flagship natural vinegars — helping you choose the right one for your health goals, taste preferences, and lifestyle."
 date: 2026-03-05
 updated: 2026-03-25
-image: /images/blog/vinegars/vinegar-comparison-guide.jpg
+image: /images/blog/vinegars/vinegar-comparison-guide.webp
 author: Noblemens
 category: vinegars
 keywords:

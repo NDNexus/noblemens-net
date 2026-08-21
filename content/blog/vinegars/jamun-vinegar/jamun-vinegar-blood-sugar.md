@@ -3,7 +3,7 @@ title: "Jamun Vinegar and Blood Sugar: A Natural Ally for Metabolic Health"
 description: "An in-depth look at how Jamun vinegar's unique compounds may support healthy blood sugar levels, backed by Ayurvedic tradition and emerging scientific research."
 date: 2026-03-08
 updated: 2026-03-25
-image: /images/blog/vinegars/jamun-vinegar/jamun-vinegar-blood-sugar.jpg
+image: /images/blog/vinegars/jamun-vinegar/jamun-vinegar-blood-sugar.webp
 author: Noblemens
 category: vinegars
 subcategory: jamun-vinegar

@@ -227,107 +227,130 @@ function getMarkdownFiles(dir: string): string[] {
  * - RETURN metadata (for blog index)
  */
 function buildPost(filePath: string, template: string) {
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(raw);
 
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(raw);
+  /**
+   * BASIC VALIDATION
+   */
+  if (!data.title) {
+    console.warn(`⚠ Missing title → ${filePath}`);
+  }
+
+  const featuredImage = data.image
+    ? `
+        <figure class="blog-featured-image">
+            <img
+                src="${data.image}"
+                alt="${data.title || "Featured image"}"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      `
+    : "";
+
+  /**
+   * REMOVE MARKDOWN H1
+   *
+   * The article title is rendered by the HTML template
+   * so the Markdown H1 is removed to prevent duplicate H1s.
+   */
+  const articleContent = content.replace(/^\s*#\s+.+(?:\r?\n|$)/, "");
+
+  /**
+   * MARKDOWN → HTML
+   */
+  const rawHtml = marked.parse(articleContent, {
+    async: false,
+  }) as string;
+
+  /**
+   * TABLE SAFETY WRAPPER
+   */
+  function wrapTables(html: string): string {
+    return html.replace(
+      /<table>([\s\S]*?)<\/table>/g,
+      `<div class="table-wrapper"><table>$1</table></div>`,
+    );
+  }
+
+  const tableSafeHtml = wrapTables(rawHtml);
+
+  /**
+   * TOC GENERATION
+   */
+  const { content: htmlContent, toc } = buildTOC(tableSafeHtml);
+
+  /**
+   * RESOLVE OUTPUT PATH (filesystem-driven routing)
+   */
+  const relative = path.relative(CONTENT_DIR, filePath);
+  const cleanPath = relative.replace(/\.md$/, "");
+  const parts = cleanPath.split(path.sep);
+  const slug = parts.pop();
+
+  if (!slug) {
+    console.error(`❌ Invalid slug → ${filePath}`);
+    return null;
+  }
+
+  const outputDir = path.join(OUTPUT_DIR, ...parts, slug);
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  /**
+   * TEMPLATE INJECTION
+   */
+  const finalHtml = template
+    .replace(/{{title}}/g, data.title || "Untitled")
+    .replace(/{{description}}/g, data.description || "")
+    .replace(/{{featuredImage}}/g, featuredImage)
+    .replace(/{{content}}/g, htmlContent)
+    .replace(/{{toc}}/g, toc);
+
+  /**
+   * WRITE HTML FILE
+   */
+  const outputFilePath = path.join(outputDir, "index.html");
+  fs.writeFileSync(outputFilePath, finalHtml);
+
+  console.log(`✔ Generated → /articles/${[...parts, slug].join("/")}`);
+
+  /**
+   * ==========================================================
+   * EXTRACT STRUCTURED PAGE INFO (CRITICAL)
+   * ==========================================================
+   *
+   * DO NOT manually compute slug or URL.
+   * Use your centralized system.
+   */
+  const pageInfo = getPageInfo(outputFilePath);
+
+  const reading = getReadingTime(content);
+
+  /**
+   * RETURN METADATA FOR INDEX GENERATION
+   */
+  return {
+    title: data.title || "Untitled",
+    description: data.description || "",
+    image: data.image || "",
+    date: data.date || "",
+    updated: data.updated || "",
+    tags: data.tags || [],
+
+    /* READING TIME ESTIMATION (from content) */
+    readingTime: reading,
+    wordCount: reading.words,
 
     /**
-     * BASIC VALIDATION
+     * STRUCTURE (from PageInfo system)
      */
-    if (!data.title) {
-        console.warn(`⚠ Missing title → ${filePath}`);
-    }
-
-    /**
-     * MARKDOWN → HTML
-     */
-    const rawHtml = marked.parse(content, { async: false }) as string;
-
-    /**
-     * TABLE SAFETY WRAPPER
-     */
-    function wrapTables(html: string): string {
-        return html.replace(
-            /<table>([\s\S]*?)<\/table>/g,
-            `<div class="table-wrapper"><table>$1</table></div>`
-        );
-    }
-
-    const tableSafeHtml = wrapTables(rawHtml);
-
-    /**
-     * TOC GENERATION
-     */
-    const { content: htmlContent, toc } = buildTOC(tableSafeHtml);
-
-    /**
-     * RESOLVE OUTPUT PATH (filesystem-driven routing)
-     */
-    const relative = path.relative(CONTENT_DIR, filePath);
-    const cleanPath = relative.replace(/\.md$/, "");
-    const parts = cleanPath.split(path.sep);
-    const slug = parts.pop();
-
-    if (!slug) {
-        console.error(`❌ Invalid slug → ${filePath}`);
-        return null;
-    }
-
-    const outputDir = path.join(OUTPUT_DIR, ...parts, slug);
-    fs.mkdirSync(outputDir, { recursive: true });
-
-    /**
-     * TEMPLATE INJECTION
-     */
-    const finalHtml = template
-        .replace(/{{title}}/g, data.title || "Untitled")
-        .replace(/{{description}}/g, data.description || "")
-        .replace(/{{content}}/g, htmlContent)
-        .replace(/{{toc}}/g, toc);
-
-    /**
-     * WRITE HTML FILE
-     */
-    const outputFilePath = path.join(outputDir, "index.html");
-    fs.writeFileSync(outputFilePath, finalHtml);
-
-    console.log(`✔ Generated → /articles/${[...parts, slug].join("/")}`);
-
-    /**
-     * ==========================================================
-     * EXTRACT STRUCTURED PAGE INFO (CRITICAL)
-     * ==========================================================
-     *
-     * DO NOT manually compute slug or URL.
-     * Use your centralized system.
-     */
-    const pageInfo = getPageInfo(outputFilePath);
-
-    const reading = getReadingTime(content);
-
-    /**
-     * RETURN METADATA FOR INDEX GENERATION
-     */
-    return {
-        title: data.title || "Untitled",
-        description: data.description || "",
-        image: data.image || "",
-        date: data.date || "",
-        updated: data.updated || "",
-        tags: data.tags || [],
-
-        /* READING TIME ESTIMATION (from content) */
-        readingTime: reading,
-        wordCount: reading.words,
-
-        /**
-         * STRUCTURE (from PageInfo system)
-         */
-        slug: pageInfo.slug,
-        url: pageInfo.urlPath,
-        category: pageInfo.category || "blog",
-        hierarchy: pageInfo.hierarchy,
-    };
+    slug: pageInfo.slug,
+    url: pageInfo.urlPath,
+    category: pageInfo.category || "blog",
+    hierarchy: pageInfo.hierarchy,
+  };
 }
 /**
  * ==========================================================

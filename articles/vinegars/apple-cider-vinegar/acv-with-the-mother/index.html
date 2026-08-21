@@ -1,32 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-acv-with-the-mother.html"></include>
 <include src="/templates/schema/schema-acv-with-the-mother.html"></include>
 </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">ACV With the Mother: What It Is and Why It Matters</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              
+        <figure class="blog-featured-image">
+            <img
+                src="/images/blog/vinegars/apple-cider-vinegar/acv-with-mother.webp"
+                alt="ACV With the Mother: What It Is and Why It Matters"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        <h1>ACV With the Mother: What It Is and Why It Matters</h1>
-<p>Walk into any natural health store, and you&#39;ll see two versions of apple cider vinegar on the shelf: one gleaming, amber-clear, and polished — and another cloudy, slightly murky, with something floating inside. If you&#39;ve ever wondered what that floating substance is, and why some people pay a premium for it, this article is for you.</p>
+              <!-- ARTICLE CONTENT -->
+              <p>Walk into any natural health store, and you&#39;ll see two versions of apple cider vinegar on the shelf: one gleaming, amber-clear, and polished — and another cloudy, slightly murky, with something floating inside. If you&#39;ve ever wondered what that floating substance is, and why some people pay a premium for it, this article is for you.</p>
 <p>The difference between those two bottles could literally be the difference between a functional health tonic and flavoured water. That cloudy substance is called <strong>the mother</strong>, and at <strong>Noblemens</strong>, we consider it the most important ingredient we never add — because it grows itself.</p>
 <h2 id="what-exactly-is-quotthe-motherquot">What Exactly Is &quot;The Mother&quot;?</h2>
 <h3 id="the-biology-of-fermentation">The Biology of Fermentation</h3>
@@ -166,34 +176,30 @@
 <hr>
 <p><em>This article is for informational purposes only and does not constitute medical advice.</em></p>
 
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
+                </div>
 
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                
+                <nav class="toc-body">
 <div class="toc-item level-2 has-children">
 
   <div class="toc-row">
@@ -465,24 +471,16 @@
   
 
 </div>
-    
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
-                </div>
-
-            </div>
-        </section>
-
+    </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

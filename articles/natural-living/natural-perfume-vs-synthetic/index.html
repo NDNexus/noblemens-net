@@ -1,32 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
 <include src="/templates/head.html"></include>
 <include src="/templates/seo/seo-natural-perfume-vs-synthetic.html"></include>
 <include src="/templates/schema/schema-natural-perfume-vs-synthetic.html"></include>
 </head>
 
-<body class="blog-page">
-
+  <body class="blog-page">
     <!-- BLOG HEADER (custom, not global) -->
     <include src="/templates/blog/blog-header.html"></include>
 
     <main class="site-main">
+      <section class="blog-section">
+        <div class="wide-container">
+          <div class="blog-layout">
 
-        <section class="blog-section">
-            <div class="wide-container">
+            <!-- ========================= -->
+            <!-- MAIN CONTENT -->
+            <!-- ========================= -->
+            <article class="blog-content">
 
-                <div class="blog-layout">
+              <!-- ARTICLE TITLE -->
+              <h1 class="blog-title">Natural Perfume vs Synthetic Fragrance: What You're Really Putting on Your Skin</h1>
 
-                    <!-- ========================= -->
-                    <!-- MAIN CONTENT -->
-                    <!-- ========================= -->
-                    <article class="blog-content">
+              <!-- FEATURED IMAGE -->
+              
+        <figure class="blog-featured-image">
+            <img
+                src="/images/blog/natural-living/natural-perfume-vs-synthetic.webp"
+                alt="Natural Perfume vs Synthetic Fragrance: What You're Really Putting on Your Skin"
+                loading="eager"
+                decoding="async"
+            />
+        </figure>
+      
 
-                        <!-- BLOG CONTENT INJECTED HERE -->
-                        <h1>Natural Perfume vs Synthetic Fragrance: What You&#39;re Really Putting on Your Skin</h1>
-<p>You apply it to your pulse points, your neck, your wrists — areas of thin skin where blood vessels are close to the surface and absorption is highest. You breathe it continuously throughout the day. You may even sleep on pillowcases and bed linen saturated with its residue.</p>
+              <!-- ARTICLE CONTENT -->
+              <p>You apply it to your pulse points, your neck, your wrists — areas of thin skin where blood vessels are close to the surface and absorption is highest. You breathe it continuously throughout the day. You may even sleep on pillowcases and bed linen saturated with its residue.</p>
 <p>Fragrance is one of the most intimate daily exposures in the human experience. And for most modern consumers, that fragrance is a complex cocktail of synthetic chemicals — many of them understudied, some of them demonstrably harmful — protected from full disclosure by the single word: <em>parfum</em>.</p>
 <p>At <strong>Noblemens</strong>, we produce natural fragrances alongside our natural vinegars because our philosophy admits no contradiction: if we demand purity and integrity in what you consume, we demand the same in what you wear.</p>
 <h2 id="the-hidden-chemistry-of-quotparfumquot">The Hidden Chemistry of &quot;Parfum&quot;</h2>
@@ -246,34 +256,30 @@
 <hr>
 <p><em>For educational purposes. Individuals with known fragrance sensitivities should consult a dermatologist before introducing new fragrance products.</em></p>
 
+              
+            </article>
 
-                    </article>
+            <!-- ========================= -->
+            <!-- TOC -->
+            <!-- ========================= -->
+            <aside class="toc" data-toc>
+              <div class="toc-inner">
+                <div class="toc-header">
+                  <div class="toc-header-title">
+                    <h3>Table of Contents</h3>
+                  </div>
 
+                  <div class="toc-actions">
+                    <button class="toc-toggle" data-toc-toggle>
+                      <i icon="tabler:chevrons-up"></i>
+                    </button>
+                    <button class="toc-hide" data-toc-hide>
+                      <i icon="tabler:x"></i>
+                    </button>
+                  </div>
+                </div>
 
-                    <!-- ========================= -->
-                    <!-- TOC -->
-                    <!-- ========================= -->
-                    <aside class="toc" data-toc>
-
-                        <div class="toc-inner">
-
-                            <div class="toc-header">
-                                <div class="toc-header-title">
-                                    <h3>Table of Contents</h3>
-                                </div>
-
-                                <div class="toc-actions">
-                                    <button class="toc-toggle" data-toc-toggle>
-                                        <i icon="tabler:chevrons-up"></i>
-                                    </button>
-                                    <button class="toc-hide" data-toc-hide>
-                                        <i icon="tabler:x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <nav class="toc-body">
-                                
+                <nav class="toc-body">
 <div class="toc-item level-2 has-children">
 
   <div class="toc-row">
@@ -497,24 +503,16 @@
   
 
 </div>
-    
-                            </nav>
-
-                        </div>
-
-                    </aside>
-
-                </div>
-
-            </div>
-        </section>
-
+    </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
 
     <include src="/templates/footer.html"></include>
 
     <script type="module" src="/src/app/main.ts"></script>
-
-</body>
-
+  </body>
 </html>

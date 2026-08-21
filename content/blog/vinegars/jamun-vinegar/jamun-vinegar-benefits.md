@@ -3,7 +3,7 @@ title: "Jamun Vinegar: India's Most Underrated Superfood Ferment"
 description: "Discover why Jamun (Java Plum) vinegar is rapidly gaining recognition as one of India's most powerful natural health tonics — and how Noblemens crafts it to perfection."
 date: 2026-03-12
 updated: 2026-03-25
-image: /images/blog/vinegars/jamun-vinegar/jamun-vinegar-benefits.jpg
+image: /images/blog/vinegars/jamun-vinegar/jamun-vinegar-benefits.webp
 author: Noblemens
 category: vinegars
 subcategory: jamun-vinegar
