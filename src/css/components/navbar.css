@@ -263,7 +263,7 @@
         /* 👈 allow interaction */
 
         display: block;
-        /* max-height: 500px; */
+        max-height: 100%;
     }
 
     /* =========================================
