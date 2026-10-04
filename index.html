@@ -12,29 +12,131 @@
     <main class="site-main">
       <section
         id="hero"
-        class="section-lg relative bg-fixed bg-center bg-cover flex items-center min-h-[calc(80vh-var(--header-height))]"
-        style="background-image: url(&quot;/images/perfume.webp&quot;)"
+        class="section-lg relative bg-fixed bg-center bg-cover flex items-center min-h-[calc(80vh-var(--header-height))] "
+        style="background-image: url('/images/perfume.webp')"
       >
         <!-- Overlay (separate layer) -->
-        <div class="absolute inset-0 bg-overlay-primary"></div>
+        <div class="absolute inset-0 bg-overlay-primary backdrop-blur-xs"></div>
 
         <!-- Content -->
         <div class="relative container text-center">
-          <h1 class="mb-4 text-text-inverse text-heading-xl">
-            We manufacture natural unpasteurized vinegar and natural perfumes
+          <!-- HEADING -->
+          <h1 class="mx-auto mb-6 max-w-4xl text-text-inverse text-heading-xl">
+            We are trusted source of natural and healthy products, free from
+            man-made synthetic chemicals.
           </h1>
 
-          <p class="mt-15 text-text-bright text-body-lg">
-            Free from artificially created chemicals, toxic and harmful
-            substances.
+          <!-- PRODUCT HIGHLIGHTS -->
+          <ul
+            class="list-none mx-auto mt-10 grid max-w-4xl gap-6 text-left sm:grid-cols-3 sm:gap-8 bg-black/80 p-6 rounded-lg"
+          >
+            <li class="text-text-bright">
+              <span
+                class="mb-2 block text-sm uppercase tracking-[0.16em] text-accent"
+              >
+                Perfumes
+              </span>
+              <p class="text-body">
+                Natural, non-alcoholic and free from synthetic chemicals.
+              </p>
+            </li>
+
+            <li class="text-text-bright">
+              <span
+                class="mb-2 block text-sm uppercase tracking-[0.16em] text-accent"
+              >
+                Honey
+              </span>
+              <p class="text-body">
+                Harvested personally from the plains of North India and the
+                Himalayan region.
+              </p>
+            </li>
+
+            <li class="text-text-bright">
+              <span
+                class="mb-2 block text-sm uppercase tracking-[0.16em] text-accent"
+              >
+                Vinegar
+              </span>
+              <p class="text-body">
+                Brewed in-house using traditional methods.
+              </p>
+            </li>
+          </ul>
+
+          <p class="mt-6 text-heading-lg text-white">
+            A family owned business – We serve with personal care.
           </p>
 
+          <p class="mt-6 text-body-lg text-text-bright bg-black/80 p-4 rounded-lg text-pretty max-w-3xl mx-auto">
+            By the grace of Almighty we are traditionally truthful and
+            trustworthy. These values are not sacrificed for commercial and
+            worldly gain.
+          </p>
+
+          <!-- CTA -->
           <div class="mt-10">
-            <a href="/about-us/" class="btn btn-accent"> Learn More </a>
+            <a href="/products/" class="btn btn-accent">
+              Explore Our Products
+            </a>
           </div>
         </div>
       </section>
       <!-- End of Hero Section -->
+
+      <!-- About section on Homepage -->
+      <section id="about" class="section bg-bg-alt">
+        <div class="container">
+          <!-- HEADER -->
+          <div class="max-w-3xl mb-16">
+            <!-- HEADING -->
+            <h2 class="text-heading-lg mb-6 max-w-[18ch]">Our Short History</h2>
+
+            <!-- SUPPORTING CONTENT -->
+            <div class="text-content space-y-6 text-body text-muted">
+              <p>
+                I was born and grew up in a pristine lively village in India in
+                a clean, quiet and green environment. Childhood days were
+                entwined with nature.
+              </p>
+
+              <p>
+                In olden days, environment was clean. Food was natural. On the
+                contrary, in present era, human being is exposed to numerous
+                man-made artificial and toxic chemicals. Those found in food and
+                perfume can do much more damage, as they enter human body
+                directly.
+              </p>
+
+              <p>
+                We believe that human exposure to artificial chemical is one
+                major factor for high prevalence of diabetes, cancer,
+                infertility etc.
+              </p>
+
+              <p>
+                In personal life we avoid artificial chemicals in food and
+                perfume. The same principle kept us away from doing business in
+                products containing synthetic chemicals.
+              </p>
+
+              <p>
+                In the above backdrop, after a long career in mechanical
+                engineering in BARC- Mumbai and later in SABIC- Saudi Arabia, I
+                started NOBLEMENS natural products in the year 2021.
+              </p>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-10">
+              <a href="/about-us" class="btn btn-primary">
+                Click here for more information about us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- ======================================================
      PERFUMES COLLECTION

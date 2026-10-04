@@ -1,92 +1,248 @@
 <header class="site-header">
-
-    <div>
-        <!-- Announcement Bar -->
-        <div class="section-xs announcement-bar hidden">
-            <div>
-                <p>Discover our exquisite collection of vinegars and perfumes, crafted with passion and precision.
-                    Explore now!</p>
-            </div>
-        </div>
+  <div>
+    <!-- Announcement Bar -->
+    <div class="section-xs announcement-bar hidden">
+      <div>
+        <p>
+          Discover our exquisite collection of vinegars and perfumes, crafted
+          with passion and precision. Explore now!
+        </p>
+      </div>
     </div>
-    <!-- Navbar -->
-    <div class="navbar">
+  </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-wrapper">
+      <!-- Main Row -->
+      <div class="wide-container section-xs navbar-inner">
+        <!-- Logo -->
+        <a href="/">
+          <img
+            src="/Noblemens Logo Digital.svg"
+            alt="Noblemens Logo"
+            width="240"
+            height="96"
+            class="navbar-logo"
+          />
+        </a>
 
-        <div class="navbar-wrapper">
+        <!-- Desktop Menu -->
+        <nav class="navbar-menu hidden md:block">
+          <ul class="navbar-list">
+            <li>
+              <a href="/" class="navbar-link">Home</a>
+            </li>
 
-            <!-- Main Row -->
-            <div class="wide-container section-xs navbar-inner">
+            <li class="dropdown">
+              <a href="/products" class="navbar-link dropdown-toggle">
+                Our Products
+                <i class="pl-2" icon="tabler:chevron-down"></i>
+              </a>
 
-                <!-- Logo -->
-                <a href="/">
-                    <img src="/Noblemens Logo Digital.svg" alt="Noblemens Logo" width="240" height="96" class="navbar-logo">
-                </a>
+              <ul class="submenu">
+                <li><a href="/products/vinegars/">Vinegars</a></li>
+                <li><a href="/products/perfumes/">Perfumes</a></li>
+                <li><a href="/products/honey/">Honey</a></li>
+              </ul>
+            </li>
 
-                <!-- Desktop Menu -->
-                <nav class="navbar-menu hidden md:block">
-                    <ul class="navbar-list">
+            <li class="dropdown">
+              <a href="/products/honey/" class="navbar-link dropdown-toggle">
+                Raw Honey Vs Processed Honey
+                <i class="pl-2" icon="tabler:chevron-down"></i>
+              </a>
 
-                        <li>
-                            <a href="/" class="navbar-link">Home</a>
-                        </li>
+              <ul class="submenu">
+                <li>
+                  <a href="/products/honey/#about-honey">About Our Honey</a>
+                </li>
+                <li>
+                  <a href="/products/honey/#processed-honey"
+                    >What Is Processed Honey</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#processed-honey-heat"
+                    >Heat &amp; Processing</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#how-we-avoid-processing">
+                    How We Avoid Processing
+                  </a>
+                </li>
+                <li>
+                  <a href="/products/honey/#honey-benefits"
+                    >Benefits of Honey</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#farm-honey"
+                    >Is Farm Honey Inferior?</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#jungle-honey">Jungle Honey</a>
+                </li>
+                <li>
+                  <a href="/products/honey/#how-to-take-honey">
+                    How to Take Honey
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-                        <li class="dropdown">
-                            <a href="/products" class="navbar-link dropdown-toggle">
-                                Our Products
-                                <i class="pl-2" icon="tabler:chevron-down"></i>
-                            </a>
+            <li class="dropdown">
+              <button class="navbar-link dropdown-toggle">
+                Natural Perfume Basics
+                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
+              </button>
 
-                            <ul class="submenu">
-                                <li><a href="/products/vinegars/">Vinegars</a></li>
-                                <li><a href="/products/perfumes/">Perfumes</a></li>
-                            </ul>
-                        </li>
+              <ul class="submenu">
+                <li>
+                  <a href="/products/perfumes/#natural-perfume-basics">
+                    Natural Perfume Basics
+                  </a>
+                </li>
 
-                        <li><a href="/articles" class="navbar-link">Articles</a></li>
-                        <li><a href="/about-us" class="navbar-link">About Us</a></li>
-                        <li><a href="/contact-us" class="navbar-link">Contact Us</a></li>
+                <li>
+                  <a href="/products/perfumes/#benefits-of-natural-perfume">
+                    Benefits of Natural Perfume
+                  </a>
+                </li>
 
-                    </ul>
-                </nav>
+                <li>
+                  <a href="/products/perfumes/#evils-of-synthetic-perfume">
+                    Evils of Synthetic Perfume
+                  </a>
+                </li>
 
-                <!-- Mobile Toggle -->
-                <button id="menu-toggle" class="navbar-toggle md:hidden">
-                    <i class="icon-menu" icon="tabler:menu-2"></i>
-                    <i class="icon-close" icon="tabler:x"></i>
-                </button>
+                <li>
+                  <a href="/products/perfumes/#how-and-where-to-apply">
+                    How &amp; Where to Apply
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-            </div>
+            <li><a href="/articles" class="navbar-link">Articles</a></li>
+            <li><a href="/about-us" class="navbar-link">About Us</a></li>
+            <li><a href="/contact-us" class="navbar-link">Contact Us</a></li>
+          </ul>
+        </nav>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="navbar-mobile hidden md:hidden">
-                <div class="wide-container section-xs">
+        <!-- Mobile Toggle -->
+        <button id="menu-toggle" class="navbar-toggle md:hidden">
+          <i class="icon-menu" icon="tabler:menu-2"></i>
+          <i class="icon-close" icon="tabler:x"></i>
+        </button>
+      </div>
 
-                    <ul class="navbar-mobile-list">
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="navbar-mobile hidden md:hidden">
+        <div class="wide-container section-xs">
+          <ul class="navbar-mobile-list">
+            <li><a href="/">Home</a></li>
 
-                        <li><a href="/">Home</a></li>
+            <li class="dropdown">
+              <button class="mobile-dropdown-toggle">
+                Our Products
+                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
+              </button>
 
-                        <li class="dropdown">
-                            <button class="mobile-dropdown-toggle">
-                                Our Products
-                                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
-                            </button>
+              <ul class="submenu mobile-submenu">
+                <li><a href="/products/">All Products</a></li>
+                <li><a href="/products/vinegars/">Vinegars</a></li>
+                <li><a href="/products/perfumes/">Perfumes</a></li>
+                <li><a href="/products/honey/">Honey</a></li>
+              </ul>
+            </li>
 
-                            <ul class="submenu mobile-submenu">
-                                <li><a href="/products/">All Products</a></li>
-                                <li><a href="/products/vinegars/">Vinegars</a></li>
-                                <li><a href="/products/perfumes/">Perfumes</a></li>
-                            </ul>
-                        </li>
+            <li class="dropdown">
+              <button class="mobile-dropdown-toggle">
+                Raw Honey Vs Processed Honey
+                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
+              </button>
 
-                        <li><a href="/articles">Articles</a></li>
-                        <li><a href="/about-us">About Us</a></li>
-                        <li><a href="/contact-us">Contact Us</a></li>
+              <ul class="submenu mobile-submenu">
+                <li>
+                  <a href="/products/honey/#about-honey">About Our Honey</a>
+                </li>
+                <li>
+                  <a href="/products/honey/#processed-honey"
+                    >What Is Processed Honey</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#processed-honey-heat"
+                    >Heat &amp; Processing</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#how-we-avoid-processing">
+                    How We Avoid Processing
+                  </a>
+                </li>
+                <li>
+                  <a href="/products/honey/#honey-benefits"
+                    >Benefits of Honey</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#farm-honey"
+                    >Is Farm Honey Inferior?</a
+                  >
+                </li>
+                <li>
+                  <a href="/products/honey/#jungle-honey">Jungle Honey</a>
+                </li>
+                <li>
+                  <a href="/products/honey/#how-to-take-honey">
+                    How to Take Honey
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-                    </ul>
+            <li class="dropdown">
+              <button class="mobile-dropdown-toggle">
+                Natural Perfume Basics
+                <i class="pl-2 chevron" icon="tabler:chevron-down"></i>
+              </button>
 
-                </div>
-            </div>
+              <ul class="submenu mobile-submenu">
+                <li>
+                  <a href="/products/perfumes/#natural-perfume-basics">
+                    Natural Perfume Basics
+                  </a>
+                </li>
 
+                <li>
+                  <a href="/products/perfumes/#benefits-of-natural-perfume">
+                    Benefits of Natural Perfume
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/products/perfumes/#evils-of-synthetic-perfume">
+                    Evils of Synthetic Perfume
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/products/perfumes/#how-and-where-to-apply">
+                    How &amp; Where to Apply
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact-us">Contact Us</a></li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </header>
